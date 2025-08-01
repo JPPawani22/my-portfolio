@@ -1,0 +1,22 @@
+:root {
+  --text-color: #111827;
+  --bg-color: #ffffff;
+}
+
+.dark {
+  --text-color: #f3f4f6;
+  --bg-color: #111827;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  @include transition(background-color, 0.3s);
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $spacing-unit;
+}

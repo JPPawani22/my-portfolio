@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary-blue: 59, 130, 246;   /* #3b82f6 */
+    --primary-purple: 139, 92, 246; /* #8b5cf6 */
+    --bg-dark: 17, 24, 39;          /* #111827 */
+    --text-light: 243, 244, 246;    /* #f3f4f6 */
+  }
+
+  body {
+    @apply bg-gray-900 text-gray-100 transition-colors duration-300;
+    background-color: rgb(var(--bg-dark));
+    color: rgb(var(--text-light));
+  }
+}
+
+@layer components {
+  .section-title {
+    @apply text-3xl font-bold mb-8 text-center;
+    color: rgb(var(--primary-purple));
+  }
+
+  .section-container {
+    @apply max-w-6xl mx-auto px-4 py-12;
+  }
+
+  .btn-primary {
+    @apply text-white px-6 py-3 rounded-lg font-medium hover:opacity-90 transition-opacity;
+    background-color: rgb(var(--primary-blue));
+  }
+
+  .btn-secondary {
+    @apply border-2 px-6 py-3 rounded-lg font-medium hover:bg-opacity-10 transition-colors;
+    border-color: rgb(var(--primary-purple));
+    color: rgb(var(--primary-purple));
+  }
+
+  .btn-secondary:hover {
+    background-color: rgba(var(--primary-purple), 0.1);
+  }
+}

@@ -1,7 +1,11 @@
-import type { NextConfig } from "next";
+const path = require('path');
 
-const nextConfig: NextConfig = {
-  /* config options here */
-};
-
-export default nextConfig;
+module.exports = {
+  env: {
+    GMAIL_USER: process.env.GMAIL_USER,
+    GMAIL_PASS: process.env.GMAIL_PASSWORD,
+  },
+    sassOptions: {
+    includePaths: [path.join(__dirname, 'styles')],
+  },
+}
