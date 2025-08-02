@@ -1,46 +1,68 @@
+// src/components/About.tsx
 'use client';
+import styles from '../styles/components/About.module.scss';
 import { motion } from 'framer-motion';
 
 const About = () => {
   return (
-    <section id="about" className="py-20 bg-gray-50 dark:bg-gray-800 rounded-lg my-10">
-      <div className="max-w-4xl mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center text-gray-800 dark:text-white mb-12">
-          About <span className="text-primary-600 dark:text-primary-400">Me</span>
-        </h2>
-        <div className="flex flex-col md:flex-row items-center">
-          <div className="md:w-1/3 mb-8 md:mb-0 flex justify-center">
-            <div className="w-48 h-48 rounded-full bg-gradient-to-br from-primary-400 to-secondary-500 flex items-center justify-center">
-              {/* Replace with your image */}
-              <span className="text-4xl">👨‍🎓</span>
+    <section id="about" className={styles.about}>
+      <div className={styles.about__container}>
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className={styles.about__education}
+        >
+          <div className={styles.about__educationContent}>
+            <h3 className={styles.about__educationTitle}>Education</h3>
+            <div className={styles.about__educationItem}>
+              <h4 className={styles.about__educationInstitution}>University Name</h4>
+              <p className={styles.about__educationDegree}>Bachelor of Science in Information Technology</p>
+              <p className={styles.about__educationPeriod}>2021 - Present</p>
             </div>
           </div>
-          <div className="md:w-2/3 md:pl-12">
-            <p className="text-gray-600 dark:text-gray-300 mb-4">
-              I'm an IT undergraduate with a passion for web development, software engineering, 
-              and all things tech. Currently pursuing my degree at [Your University].
-            </p>
-            <p className="text-gray-600 dark:text-gray-300 mb-4">
-              My journey in technology began when I was [describe how you got started]. 
-              Since then, I've been constantly learning and building projects to expand my skills.
-            </p>
-            <p className="text-gray-600 dark:text-gray-300">
-              When I'm not coding, you can find me [your hobbies/interests].
-            </p>
-            <div className="mt-6">
-              <a
-                href="#"
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700"
+        </motion.div>
+        
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className={styles.about__content}
+        >
+          <h3 className={styles.about__title}>Who I Am</h3>
+          <p className={styles.about__description}>
+            I'm an enthusiastic IT undergraduate with a passion for web development and software engineering. 
+            Currently pursuing my degree while working on personal projects to expand my skillset.
+          </p>
+          <p className={styles.about__description}>
+            My journey in technology began when I was in high school, and since then I've been constantly 
+            learning and exploring new technologies to build innovative solutions.
+          </p>
+          <p className={styles.about__description}>
+            When I'm not coding, you can find me reading tech blogs, contributing to open-source projects, 
+            or exploring new frameworks and libraries.
+          </p>
+          
+          <div className={styles.about__skills}>
+            {['Web Development', 'UI/UX', 'Problem Solving', 'Teamwork'].map((skill, index) => (
+              <motion.span
+                key={skill}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className={styles.about__skill}
               >
-                Download Resume
-              </a>
-            </div>
+                {skill}
+              </motion.span>
+            ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
-
 };
 
 export default About;

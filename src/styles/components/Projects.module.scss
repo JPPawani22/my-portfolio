@@ -1,0 +1,126 @@
+// src/components/Projects/Projects.scss
+@import '../_variables.scss';
+
+.projects {
+  padding: 5rem 0;
+  background-color: var(--background-light);
+
+  .dark & {
+    background-color: var(--background-dark);
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 2rem;
+
+    @media (min-width: map-get($breakpoints, 'md')) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: map-get($breakpoints, 'lg')) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  &__card {
+    background-color: #f8fafc;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: $shadow;
+    transition: $transition-base;
+
+    &:hover {
+      transform: translateY(-0.5rem);
+      box-shadow: $shadow-lg;
+    }
+
+    .dark & {
+      background-color: #1e293b;
+    }
+  }
+
+  &__image {
+    height: 12rem;
+    position: relative;
+    overflow: hidden;
+
+    img {
+      transition: transform 0.5s ease;
+    }
+
+    &:hover img {
+      transform: scale(1.1);
+    }
+  }
+
+  &__content {
+    padding: 1.5rem;
+  }
+
+  &__title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text-light);
+
+    .dark & {
+      color: var(--text-dark);
+    }
+  }
+
+  &__description {
+    color: var(--text-light);
+    opacity: 0.8;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+
+    .dark & {
+      color: var(--text-dark);
+    }
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  &__tag {
+    padding: 0.25rem 0.75rem;
+    background-color: #e2e8f0;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #334155;
+
+    .dark & {
+      background-color: #334155;
+      color: #e2e8f0;
+    }
+  }
+
+  &__link {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: var(--primary-light);
+    color: white;
+    border-radius: 0.25rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: $transition-base;
+
+    &:hover {
+      background-color: darken(#7e22ce, 10%);
+    }
+
+    .dark & {
+      background-color: var(--primary-dark);
+
+      &:hover {
+        background-color: darken(#6d28d9, 10%);
+      }
+    }
+  }
+}

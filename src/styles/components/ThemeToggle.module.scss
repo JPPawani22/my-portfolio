@@ -1,0 +1,42 @@
+// src/components/ThemeToggle/ThemeToggle.scss
+@import '../_variables.scss';
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: $transition-base;
+  background-color: #e2e8f0;
+  color: #334155;
+
+  &:hover {
+    background-color: #cbd5e1;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(126, 34, 206, 0.3);
+  }
+
+  .dark & {
+    background-color: #334155;
+    color: #fbbf24;
+
+    &:hover {
+      background-color: #475569;
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 2px rgba(109, 40, 217, 0.3);
+    }
+  }
+
+  svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}
