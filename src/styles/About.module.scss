@@ -1,0 +1,266 @@
+.about {
+  padding: 6rem 0;
+  background: #1f2937;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 70% 30%, rgba(251, 191, 36, 0.05) 0%, transparent 50%);
+  }
+}
+
+.aboutContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.aboutContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s ease;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+
+    .aboutText {
+      animation: slideInLeft 0.8s ease forwards;
+    }
+
+    .aboutVisual {
+      animation: slideInRight 0.8s ease 0.2s forwards;
+    }
+  }
+}
+
+.sectionTitle {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  background: linear-gradient(45deg, #8b5cf6, #fbbf24);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.aboutDescription {
+  margin-bottom: 2rem;
+
+  p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #d1d5db;
+    margin-bottom: 1rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.stats {
+  display: flex;
+  gap: 2rem;
+}
+
+.statItem {
+  text-align: center;
+
+  .statNumber {
+    display: block;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fbbf24;
+    margin-bottom: 0.5rem;
+  }
+
+  .statLabel {
+    font-size: 0.9rem;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}
+
+.aboutVisual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profileCard {
+  position: relative;
+  width: 350px;
+  height: 400px;
+  background: rgba(31, 41, 55, 0.8);
+  border-radius: 1rem;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+
+  .cardGlow {
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #8b5cf6, #fbbf24, #8b5cf6);
+    border-radius: 1rem;
+    z-index: -1;
+    opacity: 0.5;
+    filter: blur(10px);
+    animation: pulse 3s ease-in-out infinite;
+  }
+
+  .profileImage {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 2rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid transparent;
+    background: linear-gradient(45deg, #8b5cf6, #fbbf24);
+    padding: 3px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      background: #374151;
+    }
+  }
+
+  .floatingTech {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+
+    .techItem {
+      position: absolute;
+      background: rgba(139, 92, 246, 0.2);
+      color: #8b5cf6;
+      padding: 0.5rem 1rem;
+      border-radius: 1rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      animation: float 4s ease-in-out infinite;
+
+      &:nth-child(1) {
+        top: 10%;
+        right: -10%;
+        animation-delay: 0s;
+      }
+
+      &:nth-child(2) {
+        top: 30%;
+        left: -15%;
+        animation-delay: 1s;
+      }
+
+      &:nth-child(3) {
+        bottom: 30%;
+        right: -15%;
+        animation-delay: 2s;
+      }
+
+      &:nth-child(4) {
+        bottom: 10%;
+        left: -10%;
+        animation-delay: 3s;
+      }
+    }
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@media (max-width: 768px) {
+  .about {
+    padding: 4rem 0;
+  }
+
+  .aboutContent {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .sectionTitle {
+    font-size: 2rem;
+  }
+
+  .stats {
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  .profileCard {
+    width: 300px;
+    height: 350px;
+    padding: 1.5rem;
+
+    .profileImage {
+      width: 150px;
+      height: 150px;
+    }
+
+    .floatingTech .techItem {
+      font-size: 0.7rem;
+      padding: 0.4rem 0.8rem;
+    }
+  }
+}

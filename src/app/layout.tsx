@@ -1,25 +1,24 @@
-// import './globals.css';
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import '../styles/globals.scss';
+import type React from "react"
+import type { Metadata } from "next"
+import { Inter } from "next/font/google"
+import "./globals.css"
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: 'My Portfolio | IT Undergraduate',
-  description: 'Personal portfolio of an IT undergraduate',
-};
+  title: "Your Name - Portfolio",
+  description: "Full Stack Developer Portfolio showcasing projects and skills",
+  keywords: "developer, portfolio, web development, full stack",
+}
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} dark`}>
-        {children}
-      </body>
+    <html lang="en">
+      <body className={inter.className}>{children}</body>
     </html>
-  );
+  )
 }

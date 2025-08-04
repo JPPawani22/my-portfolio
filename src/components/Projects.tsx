@@ -1,81 +1,164 @@
-'use client';
+"use client"
 
-import { motion } from 'framer-motion';
-import Image from 'next/image';
+import type React from "react"
+import { useEffect, useRef, useState } from "react"
+import { ExternalLink, Github } from "lucide-react"
+import styles from "../styles/Projects.module.scss"
 
-const projects = [
+const projectsData = [
   {
-    title: 'E-commerce Website',
-    description: 'A full-stack e-commerce platform with React, Node.js, and MongoDB.',
-    tags: ['React', 'Node.js', 'MongoDB'],
-    image: '/images/project1.jpg',
-    link: '#',
+    id: 1,
+    title: "E-Commerce Platform",
+    description:
+      "A full-stack e-commerce solution built with Next.js, featuring user authentication, payment integration, and admin dashboard.",
+    image: "/placeholder.svg?height=300&width=400",
+    technologies: ["Next.js", "TypeScript", "Stripe", "MongoDB"],
+    liveUrl: "#",
+    githubUrl: "#",
+    featured: true,
   },
   {
-    title: 'Portfolio Website',
-    description: 'A responsive portfolio website built with Next.js and Tailwind CSS.',
-    tags: ['Next.js', 'Tailwind CSS', 'TypeScript'],
-    image: '/images/project2.jpg',
-    link: '#',
+    id: 2,
+    title: "Task Management App",
+    description:
+      "A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.",
+    image: "/placeholder.svg?height=300&width=400",
+    technologies: ["React", "Node.js", "Socket.io", "PostgreSQL"],
+    liveUrl: "#",
+    githubUrl: "#",
+    featured: true,
   },
   {
-    title: 'Task Management App',
-    description: 'A task management application with authentication and real-time updates.',
-    tags: ['React', 'Firebase', 'Redux'],
-    image: '/images/project3.jpg',
-    link: '#',
+    id: 3,
+    title: "Weather Dashboard",
+    description:
+      "A responsive weather application that provides detailed weather information with beautiful visualizations and forecasts.",
+    image: "/placeholder.svg?height=300&width=400",
+    technologies: ["React", "Chart.js", "Weather API", "CSS3"],
+    liveUrl: "#",
+    githubUrl: "#",
+    featured: false,
   },
-];
+  {
+    id: 4,
+    title: "Portfolio Website",
+    description:
+      "A modern, responsive portfolio website showcasing projects and skills with smooth animations and interactive elements.",
+    image: "/placeholder.svg?height=300&width=400",
+    technologies: ["Next.js", "SCSS", "Framer Motion", "TypeScript"],
+    liveUrl: "#",
+    githubUrl: "#",
+    featured: false,
+  },
+]
 
-const Projects = () => {
+export default function Projects() {
+  const [isVisible, setIsVisible] = useState(false)
+  const [filter, setFilter] = useState("all")
+  const sectionRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+        }
+      },
+      { threshold: 0.2 },
+    )
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [])
+
+  const filteredProjects =
+    filter === "all"
+      ? projectsData
+      : filter === "featured"
+        ? projectsData.filter((project) => project.featured)
+        : projectsData.filter((project) => !project.featured)
+
   return (
-    <section id="projects" className="py-20 bg-white dark:bg-slate-900">
-      <div className="container mx-auto px-4">
-        <h2 className="section-title">My Projects</h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -10 }}
-              className="bg-gray-50 dark:bg-slate-800 rounded-lg overflow-hidden shadow-lg transition-all duration-300"
+    <section id="projects" ref={sectionRef} className={styles.projects}>
+      <div className={styles.projectsContainer}>
+        <div className={`${styles.projectsContent} ${isVisible ? styles.visible : ""}`}>
+          <h2 className={styles.sectionTitle}>Featured Projects</h2>
+          <p className={styles.sectionDescription}>
+            Here are some of my recent projects that showcase my skills and passion for development
+          </p>
+
+          <div className={styles.filterButtons}>
+            <button
+              className={`${styles.filterBtn} ${filter === "all" ? styles.active : ""}`}
+              onClick={() => setFilter("all")}
             >
-              <div className="h-48 relative">
-                <Image 
-                  src={project.image} 
-                  alt={project.title} 
-                  layout="fill" 
-                  objectFit="cover" 
-                  className="transition-transform duration-500 hover:scale-110"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-2 text-light-text dark:text-dark-text">{project.title}</h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-4">{project.description}</p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tags.map(tag => (
-                    <span key={tag} className="px-3 py-1 bg-gray-200 dark:bg-slate-700 rounded-full text-sm">
-                      {tag}
-                    </span>
-                  ))}
+              All Projects
+            </button>
+            <button
+              className={`${styles.filterBtn} ${filter === "featured" ? styles.active : ""}`}
+              onClick={() => setFilter("featured")}
+            >
+              Featured
+            </button>
+            <button
+              className={`${styles.filterBtn} ${filter === "other" ? styles.active : ""}`}
+              onClick={() => setFilter("other")}
+            >
+              Other
+            </button>
+          </div>
+
+          <div className={styles.projectsGrid}>
+            {filteredProjects.map((project, index) => (
+              <div
+                key={project.id}
+                className={`${styles.projectCard} ${project.featured ? styles.featured : ""}`}
+                style={{ "--animation-delay": `${index * 0.2}s` } as React.CSSProperties}
+              >
+                <div className={styles.projectImage}>
+                  <img src={project.image || "/placeholder.svg"} alt={project.title} />
+                  <div className={styles.projectOverlay}>
+                    <div className={styles.projectLinks}>
+                      <a
+                        href={project.liveUrl}
+                        className={styles.projectLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <ExternalLink size={20} />
+                      </a>
+                      <a
+                        href={project.githubUrl}
+                        className={styles.projectLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Github size={20} />
+                      </a>
+                    </div>
+                  </div>
                 </div>
-                <a 
-                  href={project.link} 
-                  className="inline-block px-4 py-2 bg-primary-light dark:bg-primary-dark text-white rounded-md hover:bg-opacity-90 transition-colors"
-                >
-                  View Project
-                </a>
+
+                <div className={styles.projectContent}>
+                  <h3 className={styles.projectTitle}>{project.title}</h3>
+                  <p className={styles.projectDescription}>{project.description}</p>
+
+                  <div className={styles.projectTechnologies}>
+                    {project.technologies.map((tech) => (
+                      <span key={tech} className={styles.techTag}>
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
-            </motion.div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
-  );
-};
-
-export default Projects;
+  )
+}

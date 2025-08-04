@@ -1,68 +1,61 @@
-'use client';
+"use client"
 
-import { motion } from 'framer-motion';
-import Image from 'next/image';
-import styles from '../styles/components/Hero.module.scss';
+import { useEffect, useState } from "react"
+import { ChevronDown } from "lucide-react"
+import styles from "../styles/Hero.module.scss"
 
-const Hero = () => {
+export default function Hero() {
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    setIsVisible(true)
+  }, [])
+
+  const scrollToAbout = () => {
+    const aboutSection = document.getElementById("about")
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ behavior: "smooth" })
+    }
+  }
+
   return (
-    <section 
-      id="home" 
-      className={styles.hero}
-      style={{ backgroundImage: "url('/images/background.jpg')" }}
-    >
-      <div className={styles.hero__content}>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <div className={styles.hero__avatar}>
-            <Image 
-              src="/images/profile.jpg" 
-              alt="Profile" 
-              width={128} 
-              height={128} 
-              className="object-cover"
-              priority
-            />
+    <section id="hero" className={styles.hero}>
+      <div className={styles.heroContainer}>
+        <div className={`${styles.heroContent} ${isVisible ? styles.visible : ""}`}>
+          <div className={styles.heroText}>
+            <h1 className={styles.heroTitle}>
+              <span className={styles.titleLine}>Hi, I'm</span>
+              <span className={styles.titleName}>Your Name</span>
+              <span className={styles.titleRole}>Full Stack Developer</span>
+            </h1>
+            <p className={styles.heroDescription}>
+              Passionate about creating elegant solutions to complex problems. I build modern web applications with
+              cutting-edge technologies.
+            </p>
+            <div className={styles.heroButtons}>
+              <button className={styles.btnPrimary} onClick={scrollToAbout}>
+                View My Work
+              </button>
+              <button
+                className={styles.btnSecondary}
+                onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+              >
+                Get In Touch
+              </button>
+            </div>
           </div>
-          
-          <h1 className={styles.hero__title}>
-            Hi, I'm <span>Your Name</span>
-          </h1>
-          
-          <h2 className={styles.hero__subtitle}>
-            IT Undergraduate
-          </h2>
-          
-          <p className={styles.hero__description}>
-            Passionate about web development, software engineering, and creating digital solutions that make an impact.
-          </p>
-          
-          <div className={styles.hero__actions}>
-            <motion.a
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              href="#contact"
-              className="btn btn-primary"
-            >
-              Contact Me
-            </motion.a>
-            
-            <motion.a
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              href="#projects"
-              className="btn btn-secondary"
-            >
-              View My Work
-            </motion.a>
+          <div className={styles.heroVisual}>
+            <div className={styles.floatingElements}>
+              <div className={`${styles.element} ${styles.element1}`}></div>
+              <div className={`${styles.element} ${styles.element2}`}></div>
+              <div className={`${styles.element} ${styles.element3}`}></div>
+            </div>
           </div>
-        </motion.div>
+        </div>
+        <button className={styles.scrollIndicator} onClick={scrollToAbout}>
+          <ChevronDown className={styles.scrollIcon} />
+        </button>
       </div>
     </section>
-  );
-};
-
-export default Hero;
+  )
+}

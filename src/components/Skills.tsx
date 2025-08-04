@@ -1,54 +1,97 @@
-'use client';
+"use client"
 
-import { motion } from 'framer-motion';
+import type React from "react"
+import { useEffect, useRef, useState } from "react"
+import styles from "../styles/Skills.module.scss"
 
-const skills = [
-  { name: 'HTML', level: 90 },
-  { name: 'CSS', level: 85 },
-  { name: 'JavaScript', level: 80 },
-  { name: 'TypeScript', level: 75 },
-  { name: 'React', level: 80 },
-  { name: 'Next.js', level: 75 },
-  { name: 'Node.js', level: 70 },
-  { name: 'Python', level: 65 },
-  { name: 'Java', level: 60 },
-  { name: 'SQL', level: 70 },
-  { name: 'Git', level: 80 },
-  { name: 'Tailwind CSS', level: 85 },
-];
+const skillsData = [
+  { name: "React", level: 90, category: "Frontend" },
+  { name: "Next.js", level: 85, category: "Frontend" },
+  { name: "TypeScript", level: 80, category: "Language" },
+  { name: "JavaScript", level: 95, category: "Language" },
+  { name: "Node.js", level: 75, category: "Backend" },
+  { name: "Python", level: 70, category: "Language" },
+  { name: "MongoDB", level: 80, category: "Database" },
+  { name: "PostgreSQL", level: 75, category: "Database" },
+  { name: "Git", level: 85, category: "Tools" },
+  { name: "Docker", level: 65, category: "Tools" },
+]
 
-const Skills = () => {
+export default function Skills() {
+  const [isVisible, setIsVisible] = useState(false)
+  const [animateSkills, setAnimateSkills] = useState(false)
+  const sectionRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+          setTimeout(() => setAnimateSkills(true), 500)
+        }
+      },
+      { threshold: 0.3 },
+    )
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [])
+
+  const categories = [...new Set(skillsData.map((skill) => skill.category))]
+
   return (
-    <section id="skills" className="py-20 bg-gray-50 dark:bg-slate-800">
-      <div className="container mx-auto px-4">
-        <h2 className="section-title">My Skills</h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {skills.map((skill, index) => (
-            <motion.div
-              key={skill.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="bg-white dark:bg-slate-700 p-6 rounded-lg shadow-md"
-            >
-              <div className="flex justify-between items-center mb-2">
-                <h3 className="text-lg font-semibold text-light-text dark:text-dark-text">{skill.name}</h3>
-                <span className="text-sm text-primary-light dark:text-primary-dark">{skill.level}%</span>
+    <section id="skills" ref={sectionRef} className={styles.skills}>
+      <div className={styles.skillsContainer}>
+        <div className={`${styles.skillsContent} ${isVisible ? styles.visible : ""}`}>
+          <h2 className={styles.sectionTitle}>Skills & Technologies</h2>
+          <p className={styles.sectionDescription}>
+            Here are the technologies and tools I work with to bring ideas to life
+          </p>
+
+          <div className={styles.skillsGrid}>
+            {categories.map((category, categoryIndex) => (
+              <div key={category} className={styles.skillCategory}>
+                <h3 className={styles.categoryTitle}>{category}</h3>
+                <div className={styles.skillsList}>
+                  {skillsData
+                    .filter((skill) => skill.category === category)
+                    .map((skill, index) => (
+                      <div key={skill.name} className={styles.skillItem}>
+                        <div className={styles.skillHeader}>
+                          <span className={styles.skillName}>{skill.name}</span>
+                          <span className={styles.skillPercentage}>{skill.level}%</span>
+                        </div>
+                        <div className={styles.skillBar}>
+                          <div
+                            className={`${styles.skillProgress} ${animateSkills ? styles.animate : ""}`}
+                            style={
+                              {
+                                "--skill-level": `${skill.level}%`,
+                                "--animation-delay": `${categoryIndex * 0.2 + index * 0.1}s`,
+                              } as React.CSSProperties
+                            }
+                          ></div>
+                        </div>
+                      </div>
+                    ))}
+                </div>
               </div>
-              <div className="w-full bg-gray-200 dark:bg-slate-600 rounded-full h-2.5">
-                <div 
-                  className="bg-gradient-to-r from-primary-light to-secondary-light dark:from-primary-dark dark:to-secondary-dark h-2.5 rounded-full" 
-                  style={{ width: `${skill.level}%` }}
-                ></div>
-              </div>
-            </motion.div>
-          ))}
+            ))}
+          </div>
+
+          <div className={styles.techIcons}>
+            <div className={styles.techIcon}>⚛️</div>
+            <div className={styles.techIcon}>🚀</div>
+            <div className={styles.techIcon}>💻</div>
+            <div className={styles.techIcon}>🎨</div>
+            <div className={styles.techIcon}>📱</div>
+            <div className={styles.techIcon}>🔧</div>
+          </div>
         </div>
       </div>
     </section>
-  );
-};
-
-export default Skills;
+  )
+}

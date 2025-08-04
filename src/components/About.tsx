@@ -1,68 +1,102 @@
-// src/components/About.tsx
-'use client';
-import styles from '../styles/components/About.module.scss';
-import { motion } from 'framer-motion';
+"use client"
 
-const About = () => {
+import { useEffect, useRef, useState } from "react"
+import styles from "../styles/About.module.scss"
+import ImageUpload from "./ImageUpload"
+
+export default function About() {
+  const [isVisible, setIsVisible] = useState(false)
+  const [profileImage, setProfileImage] = useState("/placeholder.svg?height=300&width=300")
+  const [isEditing, setIsEditing] = useState(false)
+  const sectionRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+        }
+      },
+      { threshold: 0.3 },
+    )
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [])
+
+  const handleImageUpload = (url: string) => {
+    setProfileImage(url || "/placeholder.svg?height=300&width=300")
+    setIsEditing(false)
+  }
+
   return (
-    <section id="about" className={styles.about}>
-      <div className={styles.about__container}>
-        <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className={styles.about__education}
-        >
-          <div className={styles.about__educationContent}>
-            <h3 className={styles.about__educationTitle}>Education</h3>
-            <div className={styles.about__educationItem}>
-              <h4 className={styles.about__educationInstitution}>University Name</h4>
-              <p className={styles.about__educationDegree}>Bachelor of Science in Information Technology</p>
-              <p className={styles.about__educationPeriod}>2021 - Present</p>
+    <section id="about" ref={sectionRef} className={styles.about}>
+      <div className={styles.aboutContainer}>
+        <div className={`${styles.aboutContent} ${isVisible ? styles.visible : ""}`}>
+          <div className={styles.aboutText}>
+            <h2 className={styles.sectionTitle}>About Me</h2>
+            <div className={styles.aboutDescription}>
+              <p>
+                I'm a passionate Full Stack Developer with a strong foundation in modern web technologies. Currently
+                pursuing my undergraduate degree while building real-world applications that solve meaningful problems.
+              </p>
+              <p>
+                My journey in programming started with curiosity and has evolved into a deep passion for creating
+                elegant, efficient, and user-friendly solutions. I love learning new technologies and staying up-to-date
+                with industry trends.
+              </p>
+              <p>
+                When I'm not coding, you can find me exploring new frameworks, contributing to open-source projects, or
+                sharing knowledge with fellow developers in the community.
+              </p>
+            </div>
+
+            <div className={styles.stats}>
+              <div className={styles.statItem}>
+                <span className={styles.statNumber}>2+</span>
+                <span className={styles.statLabel}>Years Experience</span>
+              </div>
+              <div className={styles.statItem}>
+                <span className={styles.statNumber}>15+</span>
+                <span className={styles.statLabel}>Projects Completed</span>
+              </div>
+              <div className={styles.statItem}>
+                <span className={styles.statNumber}>5+</span>
+                <span className={styles.statLabel}>Technologies</span>
+              </div>
             </div>
           </div>
-        </motion.div>
-        
-        <motion.div
-          initial={{ opacity: 0, x: 50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className={styles.about__content}
-        >
-          <h3 className={styles.about__title}>Who I Am</h3>
-          <p className={styles.about__description}>
-            I'm an enthusiastic IT undergraduate with a passion for web development and software engineering. 
-            Currently pursuing my degree while working on personal projects to expand my skillset.
-          </p>
-          <p className={styles.about__description}>
-            My journey in technology began when I was in high school, and since then I've been constantly 
-            learning and exploring new technologies to build innovative solutions.
-          </p>
-          <p className={styles.about__description}>
-            When I'm not coding, you can find me reading tech blogs, contributing to open-source projects, 
-            or exploring new frameworks and libraries.
-          </p>
-          
-          <div className={styles.about__skills}>
-            {['Web Development', 'UI/UX', 'Problem Solving', 'Teamwork'].map((skill, index) => (
-              <motion.span
-                key={skill}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className={styles.about__skill}
-              >
-                {skill}
-              </motion.span>
-            ))}
+
+          <div className={styles.aboutVisual}>
+            <div className={styles.profileCard}>
+              <div className={styles.cardGlow}></div>
+              <div className={styles.profileImage}>
+                <img
+                  src={profileImage || "/placeholder.svg"}
+                  alt="Profile"
+                  onClick={() => setIsEditing(true)}
+                  style={{ cursor: "pointer" }}
+                />
+              </div>
+              <div className={styles.floatingTech}>
+                <span className={styles.techItem}>React</span>
+                <span className={styles.techItem}>Next.js</span>
+                <span className={styles.techItem}>TypeScript</span>
+                <span className={styles.techItem}>Node.js</span>
+              </div>
+            </div>
+
+            {isEditing && (
+              <div className="mt-4">
+                <ImageUpload onImageUpload={handleImageUpload} currentImage={profileImage} />
+              </div>
+            )}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
-  );
-};
-
-export default About;
+  )
+}
