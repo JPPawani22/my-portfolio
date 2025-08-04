@@ -1,8 +1,8 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import BlobSetupInstructions from "../components/BlobSetupInstructions"
-import ProjectImageManager from "../components/ProjectImageManager"
+import BlobSetupInstructions from "@/components/BlobSetupInstructions"
+import ProjectImageManager from "@/components/ProjectImageManager"
 
 interface BlobFile {
   url: string

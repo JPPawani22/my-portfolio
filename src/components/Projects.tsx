@@ -2,60 +2,75 @@
 
 import type React from "react"
 import { useEffect, useRef, useState } from "react"
-import { ExternalLink, Github } from "lucide-react"
+import { ExternalLink, Github, ChevronLeft, ChevronRight } from "lucide-react"
 import styles from "../styles/Projects.module.scss"
 
 const projectsData = [
   {
     id: 1,
     title: "E-Commerce Platform",
-    description:
-      "A full-stack e-commerce solution built with Next.js, featuring user authentication, payment integration, and admin dashboard.",
+    description: "A full-stack e-commerce solution built with Next.js, featuring user authentication, payment integration, and admin dashboard.",
     image: "/placeholder.svg?height=300&width=400",
     technologies: ["Next.js", "TypeScript", "Stripe", "MongoDB"],
     liveUrl: "#",
     githubUrl: "#",
     featured: true,
+    period: "2023 - Present"
   },
   {
     id: 2,
     title: "Task Management App",
-    description:
-      "A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.",
+    description: "A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.",
     image: "/placeholder.svg?height=300&width=400",
     technologies: ["React", "Node.js", "Socket.io", "PostgreSQL"],
     liveUrl: "#",
     githubUrl: "#",
     featured: true,
+    period: "2022 - 2023"
   },
   {
     id: 3,
     title: "Weather Dashboard",
-    description:
-      "A responsive weather application that provides detailed weather information with beautiful visualizations and forecasts.",
+    description: "A responsive weather application that provides detailed weather information with beautiful visualizations and forecasts.",
     image: "/placeholder.svg?height=300&width=400",
     technologies: ["React", "Chart.js", "Weather API", "CSS3"],
     liveUrl: "#",
     githubUrl: "#",
     featured: false,
+    period: "2021 - 2022"
   },
   {
     id: 4,
     title: "Portfolio Website",
-    description:
-      "A modern, responsive portfolio website showcasing projects and skills with smooth animations and interactive elements.",
+    description: "A modern, responsive portfolio website showcasing projects and skills with smooth animations and interactive elements.",
     image: "/placeholder.svg?height=300&width=400",
     technologies: ["Next.js", "SCSS", "Framer Motion", "TypeScript"],
     liveUrl: "#",
     githubUrl: "#",
     featured: false,
+    period: "2020 - 2021"
   },
 ]
 
 export default function Projects() {
   const [isVisible, setIsVisible] = useState(false)
   const [filter, setFilter] = useState("all")
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [autoRotate, setAutoRotate] = useState(true)
   const sectionRef = useRef<HTMLElement>(null)
+  const intervalRef = useRef<NodeJS.Timeout>(null)
+
+  const filteredProjects = 
+    filter === "all"
+      ? projectsData
+      : filter === "featured"
+        ? projectsData.filter((project) => project.featured)
+        : projectsData.filter((project) => !project.featured)
+
+  const visibleProjects = filteredProjects.slice(currentIndex, currentIndex + 3)
+  if (visibleProjects.length < 3 && filteredProjects.length > 3) {
+    visibleProjects.push(...filteredProjects.slice(0, 3 - visibleProjects.length))
+  }
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -64,7 +79,7 @@ export default function Projects() {
           setIsVisible(true)
         }
       },
-      { threshold: 0.2 },
+      { threshold: 0.2 }
     )
 
     if (sectionRef.current) {
@@ -74,12 +89,35 @@ export default function Projects() {
     return () => observer.disconnect()
   }, [])
 
-  const filteredProjects =
-    filter === "all"
-      ? projectsData
-      : filter === "featured"
-        ? projectsData.filter((project) => project.featured)
-        : projectsData.filter((project) => !project.featured)
+  useEffect(() => {
+    if (autoRotate) {
+      intervalRef.current = setInterval(() => {
+        setCurrentIndex((prev) => (prev + 1) % filteredProjects.length)
+      }, 5000) // Rotate every 5 seconds
+    }
+
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current)
+    }
+  }, [autoRotate, filteredProjects.length])
+
+  const nextProject = () => {
+    setCurrentIndex((prev) => (prev + 1) % filteredProjects.length)
+    setAutoRotate(false)
+    if (intervalRef.current) clearInterval(intervalRef.current)
+  }
+
+  const prevProject = () => {
+    setCurrentIndex((prev) => (prev - 1 + filteredProjects.length) % filteredProjects.length)
+    setAutoRotate(false)
+    if (intervalRef.current) clearInterval(intervalRef.current)
+  }
+
+  const goToProject = (index: number) => {
+    setCurrentIndex(index)
+    setAutoRotate(false)
+    if (intervalRef.current) clearInterval(intervalRef.current)
+  }
 
   return (
     <section id="projects" ref={sectionRef} className={styles.projects}>
@@ -93,68 +131,106 @@ export default function Projects() {
           <div className={styles.filterButtons}>
             <button
               className={`${styles.filterBtn} ${filter === "all" ? styles.active : ""}`}
-              onClick={() => setFilter("all")}
+              onClick={() => {
+                setFilter("all")
+                setCurrentIndex(0)
+                setAutoRotate(true)
+              }}
             >
               All Projects
             </button>
             <button
               className={`${styles.filterBtn} ${filter === "featured" ? styles.active : ""}`}
-              onClick={() => setFilter("featured")}
+              onClick={() => {
+                setFilter("featured")
+                setCurrentIndex(0)
+                setAutoRotate(true)
+              }}
             >
               Featured
             </button>
             <button
               className={`${styles.filterBtn} ${filter === "other" ? styles.active : ""}`}
-              onClick={() => setFilter("other")}
+              onClick={() => {
+                setFilter("other")
+                setCurrentIndex(0)
+                setAutoRotate(true)
+              }}
             >
               Other
             </button>
           </div>
 
-          <div className={styles.projectsGrid}>
-            {filteredProjects.map((project, index) => (
-              <div
-                key={project.id}
-                className={`${styles.projectCard} ${project.featured ? styles.featured : ""}`}
-                style={{ "--animation-delay": `${index * 0.2}s` } as React.CSSProperties}
-              >
-                <div className={styles.projectImage}>
-                  <img src={project.image || "/placeholder.svg"} alt={project.title} />
-                  <div className={styles.projectOverlay}>
-                    <div className={styles.projectLinks}>
-                      <a
-                        href={project.liveUrl}
-                        className={styles.projectLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <ExternalLink size={20} />
-                      </a>
-                      <a
-                        href={project.githubUrl}
-                        className={styles.projectLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Github size={20} />
-                      </a>
+          <div className={styles.projectsCarousel}>
+            <button className={styles.carouselArrow} onClick={prevProject} aria-label="Previous project">
+              <ChevronLeft size={32} />
+            </button>
+
+            <div className={styles.projectsGrid}>
+              {visibleProjects.map((project, index) => (
+                <div
+                  key={`${project.id}-${index}`}
+                  className={`${styles.projectCard} ${project.featured ? styles.featured : ""}`}
+                  style={{
+                    '--animation-delay': `${index * 0.2}s`,
+                    '--translate-x': `${(index - 1) * 10}%`,
+                    '--scale': index === 1 ? '1.05' : '0.95'
+                  } as React.CSSProperties}
+                >
+                  <div className={styles.projectPeriod}>{project.period}</div>
+                  <div className={styles.projectImage}>
+                    <img src={project.image || "/placeholder.svg"} alt={project.title} />
+                    <div className={styles.projectOverlay}>
+                      <div className={styles.projectLinks}>
+                        <a
+                          href={project.liveUrl}
+                          className={styles.projectLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <ExternalLink size={20} />
+                        </a>
+                        <a
+                          href={project.githubUrl}
+                          className={styles.projectLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Github size={20} />
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={styles.projectContent}>
+                    <h3 className={styles.projectTitle}>{project.title}</h3>
+                    <p className={styles.projectDescription}>{project.description}</p>
+
+                    <div className={styles.projectTechnologies}>
+                      {project.technologies.map((tech) => (
+                        <span key={tech} className={styles.techTag}>
+                          {tech}
+                        </span>
+                      ))}
                     </div>
                   </div>
                 </div>
+              ))}
+            </div>
 
-                <div className={styles.projectContent}>
-                  <h3 className={styles.projectTitle}>{project.title}</h3>
-                  <p className={styles.projectDescription}>{project.description}</p>
+            <button className={styles.carouselArrow} onClick={nextProject} aria-label="Next project">
+              <ChevronRight size={32} />
+            </button>
+          </div>
 
-                  <div className={styles.projectTechnologies}>
-                    {project.technologies.map((tech) => (
-                      <span key={tech} className={styles.techTag}>
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
+          <div className={styles.carouselIndicators}>
+            {filteredProjects.map((_, index) => (
+              <button
+                key={index}
+                className={`${styles.indicator} ${index === currentIndex ? styles.active : ""}`}
+                onClick={() => goToProject(index)}
+                aria-label={`Go to project ${index + 1}`}
+              />
             ))}
           </div>
         </div>
