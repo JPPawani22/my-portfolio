@@ -1,9 +1,10 @@
 .about {
-  padding: 6rem 0;
+  padding: 4rem 0;
   background: #1f2937;
   position: relative;
   width: 100%;
   max-width: 100%;
+  overflow: hidden;
 
   &::before {
     content: '';
@@ -20,7 +21,7 @@
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 1.5rem;
   position: relative;
   z-index: 1;
 }
@@ -30,7 +31,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
   opacity: 0;
-  transform: translateY(50px);
+  transform: translateY(30px);
   transition: all 0.8s ease;
 
   &.visible {
@@ -47,16 +48,16 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+
+  &.mobileOnly {
+    display: none;
+  }
 }
 
 /* Milestones Section */
 .milestones {
   position: relative;
-  padding-right: 2rem;
-  
-  .sectionTitle {
-    animation: slideInLeft 0.8s ease forwards;
-  }
+  padding-right: 1rem;
 }
 
 .timeline {
@@ -104,9 +105,10 @@
 }
 
 .timelineContent {
-  background: rgba(31, 41, 55, 0.8);
+  background: rgba(51, 36, 60, 0.629);
+  color:#9ca3af;
   padding: 1.5rem;
-  border-radius: 8px;
+  border-radius: 20px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
   backdrop-filter: blur(5px);
@@ -114,7 +116,7 @@
 
   &:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.2);
+    box-shadow: 0 8px 25px rgba(246, 215, 92, 0.2);
   }
 
   h3 {
@@ -136,7 +138,9 @@
 
 /* About Text Section */
 .aboutText {
-  animation: slideInRight 0.8s ease 0.2s forwards;
+  .sectionTitle {
+    animation: slideInLeft 0.8s ease forwards;
+  }
 }
 
 .aboutDescription {
@@ -162,6 +166,7 @@
 
 .statItem {
   text-align: center;
+  flex: 1;
 
   .statNumber {
     display: block;
@@ -178,8 +183,6 @@
     letter-spacing: 0.5px;
   }
 }
-
-
 
 /* Animations */
 @keyframes slideInLeft {
@@ -204,62 +207,113 @@
   }
 }
 
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-@keyframes pulse {
-  0%, 100% {
-    opacity: 0.5;
-  }
-  50% {
-    opacity: 0.8;
-  }
-}
-
 /* Responsive Styles */
 @media (max-width: 768px) {
   .about {
-    padding: 4rem 0;
+    padding: 3rem 0;
+  }
+
+  .aboutContainer {
+    padding: 0 1rem;
   }
 
   .aboutContent {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 3rem;
   }
 
   .milestones {
     padding-right: 0;
+    order: 2;
+  }
+
+  .aboutText {
+    order: 1;
   }
 
   .sectionTitle {
     font-size: 2rem;
     text-align: center;
+    
+    &.mobileOnly {
+      display: block;
+      margin-top: 2rem;
+    }
+
+    &:not(.mobileOnly) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .timeline {
+    padding-left: 1.5rem;
+  }
+
+  .timelineIcon {
+    left: -2.2rem;
+    width: 1.8rem;
+    height: 1.8rem;
+    font-size: 0.9rem;
+  }
+
+  .timelineContent {
+    padding: 1.2rem;
+    
+    h3 {
+      font-size: 1.1rem;
+    }
+  }
+
+  .aboutDescription p {
+    font-size: 1rem;
+    text-align: center;
   }
 
   .stats {
-    justify-content: center;
+    flex-direction: column;
     gap: 1.5rem;
+    margin-top: 1.5rem;
   }
 
-  .profileCard {
-    width: 300px;
-    height: 350px;
-    padding: 1.5rem;
-
-    .profileImage {
-      width: 150px;
-      height: 150px;
+  .statItem {
+    .statNumber {
+      font-size: 1.8rem;
     }
+  }
+}
 
-    .floatingTech .techItem {
-      font-size: 0.7rem;
-      padding: 0.4rem 0.8rem;
+@media (max-width: 480px) {
+  .about {
+    padding: 2.5rem 0;
+  }
+
+  .sectionTitle {
+    font-size: 1.8rem;
+  }
+
+  .timeline {
+    padding-left: 1.2rem;
+  }
+
+  .timelineIcon {
+    left: -1.9rem;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .timelineContent {
+    padding: 1rem;
+    
+    h3 {
+      font-size: 1rem;
     }
+    
+    p {
+      font-size: 0.9rem;
+    }
+  }
+
+  .aboutDescription p {
+    font-size: 0.95rem;
   }
 }

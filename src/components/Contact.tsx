@@ -4,8 +4,6 @@ import type React from "react"
 import { useEffect, useRef, useState } from "react"
 import { Mail, Github, Linkedin, Send } from "lucide-react"
 import styles from "../styles/Contact.module.scss"
-import { RxResume } from "react-icons/rx"
-import { GrResume } from "react-icons/gr"
 import { FcDocument } from "react-icons/fc"
 
 export default function Contact() {
@@ -20,6 +18,18 @@ export default function Contact() {
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
   const [showResumePreview, setShowResumePreview] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
+  const [isMobile, setIsMobile] = useState(false)
+
+ useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -79,7 +89,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" ref={sectionRef} className={styles.contact}>
+     <section id="contact" ref={sectionRef} className={styles.contact}>
       <div className={styles.contactContainer}>
         <div className={`${styles.contactContent} ${isVisible ? styles.visible : ""}`}>
           <h2 className={styles.sectionTitle}>Get In Touch</h2>
@@ -88,68 +98,97 @@ export default function Contact() {
           </p>
 
           <div className={styles.contactWrapper}>
-            <div className={styles.contactInfo}>
-              <a 
-                href="mailto:pawani02jp@gmail.com" 
-                className={styles.infoItem}
-                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-                onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-              >
-                <div className={styles.infoIcon}>
-                  <Mail size={24} />
-                </div>
-                <div className={styles.infoContent}>
-                  <h3>Email Me</h3>
-                </div>
-              </a>
+           <div className={styles.contactInfo}>
+  {isMobile ? (
+    <div className={styles.socialLinksMobile}>
+      <a 
+        href="mailto:pawani02jp@gmail.com" 
+        className={styles.socialLink}
+        aria-label="Email"
+      >
+        <Mail size={24} />
+      </a>
+      <a 
+        href="https://github.com" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className={styles.socialLink}
+        aria-label="GitHub"
+      >
+        <Github size={24} />
+      </a>
+      <a 
+        href="https://linkedin.com" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className={styles.socialLink}
+        aria-label="LinkedIn"
+      >
+        <Linkedin size={24} />
+      </a>
+      <button 
+        className={styles.socialLink}
+        onClick={toggleResumePreview}
+        aria-label="Resume"
+      >
+        <FcDocument size={24} />
+      </button>
+    </div>
+  ) : (
+    <>
+      <a 
+        href="mailto:pawani02jp@gmail.com" 
+        className={styles.infoItem}
+      >
+        <div className={styles.infoIcon}>
+          <Mail size={24} />
+        </div>
+        <div className={styles.infoContent}>
+          <h3>Email Me</h3>
+        </div>
+      </a>
 
-              <a 
-                href="https://github.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className={styles.infoItem}
-                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-                onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-              >
-                <div className={styles.infoIcon}>
-                  <Github size={24} />
-                </div>
-                <div className={styles.infoContent}>
-                  <h3>GitHub</h3>
-                </div>
-              </a>
+      <a 
+        href="https://github.com" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className={styles.infoItem}
+      >
+        <div className={styles.infoIcon}>
+          <Github size={24} />
+        </div>
+        <div className={styles.infoContent}>
+          <h3>GitHub</h3>
+        </div>
+      </a>
 
+      <a 
+        href="https://linkedin.com" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className={styles.infoItem}
+      >
+        <div className={styles.infoIcon}>
+          <Linkedin size={24} />
+        </div>
+        <div className={styles.infoContent}>
+          <h3>Linkedin</h3>
+        </div>
+      </a>
 
-              <a 
-                href="https://linkedin.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className={styles.infoItem}
-                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-                onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-              >
-                <div className={styles.infoIcon}>
-                  <Linkedin size={24} />
-                </div>
-                <div className={styles.infoContent}>
-                  <h3>Linkedin</h3>
-                </div>
-              </a>
-
-              
-              <div 
-                className={styles.infoItem}
-                onClick={toggleResumePreview}
-                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-                onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-              >
-                <div className={styles.infoIcon}>
-                  <FcDocument size={24} />
-                </div>
-                <div className={styles.infoContent}>
-                  <h3>Resume</h3>
-                </div>
-              </div>
+      <div 
+        className={styles.infoItem}
+        onClick={toggleResumePreview}
+      >
+        <div className={styles.infoIcon}>
+          <FcDocument size={24} />
+        </div>
+        <div className={styles.infoContent}>
+          <h3>Resume</h3>
+        </div>
+      </div>
+    </>
+  )}
 
               {showResumePreview && (
                 <div className={styles.resumePreview}>
@@ -267,7 +306,7 @@ export default function Contact() {
         </div>
       </div>
 
-      <footer className={styles.footer}>
+       <footer className={styles.footer}>
         <div className={styles.footerContent}>
           <p>&copy; 2024 PawaniUthpalawanna. All rights reserved.</p>
           <div className={styles.socialLinks}>
@@ -276,22 +315,25 @@ export default function Contact() {
               target="_blank" 
               rel="noopener noreferrer"
               className={styles.socialLink}
+              aria-label="GitHub"
             >
-              <Github size={20} className={styles.socialIcon} />
+              <Github size={20} />
             </a>
             <a 
               href="https://linkedin.com/in/yourprofile" 
               target="_blank" 
               rel="noopener noreferrer"
               className={styles.socialLink}
+              aria-label="LinkedIn"
             >
-              <Linkedin size={20} className={styles.socialIcon} />
+              <Linkedin size={20} />
             </a>
             <a 
               href="mailto:pawani02jp@gmail.com" 
               className={styles.socialLink}
+              aria-label="Email"
             >
-              <Mail size={20} className={styles.socialIcon} />
+              <Mail size={20} />
             </a>
           </div>
         </div>

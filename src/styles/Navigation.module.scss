@@ -10,7 +10,7 @@
   backdrop-filter: blur(10px);
 
   &.scrolled {
-    background: rgba(17, 24, 39, 0.677);
+    background: rgba(17, 24, 39, 0.9);
     box-shadow: 0 4px 20px rgba(139, 92, 246, 0.1);
   }
 }
@@ -35,10 +35,15 @@
   }
 }
 
+/* Desktop Navigation */
 .navLinks {
   display: flex;
   list-style: none;
   gap: 2rem;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
 
 .navLink {
@@ -79,17 +84,112 @@
   }
 }
 
+/* Mobile Menu Button */
+.mobileMenuButton {
+  display: none;
+  background: none;
+  border: none;
+  color: #d1d5db;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: #8b5cf6;
+    background: rgba(139, 92, 246, 0.1);
+  }
+
+  @media (max-width: 768px) {
+    display: block;
+  }
+}
+
+.menuIcon,
+.menuIconClose {
+  display: block;
+  transition: all 0.3s ease;
+}
+
+.menuIconClose {
+  font-size: 1.3rem;
+}
+
+/* Mobile Navigation */
+.mobileNav {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  right: 0;
+  background: rgba(17, 24, 39, 0.95);
+  backdrop-filter: blur(15px);
+  padding: 1rem 2rem;
+  border-radius: 0 0 1rem 1rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  transform: translateY(-150%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 999;
+
+  &.open {
+    transform: translateY(0);
+  }
+
+  .mobileNavLinks {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .mobileNavLink {
+    color: #d1d5db;
+    font-size: 1.1rem;
+    padding: 0.8rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      color: #8b5cf6;
+      background: rgba(139, 92, 246, 0.1);
+    }
+
+    &.active {
+      color: #fbbf24;
+      background: rgba(139, 92, 246, 0.2);
+    }
+  }
+}
+
+/* Responsive Adjustments */
 @media (max-width: 768px) {
+  .navContainer {
+    padding: 0 1.5rem;
+  }
+
+  .navLogo .logoText {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
   .navContainer {
     padding: 0 1rem;
   }
 
-  .navLinks {
-    gap: 1rem;
+  .mobileNav {
+    top: 60px;
+    padding: 0.5rem 1rem;
   }
 
-  .navLink {
-    font-size: 0.9rem;
-    padding: 0.4rem 0.8rem;
+  .mobileNav .mobileNavLink {
+    font-size: 1rem;
+    padding: 0.6rem 0.8rem;
   }
 }
