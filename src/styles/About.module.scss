@@ -2,6 +2,8 @@
   padding: 6rem 0;
   background: #1f2937;
   position: relative;
+  width: 100%;
+  max-width: 100%;
 
   &::before {
     content: '';
@@ -15,7 +17,8 @@
 }
 
 .aboutContainer {
-  max-width: 1200px;
+  width: 100%;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 2rem;
   position: relative;
@@ -26,7 +29,6 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
-  align-items: center;
   opacity: 0;
   transform: translateY(50px);
   transition: all 0.8s ease;
@@ -34,14 +36,6 @@
   &.visible {
     opacity: 1;
     transform: translateY(0);
-
-    .aboutText {
-      animation: slideInLeft 0.8s ease forwards;
-    }
-
-    .aboutVisual {
-      animation: slideInRight 0.8s ease 0.2s forwards;
-    }
   }
 }
 
@@ -53,6 +47,96 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* Milestones Section */
+.milestones {
+  position: relative;
+  padding-right: 2rem;
+  
+  .sectionTitle {
+    animation: slideInLeft 0.8s ease forwards;
+  }
+}
+
+.timeline {
+  position: relative;
+  padding-left: 2rem;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 2px;
+    background: linear-gradient(to bottom, #8b5cf6, #fbbf24);
+  }
+}
+
+.timelineItem {
+  position: relative;
+  margin-bottom: 2rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease;
+
+  &.animate {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.timelineIcon {
+  position: absolute;
+  left: -2.7rem;
+  top: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #8b5cf6, #fbbf24);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+}
+
+.timelineContent {
+  background: rgba(31, 41, 55, 0.8);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.2);
+  }
+
+  h3 {
+    margin-top: 0;
+    color: #fbbf24;
+    font-size: 1.2rem;
+  }
+}
+
+.timelineYear {
+  display: inline-block;
+  background: rgba(139, 92, 246, 0.2);
+  padding: 0.2rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  margin-bottom: 0.8rem;
+  color: #d1d5db;
+}
+
+/* About Text Section */
+.aboutText {
+  animation: slideInRight 0.8s ease 0.2s forwards;
 }
 
 .aboutDescription {
@@ -73,6 +157,7 @@
 .stats {
   display: flex;
   gap: 2rem;
+  margin-top: 2rem;
 }
 
 .statItem {
@@ -94,100 +179,9 @@
   }
 }
 
-.aboutVisual {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
-.profileCard {
-  position: relative;
-  width: 350px;
-  height: 400px;
-  background: rgba(31, 41, 55, 0.8);
-  border-radius: 1rem;
-  padding: 2rem;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(139, 92, 246, 0.2);
 
-  .cardGlow {
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(45deg, #8b5cf6, #fbbf24, #8b5cf6);
-    border-radius: 1rem;
-    z-index: -1;
-    opacity: 0.5;
-    filter: blur(10px);
-    animation: pulse 3s ease-in-out infinite;
-  }
-
-  .profileImage {
-    width: 200px;
-    height: 200px;
-    margin: 0 auto 2rem;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 3px solid transparent;
-    background: linear-gradient(45deg, #8b5cf6, #fbbf24);
-    padding: 3px;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 50%;
-      background: #374151;
-    }
-  }
-
-  .floatingTech {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-
-    .techItem {
-      position: absolute;
-      background: rgba(139, 92, 246, 0.2);
-      color: #8b5cf6;
-      padding: 0.5rem 1rem;
-      border-radius: 1rem;
-      font-size: 0.8rem;
-      font-weight: 600;
-      border: 1px solid rgba(139, 92, 246, 0.3);
-      animation: float 4s ease-in-out infinite;
-
-      &:nth-child(1) {
-        top: 10%;
-        right: -10%;
-        animation-delay: 0s;
-      }
-
-      &:nth-child(2) {
-        top: 30%;
-        left: -15%;
-        animation-delay: 1s;
-      }
-
-      &:nth-child(3) {
-        bottom: 30%;
-        right: -15%;
-        animation-delay: 2s;
-      }
-
-      &:nth-child(4) {
-        bottom: 10%;
-        left: -10%;
-        animation-delay: 3s;
-      }
-    }
-  }
-}
-
+/* Animations */
 @keyframes slideInLeft {
   from {
     opacity: 0;
@@ -228,6 +222,7 @@
   }
 }
 
+/* Responsive Styles */
 @media (max-width: 768px) {
   .about {
     padding: 4rem 0;
@@ -236,11 +231,15 @@
   .aboutContent {
     grid-template-columns: 1fr;
     gap: 2rem;
-    text-align: center;
+  }
+
+  .milestones {
+    padding-right: 0;
   }
 
   .sectionTitle {
     font-size: 2rem;
+    text-align: center;
   }
 
   .stats {

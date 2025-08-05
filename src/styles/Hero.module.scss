@@ -19,12 +19,47 @@
   }
 }
 
+.waveHand {
+  display: inline-block;
+  margin-left: 0.5rem;
+  color: #fbbf24;
+  animation: wave 2s infinite;
+  transform-origin: 70% 70%;
+  font-size: 1.5em;
+  vertical-align: middle;
+}
+
+@keyframes wave {
+  0% {
+    transform: rotate(0deg);
+  }
+  10% {
+    transform: rotate(-10deg);
+  }
+  20% {
+    transform: rotate(12deg);
+  }
+  30% {
+    transform: rotate(-10deg);
+  }
+  40% {
+    transform: rotate(9deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
 .heroContainer {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
   position: relative;
   z-index: 1;
+  width: 100%;
 }
 
 .heroContent {
@@ -54,16 +89,35 @@
       animation: fadeInUp 0.8s ease 0.2s both;
     }
 
-    .titleName {
+    .nameContainer {
+      display: flex;
+      flex-direction: column;
+      min-height: 8rem;
+    }
+
+    .nameLine {
       display: block;
+      line-height: 1.2;
+      height: 4rem;
+    }
+
+    .titleName {
       font-size: 3.5rem;
       font-weight: bold;
-      background: linear-gradient(45deg, #8b5cf6, #fbbf24);
+      background: linear-gradient(45deg, #9a5cf6, #fbbf24);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      margin-bottom: 0.5rem;
+      position: relative;
+      white-space: nowrap;
       animation: fadeInUp 0.8s ease 0.4s both;
+    }
+
+    .cursor {
+      display: inline-block;
+      animation: blink 0.7s infinite;
+      color: #fbbf24;
+      margin-left: 2px;
     }
 
     .titleRole {
@@ -116,6 +170,7 @@
         background: #8b5cf6;
         color: white;
         transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
       }
     }
   }
@@ -123,42 +178,66 @@
 
 .heroVisual {
   position: relative;
-  height: 400px;
+  height: 100%;
+  min-height: 500px;
   animation: slideInRight 1s ease 0.5s both;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  .floatingElements {
+  .profileImageContainer {
     position: relative;
     width: 100%;
     height: 100%;
+    max-width: 500px;
+    max-height: 500px;
+    z-index: 2;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+    }
+  }
+
+  .floatingElements {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
 
     .element {
       position: absolute;
       border-radius: 50%;
       animation: float 6s ease-in-out infinite;
+      filter: blur(20px);
+      opacity: 0.7;
 
       &.element1 {
-        width: 100px;
-        height: 100px;
-        background: linear-gradient(45deg, #8b5cf6, #a855f7);
+        width: 150px;
+        height: 150px;
+        background: linear-gradient(45deg, #8a5cf6b3, #a855f7);
         top: 20%;
-        left: 20%;
+        left: 10%;
         animation-delay: 0s;
       }
 
       &.element2 {
-        width: 150px;
-        height: 150px;
-        background: linear-gradient(45deg, #fbbf24, #f59e0b);
+        width: 200px;
+        height: 200px;
+        background: linear-gradient(45deg, #fbbe24b0, #f59e0b);
         top: 50%;
-        right: 20%;
+        right: 10%;
         animation-delay: 2s;
       }
 
       &.element3 {
-        width: 80px;
-        height: 80px;
-        background: linear-gradient(45deg, #8b5cf6, #fbbf24);
-        bottom: 20%;
+        width: 120px;
+        height: 120px;
+        background: linear-gradient(45deg, #8a5cf6c6, #fbbf24);
+        bottom: 10%;
         left: 50%;
         animation-delay: 4s;
       }
@@ -176,10 +255,20 @@
   color: #8b5cf6;
   cursor: pointer;
   animation: bounce 2s infinite;
+  z-index: 3;
 
   .scrollIcon {
     width: 2rem;
     height: 2rem;
+  }
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
   }
 }
 
@@ -226,11 +315,23 @@
   }
 }
 
+@media (max-width: 1024px) {
+  .heroVisual {
+    min-height: 400px;
+    
+    .profileImageContainer {
+      max-width: 400px;
+      max-height: 400px;
+    }
+  }
+}
+
 @media (max-width: 768px) {
   .heroContent {
     grid-template-columns: 1fr;
     text-align: center;
     gap: 2rem;
+    padding: 4rem 0;
   }
 
   .heroText {
@@ -251,6 +352,48 @@
   }
 
   .heroVisual {
-    height: 300px;
+    min-height: 300px;
+    order: -1;
+    
+    .profileImageContainer {
+      max-width: 300px;
+      max-height: 300px;
+    }
+  }
+
+  .nameContainer {
+    min-height: 6rem;
+  }
+
+  .nameLine {
+    height: 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroText {
+    .heroButtons {
+      flex-direction: column;
+    }
+    
+    .btnPrimary, .btnSecondary {
+      width: 100%;
+    }
+  }
+  
+  .heroVisual {
+    min-height: 250px;
+    
+    .profileImageContainer {
+      max-width: 250px;
+      max-height: 250px;
+    }
+    
+    .element {
+      &.element1, &.element2, &.element3 {
+        width: 80px;
+        height: 80px;
+      }
+    }
   }
 }

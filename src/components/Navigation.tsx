@@ -5,7 +5,7 @@ import styles from "../styles/Navigation.module.scss"
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
-  const [activeSection, setActiveSection] = useState("hero")
+  const [activeSection, setActiveSection] = useState("home")
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,6 +40,15 @@ export default function Navigation() {
     }
   }
 
+  // Map section IDs to display names
+  const sectionDisplayNames: Record<string, string> = {
+    hero: "Home",
+    about: "About",
+    skills: "Skills",
+    projects: "Projects",
+    contact: "Contact"
+  }
+
   return (
     <nav className={`${styles.navigation} ${isScrolled ? styles.scrolled : ""}`}>
       <div className={styles.navContainer}>
@@ -54,7 +63,7 @@ export default function Navigation() {
                 onClick={() => scrollToSection(section)}
                 className={`${styles.navLink} ${activeSection === section ? styles.active : ""}`}
               >
-                {section.charAt(0).toUpperCase() + section.slice(1)}
+                {sectionDisplayNames[section]}
               </button>
             </li>
           ))}

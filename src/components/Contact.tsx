@@ -2,8 +2,11 @@
 
 import type React from "react"
 import { useEffect, useRef, useState } from "react"
-import { Mail, Phone, MapPin, Send } from "lucide-react"
+import { Mail, Github, Linkedin, Send } from "lucide-react"
 import styles from "../styles/Contact.module.scss"
+import { RxResume } from "react-icons/rx"
+import { GrResume } from "react-icons/gr"
+import { FcDocument } from "react-icons/fc"
 
 export default function Contact() {
   const [isVisible, setIsVisible] = useState(false)
@@ -15,6 +18,7 @@ export default function Contact() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
+  const [showResumePreview, setShowResumePreview] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
@@ -69,6 +73,11 @@ export default function Contact() {
     }
   }
 
+  const toggleResumePreview = (e: React.MouseEvent) => {
+    e.preventDefault()
+    setShowResumePreview(!showResumePreview)
+  }
+
   return (
     <section id="contact" ref={sectionRef} className={styles.contact}>
       <div className={styles.contactContainer}>
@@ -80,35 +89,92 @@ export default function Contact() {
 
           <div className={styles.contactWrapper}>
             <div className={styles.contactInfo}>
-              <div className={styles.infoItem}>
+              <a 
+                href="mailto:pawani02jp@gmail.com" 
+                className={styles.infoItem}
+                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+              >
                 <div className={styles.infoIcon}>
                   <Mail size={24} />
                 </div>
                 <div className={styles.infoContent}>
-                  <h3>Email</h3>
-                  <p>your.email@example.com</p>
+                  <h3>Email Me</h3>
+                </div>
+              </a>
+
+              <a 
+                href="https://github.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className={styles.infoItem}
+                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+              >
+                <div className={styles.infoIcon}>
+                  <Github size={24} />
+                </div>
+                <div className={styles.infoContent}>
+                  <h3>GitHub</h3>
+                </div>
+              </a>
+
+
+              <a 
+                href="https://linkedin.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className={styles.infoItem}
+                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+              >
+                <div className={styles.infoIcon}>
+                  <Linkedin size={24} />
+                </div>
+                <div className={styles.infoContent}>
+                  <h3>Linkedin</h3>
+                </div>
+              </a>
+
+              
+              <div 
+                className={styles.infoItem}
+                onClick={toggleResumePreview}
+                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+              >
+                <div className={styles.infoIcon}>
+                  <FcDocument size={24} />
+                </div>
+                <div className={styles.infoContent}>
+                  <h3>Resume</h3>
                 </div>
               </div>
 
-              <div className={styles.infoItem}>
-                <div className={styles.infoIcon}>
-                  <Phone size={24} />
+              {showResumePreview && (
+                <div className={styles.resumePreview}>
+                  <iframe 
+                    src="https://drive.google.com/file/d/YOUR_GOOGLE_DRIVE_FILE_ID/preview" 
+                    width="100%" 
+                    height="500px"
+                    allow="autoplay"
+                  ></iframe>
+                  <div className={styles.resumeActions}>
+                    <a 
+                      href="https://drive.google.com/uc?export=download&id=YOUR_GOOGLE_DRIVE_FILE_ID"
+                      className={styles.downloadBtn}
+                    >
+                      Download
+                    </a>
+                    <button 
+                      onClick={() => setShowResumePreview(false)}
+                      className={styles.closeBtn}
+                    >
+                      Close
+                    </button>
+                  </div>
                 </div>
-                <div className={styles.infoContent}>
-                  <h3>Phone</h3>
-                  <p>+1 (555) 123-4567</p>
-                </div>
-              </div>
-
-              <div className={styles.infoItem}>
-                <div className={styles.infoIcon}>
-                  <MapPin size={24} />
-                </div>
-                <div className={styles.infoContent}>
-                  <h3>Location</h3>
-                  <p>Your City, Country</p>
-                </div>
-              </div>
+              )}
 
               <div className={styles.contactVisual}>
                 <div className={styles.floatingShapes}>
@@ -168,13 +234,19 @@ export default function Contact() {
                 ></textarea>
               </div>
 
-              <button type="submit" className={styles.submitBtn} disabled={isSubmitting}>
+              <button 
+                type="submit" 
+                className={styles.submitBtn} 
+                disabled={isSubmitting}
+                onMouseEnter={(e) => !isSubmitting && (e.currentTarget.style.transform = 'translateY(-3px)')}
+                onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+              >
                 {isSubmitting ? (
-                  <span>Sending...</span>
+                  <span className={styles.pulseAnimation}>Sending...</span>
                 ) : (
                   <>
-                    <Send size={20} />
-                    Send Message
+                    <Send size={20} className={styles.sendIcon} />
+                    <span>Send Message</span>
                   </>
                 )}
               </button>
@@ -197,16 +269,29 @@ export default function Contact() {
 
       <footer className={styles.footer}>
         <div className={styles.footerContent}>
-          <p>&copy; 2024 Your Name. All rights reserved.</p>
+          <p>&copy; 2024 PawaniUthpalawanna. All rights reserved.</p>
           <div className={styles.socialLinks}>
-            <a href="#" className={styles.socialLink}>
-              GitHub
+            <a 
+              href="https://github.com/yourusername" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className={styles.socialLink}
+            >
+              <Github size={20} className={styles.socialIcon} />
             </a>
-            <a href="#" className={styles.socialLink}>
-              LinkedIn
+            <a 
+              href="https://linkedin.com/in/yourprofile" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className={styles.socialLink}
+            >
+              <Linkedin size={20} className={styles.socialIcon} />
             </a>
-            <a href="#" className={styles.socialLink}>
-              Twitter
+            <a 
+              href="mailto:pawani02jp@gmail.com" 
+              className={styles.socialLink}
+            >
+              <Mail size={20} className={styles.socialIcon} />
             </a>
           </div>
         </div>

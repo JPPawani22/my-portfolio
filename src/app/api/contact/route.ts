@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
 
     // You can integrate with email services here
     // Example with Nodemailer:
-    /*
+    
     const nodemailer = require('nodemailer')
     
     const transporter = nodemailer.createTransporter({
@@ -36,10 +36,11 @@ export async function POST(request: NextRequest) {
         pass: process.env.EMAIL_PASS
       }
     })
+      
 
     await transporter.sendMail({
       from: email,
-      to: 'your-email@example.com',
+      to: 'pawani02jp@gmail.com', // replace with your email
       subject: `Portfolio Contact: ${subject}`,
       html: `
         <h3>New Contact Form Submission</h3>
@@ -50,7 +51,7 @@ export async function POST(request: NextRequest) {
         <p>${message}</p>
       `
     })
-    */
+  
 
     return NextResponse.json({ message: "Message sent successfully" }, { status: 200 })
   } catch (error) {

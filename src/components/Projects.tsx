@@ -10,7 +10,7 @@ const projectsData = [
     id: 1,
     title: "E-Commerce Platform",
     description: "A full-stack e-commerce solution built with Next.js, featuring user authentication, payment integration, and admin dashboard.",
-    image: "/placeholder.svg?height=300&width=400",
+    image: "../images/project1.jpg?height=300&width=400",
     technologies: ["Next.js", "TypeScript", "Stripe", "MongoDB"],
     liveUrl: "#",
     githubUrl: "#",
@@ -21,7 +21,7 @@ const projectsData = [
     id: 2,
     title: "Task Management App",
     description: "A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.",
-    image: "/placeholder.svg?height=300&width=400",
+    image: "../images/project2.jpg?height=300&width=400",
     technologies: ["React", "Node.js", "Socket.io", "PostgreSQL"],
     liveUrl: "#",
     githubUrl: "#",
@@ -32,7 +32,7 @@ const projectsData = [
     id: 3,
     title: "Weather Dashboard",
     description: "A responsive weather application that provides detailed weather information with beautiful visualizations and forecasts.",
-    image: "/placeholder.svg?height=300&width=400",
+    image: "../images/project3.jpg?height=300&width=400",
     technologies: ["React", "Chart.js", "Weather API", "CSS3"],
     liveUrl: "#",
     githubUrl: "#",
@@ -43,7 +43,7 @@ const projectsData = [
     id: 4,
     title: "Portfolio Website",
     description: "A modern, responsive portfolio website showcasing projects and skills with smooth animations and interactive elements.",
-    image: "/placeholder.svg?height=300&width=400",
+    image: "../images/project2.jpg?height=300&width=400",
     technologies: ["Next.js", "SCSS", "Framer Motion", "TypeScript"],
     liveUrl: "#",
     githubUrl: "#",
@@ -57,7 +57,9 @@ export default function Projects() {
   const [filter, setFilter] = useState("all")
   const [currentIndex, setCurrentIndex] = useState(0)
   const [autoRotate, setAutoRotate] = useState(true)
+  const [isTransitioning, setIsTransitioning] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
+  const gridRef = useRef<HTMLDivElement>(null)
   const intervalRef = useRef<NodeJS.Timeout>(null)
 
   const filteredProjects = 
@@ -92,8 +94,8 @@ export default function Projects() {
   useEffect(() => {
     if (autoRotate) {
       intervalRef.current = setInterval(() => {
-        setCurrentIndex((prev) => (prev + 1) % filteredProjects.length)
-      }, 5000) // Rotate every 5 seconds
+        handleNext()
+      }, 5000)
     }
 
     return () => {
@@ -101,19 +103,36 @@ export default function Projects() {
     }
   }, [autoRotate, filteredProjects.length])
 
-  const nextProject = () => {
+  const handleTransition = () => {
+    setIsTransitioning(true)
+    if (gridRef.current) {
+      gridRef.current.style.scrollBehavior = 'auto'
+      gridRef.current.scrollLeft = 0
+    }
+    setTimeout(() => {
+      setIsTransitioning(false)
+      if (gridRef.current) {
+        gridRef.current.style.scrollBehavior = 'smooth'
+      }
+    }, 300)
+  }
+
+  const handleNext = () => {
+    handleTransition()
     setCurrentIndex((prev) => (prev + 1) % filteredProjects.length)
     setAutoRotate(false)
     if (intervalRef.current) clearInterval(intervalRef.current)
   }
 
-  const prevProject = () => {
+  const handlePrev = () => {
+    handleTransition()
     setCurrentIndex((prev) => (prev - 1 + filteredProjects.length) % filteredProjects.length)
     setAutoRotate(false)
     if (intervalRef.current) clearInterval(intervalRef.current)
   }
 
   const goToProject = (index: number) => {
+    handleTransition()
     setCurrentIndex(index)
     setAutoRotate(false)
     if (intervalRef.current) clearInterval(intervalRef.current)
@@ -135,6 +154,7 @@ export default function Projects() {
                 setFilter("all")
                 setCurrentIndex(0)
                 setAutoRotate(true)
+                handleTransition()
               }}
             >
               All Projects
@@ -145,6 +165,7 @@ export default function Projects() {
                 setFilter("featured")
                 setCurrentIndex(0)
                 setAutoRotate(true)
+                handleTransition()
               }}
             >
               Featured
@@ -155,6 +176,7 @@ export default function Projects() {
                 setFilter("other")
                 setCurrentIndex(0)
                 setAutoRotate(true)
+                handleTransition()
               }}
             >
               Other
@@ -162,11 +184,18 @@ export default function Projects() {
           </div>
 
           <div className={styles.projectsCarousel}>
-            <button className={styles.carouselArrow} onClick={prevProject} aria-label="Previous project">
+            <button className={styles.carouselArrow} onClick={handlePrev} aria-label="Previous project">
               <ChevronLeft size={32} />
             </button>
 
-            <div className={styles.projectsGrid}>
+            <div ref={gridRef}
+              className={styles.projectsGrid}
+              style={{
+                overflow: isTransitioning ? 'hidden' : 'hidden',
+                scrollbarWidth: 'none',
+                msOverflowStyle: 'none'
+              } as React.CSSProperties}
+            >
               {visibleProjects.map((project, index) => (
                 <div
                   key={`${project.id}-${index}`}
@@ -218,7 +247,7 @@ export default function Projects() {
               ))}
             </div>
 
-            <button className={styles.carouselArrow} onClick={nextProject} aria-label="Next project">
+            <button className={styles.carouselArrow} onClick={handleNext} aria-label="Next project">
               <ChevronRight size={32} />
             </button>
           </div>

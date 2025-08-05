@@ -1,25 +1,44 @@
 "use client"
 
-import type React from "react"
-import { useEffect, useRef, useState } from "react"
-import styles from "../styles/Skills.module.scss"
+// import type React from "react"
 
+import React, { useEffect, useRef, useState } from "react"
+import styles from "../styles/Skills.module.scss"
+import { 
+  FaReact, 
+  FaAngular,
+  FaJs, 
+  FaPython, 
+  FaGitAlt,
+  FaHtml5,
+  FaCss3Alt
+} from "react-icons/fa"
+import { 
+  SiNextdotjs, 
+  SiTypescript, 
+  SiPostgresql, 
+  SiTailwindcss,
+  SiSpringboot
+} from "react-icons/si"
+
+// Updated skills data with real icons
 const skillsData = [
-  { name: "React", level: 90, category: "Frontend" },
-  { name: "Next.js", level: 85, category: "Frontend" },
-  { name: "TypeScript", level: 80, category: "Language" },
-  { name: "JavaScript", level: 95, category: "Language" },
-  { name: "Node.js", level: 75, category: "Backend" },
-  { name: "Python", level: 70, category: "Language" },
-  { name: "MongoDB", level: 80, category: "Database" },
-  { name: "PostgreSQL", level: 75, category: "Database" },
-  { name: "Git", level: 85, category: "Tools" },
-  { name: "Docker", level: 65, category: "Tools" },
+  { name: "React", icon: <FaReact />, category: "Frontend" },
+  { name: "Angular", icon: <FaAngular />, category: "Frontend" },
+  { name: "Next.js", icon: <SiNextdotjs />, category: "Frontend" },
+  { name: "TypeScript", icon: <SiTypescript />, category: "Language" },
+  { name: "JavaScript", icon: <FaJs />, category: "Language" },
+  { name: "Python", icon: <FaPython />, category: "Language" },
+  { name: "PostgreSQL", icon: <SiPostgresql />, category: "Database" },
+  { name: "Git", icon: <FaGitAlt />, category: "Tools" },
+  { name: "HTML", icon: <FaHtml5 />, category: "Frontend" },
+  { name: "Springboot", icon: <SiSpringboot />, category: "Backend" },
+  // { name: "CSS", icon: <FaCss3Alt />, category: "Frontend" },
+  // { name: "Tailwind", icon: <SiTailwindcss />, category: "Frontend" },
 ]
 
 export default function Skills() {
   const [isVisible, setIsVisible] = useState(false)
-  const [animateSkills, setAnimateSkills] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
@@ -27,7 +46,6 @@ export default function Skills() {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true)
-          setTimeout(() => setAnimateSkills(true), 500)
         }
       },
       { threshold: 0.3 },
@@ -51,47 +69,49 @@ export default function Skills() {
             Here are the technologies and tools I work with to bring ideas to life
           </p>
 
-          <div className={styles.skillsGrid}>
-            {categories.map((category, categoryIndex) => (
+          <div className={styles.skillsCollage}>
+            {categories.map((category) => (
               <div key={category} className={styles.skillCategory}>
                 <h3 className={styles.categoryTitle}>{category}</h3>
-                <div className={styles.skillsList}>
+                <div className={styles.skillIconsGrid}>
                   {skillsData
                     .filter((skill) => skill.category === category)
-                    .map((skill, index) => (
-                      <div key={skill.name} className={styles.skillItem}>
-                        <div className={styles.skillHeader}>
-                          <span className={styles.skillName}>{skill.name}</span>
-                          <span className={styles.skillPercentage}>{skill.level}%</span>
+                    .map((skill) => (
+                      <div key={skill.name} className={styles.skillIconCard}>
+                        <div className={styles.skillIcon}>
+                          {React.cloneElement(skill.icon, { 
+                            className: styles.icon,
+                            color: getIconColor(skill.name)
+                          })}
                         </div>
-                        <div className={styles.skillBar}>
-                          <div
-                            className={`${styles.skillProgress} ${animateSkills ? styles.animate : ""}`}
-                            style={
-                              {
-                                "--skill-level": `${skill.level}%`,
-                                "--animation-delay": `${categoryIndex * 0.2 + index * 0.1}s`,
-                              } as React.CSSProperties
-                            }
-                          ></div>
-                        </div>
+                        <span className={styles.skillName}>{skill.name}</span>
                       </div>
                     ))}
                 </div>
               </div>
             ))}
           </div>
-
-          <div className={styles.techIcons}>
-            <div className={styles.techIcon}>⚛️</div>
-            <div className={styles.techIcon}>🚀</div>
-            <div className={styles.techIcon}>💻</div>
-            <div className={styles.techIcon}>🎨</div>
-            <div className={styles.techIcon}>📱</div>
-            <div className={styles.techIcon}>🔧</div>
-          </div>
         </div>
       </div>
     </section>
   )
+}
+
+// Helper function to assign colors to icons
+function getIconColor(skillName: string): string {
+  const colors: Record<string, string> = {
+    'React': '#61DAFB',
+    'Angular': '#FF0000',
+    'Next.js': '#000000',
+    'TypeScript': '#3178C6',
+    'JavaScript': '#F7DF1E',
+    'Python': '#3776AB',
+    'PostgreSQL': '#336791',
+    'Git': '#F05032',
+    'Docker': '#2496ED',
+    'HTML': '#E34F26',
+    'CSS': '#1572B6',
+    'Tailwind': '#06B6D4',
+  }
+  return colors[skillName] || '#8b5cf6' // default purple
 }

@@ -6,19 +6,24 @@ import "./globals.css"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Your Name - Portfolio",
+  title: "PawaniU - Portfolio",
   description: "Full Stack Developer Portfolio showcasing projects and skills",
   keywords: "developer, portfolio, web development, full stack",
 }
 
+// app/layout.tsx
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" className="m-0 p-0">
+      <body className="m-0 p-0 overflow-x-hidden">
+        <main className="m-0 p-0 min-h-screen">
+          {children}
+        </main>
+      </body>
     </html>
   )
 }
