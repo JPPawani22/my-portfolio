@@ -1,7 +1,5 @@
 "use client"
 
-// import type React from "react"
-
 import React, { useEffect, useRef, useState } from "react"
 import styles from "../styles/Skills.module.scss"
 import { 
@@ -21,7 +19,6 @@ import {
   SiSpringboot
 } from "react-icons/si"
 
-// Updated skills data with real icons
 const skillsData = [
   { name: "React", icon: <FaReact />, category: "Frontend" },
   { name: "Angular", icon: <FaAngular />, category: "Frontend" },
@@ -33,15 +30,23 @@ const skillsData = [
   { name: "Git", icon: <FaGitAlt />, category: "Tools" },
   { name: "HTML", icon: <FaHtml5 />, category: "Frontend" },
   { name: "Springboot", icon: <SiSpringboot />, category: "Backend" },
-  // { name: "CSS", icon: <FaCss3Alt />, category: "Frontend" },
-  // { name: "Tailwind", icon: <SiTailwindcss />, category: "Frontend" },
+  { name: "CSS", icon: <FaCss3Alt />, category: "Frontend" },
+  { name: "Tailwind", icon: <SiTailwindcss />, category: "Frontend" },
 ]
 
 export default function Skills() {
   const [isVisible, setIsVisible] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -55,7 +60,10 @@ export default function Skills() {
       observer.observe(sectionRef.current)
     }
 
-    return () => observer.disconnect()
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('resize', checkMobile)
+    }
   }, [])
 
   const categories = [...new Set(skillsData.map((skill) => skill.category))]
@@ -65,31 +73,48 @@ export default function Skills() {
       <div className={styles.skillsContainer}>
         <div className={`${styles.skillsContent} ${isVisible ? styles.visible : ""}`}>
           <h2 className={styles.sectionTitle}>Skills & Technologies</h2>
-          <p className={styles.sectionDescription}>
-            Here are the technologies and tools I work with to bring ideas to life
-          </p>
+          {!isMobile && (
+            <p className={styles.sectionDescription}>
+              Here are the technologies and tools I work with
+            </p>
+          )}
 
           <div className={styles.skillsCollage}>
-            {categories.map((category) => (
-              <div key={category} className={styles.skillCategory}>
-                <h3 className={styles.categoryTitle}>{category}</h3>
-                <div className={styles.skillIconsGrid}>
-                  {skillsData
-                    .filter((skill) => skill.category === category)
-                    .map((skill) => (
-                      <div key={skill.name} className={styles.skillIconCard}>
-                        <div className={styles.skillIcon}>
-                          {React.cloneElement(skill.icon, { 
-                            className: styles.icon,
-                            color: getIconColor(skill.name)
-                          })}
-                        </div>
-                        <span className={styles.skillName}>{skill.name}</span>
-                      </div>
-                    ))}
-                </div>
+            {isMobile ? (
+              <div className={styles.mobileSkillsRow}>
+                {skillsData.map((skill) => (
+                  <div key={skill.name} className={styles.mobileSkillIcon}>
+                    {React.cloneElement(skill.icon, { 
+                      className: styles.icon,
+                      color: getIconColor(skill.name)
+                    })}
+                  </div>
+                ))}
               </div>
-            ))}
+            ) : (
+              <div className={styles.categoriesContainer}>
+                {categories.map((category) => (
+                  <div key={category} className={styles.skillCategory}>
+                    <h3 className={styles.categoryTitle}>{category}</h3>
+                    <div className={styles.skillIconsGrid}>
+                      {skillsData
+                        .filter((skill) => skill.category === category)
+                        .map((skill) => (
+                          <div key={skill.name} className={styles.skillIconCard}>
+                            <div className={styles.skillIcon}>
+                              {React.cloneElement(skill.icon, { 
+                                className: styles.icon,
+                                color: getIconColor(skill.name)
+                              })}
+                            </div>
+                            <span className={styles.skillName}>{skill.name}</span>
+                          </div>
+                        ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -97,21 +122,20 @@ export default function Skills() {
   )
 }
 
-// Helper function to assign colors to icons
 function getIconColor(skillName: string): string {
   const colors: Record<string, string> = {
     'React': '#61DAFB',
-    'Angular': '#FF0000',
+    'Angular': '#DD0031',
     'Next.js': '#000000',
     'TypeScript': '#3178C6',
     'JavaScript': '#F7DF1E',
     'Python': '#3776AB',
     'PostgreSQL': '#336791',
     'Git': '#F05032',
-    'Docker': '#2496ED',
     'HTML': '#E34F26',
     'CSS': '#1572B6',
     'Tailwind': '#06B6D4',
+    'Springboot': '#6DB33F',
   }
-  return colors[skillName] || '#8b5cf6' // default purple
+  return colors[skillName] || '#8b5cf6'
 }

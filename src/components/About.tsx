@@ -6,24 +6,35 @@ import { FaGraduationCap, FaTrophy, FaCode, FaAward } from "react-icons/fa"
 
 export default function About() {
   const [isVisible, setIsVisible] = useState(false)
-  // const [profileImage, setProfileImage] = useState("../images/project2.jpg?height=300&width=300")
+  const [isMobile, setIsMobile] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
+    // Check if mobile on mount
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+    
+    checkIfMobile()
+    window.addEventListener('resize', checkIfMobile)
+    
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true)
         }
       },
-      { threshold: 0.3 },
+      { threshold: 0.1 },
     )
 
     if (sectionRef.current) {
       observer.observe(sectionRef.current)
     }
 
-    return () => observer.disconnect()
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('resize', checkIfMobile)
+    }
   }, [])
 
   const milestones = [
@@ -54,27 +65,7 @@ export default function About() {
     <section id="about" ref={sectionRef} className={styles.about}>
       <div className={styles.aboutContainer}>
         <div className={`${styles.aboutContent} ${isVisible ? styles.visible : ""}`}>
-          {/* Left Side - Milestones */}
-          <div className={styles.milestones}>
-            <div className={styles.timeline}>
-              {milestones.map((item, index) => (
-                <div 
-                  key={index}
-                  className={`${styles.timelineItem} ${isVisible ? styles.animate : ""}`}
-                  style={{ animationDelay: `${item.delay}s` }}
-                >
-                  <div className={styles.timelineIcon}>{item.icon}</div>
-                  <div className={styles.timelineContent}>
-                    <h3>{item.title}</h3>
-                    <span className={styles.timelineYear}>{item.year}</span>
-                    <p>{item.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Right Side - About Content */}
+          {/* About Content - Now on top for mobile */}
           <div className={styles.aboutText}>
             <h2 className={styles.sectionTitle}>About Me</h2>
             <div className={styles.aboutDescription}>
@@ -102,6 +93,27 @@ export default function About() {
                 <span className={styles.statNumber}>5+</span>
                 <span className={styles.statLabel}>Technologies</span>
               </div>
+            </div>
+          </div>
+
+          {/* Milestones - Now below for mobile */}
+          <div className={styles.milestones}>
+            <h2 className={`${styles.sectionTitle} ${styles.mobileOnly}`}>My Journey</h2>
+            <div className={styles.timeline}>
+              {milestones.map((item, index) => (
+                <div 
+                  key={index}
+                  className={`${styles.timelineItem} ${isVisible ? styles.animate : ""}`}
+                  style={{ animationDelay: `${item.delay}s` }}
+                >
+                  <div className={styles.timelineIcon}>{item.icon}</div>
+                  <div className={styles.timelineContent}>
+                    <h3>{item.title}</h3>
+                    <span className={styles.timelineYear}>{item.year}</span>
+                    <p>{item.description}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>

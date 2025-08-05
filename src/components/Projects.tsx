@@ -58,9 +58,21 @@ export default function Projects() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [autoRotate, setAutoRotate] = useState(true)
   const [isTransitioning, setIsTransitioning] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
   const gridRef = useRef<HTMLDivElement>(null)
   const intervalRef = useRef<NodeJS.Timeout>(null)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const filteredProjects = 
     filter === "all"
@@ -69,10 +81,21 @@ export default function Projects() {
         ? projectsData.filter((project) => project.featured)
         : projectsData.filter((project) => !project.featured)
 
-  const visibleProjects = filteredProjects.slice(currentIndex, currentIndex + 3)
-  if (visibleProjects.length < 3 && filteredProjects.length > 3) {
-    visibleProjects.push(...filteredProjects.slice(0, 3 - visibleProjects.length))
+  const getVisibleProjects = () => {
+    if (isMobile) {
+      // For mobile, show only one project at a time
+      return [filteredProjects[currentIndex % filteredProjects.length]]
+    } else {
+      // For desktop, show 3 projects at a time with wrapping
+      const visible = filteredProjects.slice(currentIndex, currentIndex + 3)
+      if (visible.length < 3 && filteredProjects.length > 3) {
+        visible.push(...filteredProjects.slice(0, 3 - visible.length))
+      }
+      return visible
+    }
   }
+
+  const visibleProjects = getVisibleProjects()
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -101,19 +124,12 @@ export default function Projects() {
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current)
     }
-  }, [autoRotate, filteredProjects.length])
+  }, [autoRotate, filteredProjects.length, isMobile])
 
   const handleTransition = () => {
     setIsTransitioning(true)
-    if (gridRef.current) {
-      gridRef.current.style.scrollBehavior = 'auto'
-      gridRef.current.scrollLeft = 0
-    }
     setTimeout(() => {
       setIsTransitioning(false)
-      if (gridRef.current) {
-        gridRef.current.style.scrollBehavior = 'smooth'
-      }
     }, 300)
   }
 
@@ -202,8 +218,8 @@ export default function Projects() {
                   className={`${styles.projectCard} ${project.featured ? styles.featured : ""}`}
                   style={{
                     '--animation-delay': `${index * 0.2}s`,
-                    '--translate-x': `${(index - 1) * 10}%`,
-                    '--scale': index === 1 ? '1.05' : '0.95'
+                    '--translate-x': isMobile ? '0' : `${(index - 1) * 10}%`,
+                    '--scale': isMobile ? '1' : index === 1 ? '1.05' : '0.95'
                   } as React.CSSProperties}
                 >
                   <div className={styles.projectPeriod}>{project.period}</div>
