@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useEffect, useRef, useState } from "react"
-import { Mail, Github, Linkedin, Send } from "lucide-react"
+import { Mail, Github, Linkedin, Send, Phone } from "lucide-react"
 import styles from "../styles/Contact.module.scss"
 import { FcDocument } from "react-icons/fc"
 
@@ -136,20 +136,20 @@ export default function Contact() {
     </div>
   ) : (
     <>
-      <a 
-        href="mailto:pawani02jp@gmail.com" 
+        <a 
+        href="tel:+94768885803" 
         className={styles.infoItem}
       >
         <div className={styles.infoIcon}>
-          <Mail size={24} />
+          <Phone size={24} /> 
         </div>
         <div className={styles.infoContent}>
-          <h3>Email Me</h3>
+          <h3>Call Me</h3>
         </div>
       </a>
 
       <a 
-        href="https://github.com" 
+        href="https://github.com/JPPawani22" 
         target="_blank" 
         rel="noopener noreferrer"
         className={styles.infoItem}
@@ -163,7 +163,7 @@ export default function Contact() {
       </a>
 
       <a 
-        href="https://linkedin.com" 
+        href="https://www.linkedin.com/in/pawani-uthpalawanna" 
         target="_blank" 
         rel="noopener noreferrer"
         className={styles.infoItem}
@@ -194,8 +194,8 @@ export default function Contact() {
                 <div className={styles.resumePreview}>
                   <iframe 
                     src="https://drive.google.com/file/d/YOUR_GOOGLE_DRIVE_FILE_ID/preview" 
-                    width="100%" 
-                    height="500px"
+                    min-width="100%" 
+                    height="100%"
                     allow="autoplay"
                   ></iframe>
                   <div className={styles.resumeActions}>
@@ -311,7 +311,7 @@ export default function Contact() {
           <p>&copy; 2024 PawaniUthpalawanna. All rights reserved.</p>
           <div className={styles.socialLinks}>
             <a 
-              href="https://github.com/yourusername" 
+              href="https://github.com/JPPawani22" 
               target="_blank" 
               rel="noopener noreferrer"
               className={styles.socialLink}
@@ -320,7 +320,7 @@ export default function Contact() {
               <Github size={20} />
             </a>
             <a 
-              href="https://linkedin.com/in/yourprofile" 
+              href="https://www.linkedin.com/in/pawani-uthpalawanna" 
               target="_blank" 
               rel="noopener noreferrer"
               className={styles.socialLink}

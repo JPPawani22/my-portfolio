@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from "react"
 import styles from "../styles/About.module.scss"
-import { FaGraduationCap, FaTrophy, FaCode, FaAward } from "react-icons/fa"
+import { FaGraduationCap, FaTrophy, FaCode, FaAward, FaSchool, FaBook, FaChild } from "react-icons/fa"
+import { FaSchoolCircleCheck, FaSchoolFlag } from "react-icons/fa6"
 
 export default function About() {
   const [isVisible, setIsVisible] = useState(false)
@@ -39,24 +40,25 @@ export default function About() {
 
   const milestones = [
     {
-      icon: <FaGraduationCap />,
-      title: "BSc in Computer Science",
-      year: "2021 - Present",
-      description: "Currently pursuing my undergraduate degree with focus on software engineering",
+      icon: <FaSchool />,
+      title: "Mahinda Rajapaksa College Matara",
+      year: "2013 - 2022",
+      description: "O/Ls : 9As and A/Ls : 3As (Com. Maths | Physics | Chemistry) in Physical Science Stream",
       delay: 0.1
     },
     {
-      icon: <FaCode />,
-      title: "Full Stack Developer",
-      year: "2022 - Present",
-      description: "Building web applications using modern technologies",
+      // icon: <FaCode />,
+      icon: <FaGraduationCap />,
+      title: "BSc(Hons) in Information Technology",
+      year: "2023 - Present",
+      description: "Currently pursuing my undergraduate degree with focus on software engineering",
       delay: 0.3
     },
     {
       icon: <FaTrophy />,
       title: "Hackathon Winner",
-      year: "2023",
-      description: "Won first prize in university coding competition",
+      year: "2025",
+      description: "2nd runners-up in Civic Tech Challenge competition",
       delay: 0.5
     }
   ]
@@ -70,8 +72,8 @@ export default function About() {
             <h2 className={styles.sectionTitle}>About Me</h2>
             <div className={styles.aboutDescription}>
               <p>
-                I'm a passionate Full Stack Developer with a strong foundation in modern web technologies. Currently
-                pursuing my undergraduate degree while building real-world applications that solve meaningful problems.
+                I'm an aspiring Full Stack Developer with the foundation in modern web technologies. Currently
+                pursuing my Bsc.(Hons) in Information Technology degree while building real-world applications that solve meaningful problems.
               </p>
               <p>
                 My journey in programming started with curiosity and has evolved into a deep passion for creating
@@ -79,8 +81,7 @@ export default function About() {
                 with industry trends.
               </p>
               <p>
-                When I'm not coding, you can find me exploring new frameworks, contributing to open-source projects, or
-                sharing knowledge with fellow developers in the community.
+                I'm passionate about exploring new tech blogs or participating in hackathons. I believe in continuous learning and strive to improve my skills every day. 
               </p>
             </div>
 
@@ -90,7 +91,7 @@ export default function About() {
                 <span className={styles.statLabel}>Projects Completed</span>
               </div>
               <div className={styles.statItem}>
-                <span className={styles.statNumber}>5+</span>
+                <span className={styles.statNumber}>7+</span>
                 <span className={styles.statLabel}>Technologies</span>
               </div>
             </div>
