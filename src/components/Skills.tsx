@@ -9,12 +9,16 @@ import {
   FaPython, 
   FaGitAlt,
   FaHtml5,
-  FaCss3Alt
+  FaCss3Alt,
+  FaGithub,
+  FaFigma,
+  FaJava
 } from "react-icons/fa"
 import { 
   SiNextdotjs, 
   SiTypescript, 
   SiPostgresql, 
+  SiMysql,
   SiTailwindcss,
   SiSpringboot
 } from "react-icons/si"
@@ -24,14 +28,17 @@ const skillsData = [
   { name: "Angular", icon: <FaAngular />, category: "Frontend" },
   { name: "Next.js", icon: <SiNextdotjs />, category: "Frontend" },
   { name: "TypeScript", icon: <SiTypescript />, category: "Language" },
-  { name: "JavaScript", icon: <FaJs />, category: "Language" },
+  { name: "Java", icon: <FaJava />, category: "Language" },
   { name: "Python", icon: <FaPython />, category: "Language" },
   { name: "PostgreSQL", icon: <SiPostgresql />, category: "Database" },
+   { name: "MySQL", icon: <SiMysql />, category: "Database" },
   { name: "Git", icon: <FaGitAlt />, category: "Tools" },
+  { name: "GitHub", icon: <FaGithub />, category: "Tools" },
+  { name: "Figma", icon: <FaFigma />, category: "Tools" },
   { name: "HTML", icon: <FaHtml5 />, category: "Frontend" },
   { name: "Springboot", icon: <SiSpringboot />, category: "Backend" },
-  { name: "CSS", icon: <FaCss3Alt />, category: "Frontend" },
-  { name: "Tailwind", icon: <SiTailwindcss />, category: "Frontend" },
+  // { name: "CSS", icon: <FaCss3Alt />, category: "Frontend" },
+  // { name: "Tailwind", icon: <SiTailwindcss />, category: "Frontend" },
 ]
 
 export default function Skills() {
@@ -128,9 +135,12 @@ function getIconColor(skillName: string): string {
     'Angular': '#DD0031',
     'Next.js': '#000000',
     'TypeScript': '#3178C6',
-    'JavaScript': '#F7DF1E',
+    'Java': '#007396',
     'Python': '#3776AB',
+    'Figma': '#F24E1E',
+    'GitHub': '#181717',
     'PostgreSQL': '#336791',
+    'MySQL': '#00758F',
     'Git': '#F05032',
     'HTML': '#E34F26',
     'CSS': '#1572B6',

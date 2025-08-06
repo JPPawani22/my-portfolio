@@ -104,7 +104,7 @@ export default function Hero() {
                   </span>
                 </div>
               </div>
-              <span className={styles.titleRole}>Full Stack Developer</span>
+              <span className={styles.titleRole}>IT Undergraduate</span>
             </h1>
             <p className={styles.heroDescription}>
               Passionate about creating elegant solutions to complex problems. I build modern web applications with

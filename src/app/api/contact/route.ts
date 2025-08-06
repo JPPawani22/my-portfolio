@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server"
+import nodemailer from 'nodemailer'
 
 export async function POST(request: NextRequest) {
   try {
@@ -15,32 +16,22 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Invalid email format" }, { status: 400 })
     }
 
-    // Here you would typically send the email using a service like:
-    // - Nodemailer with SMTP
-    // - SendGrid
-    // - Resend
-    // - AWS SES
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+      return NextResponse.json({ error: "Email service not configured" }, { status: 500 })
+    }
 
-    // For this example, we'll simulate sending an email
-    console.log("Contact form submission:", { name, email, subject, message })
-
-    // You can integrate with email services here
-    // Example with Nodemailer:
-    
-    const nodemailer = require('nodemailer')
-    
-    const transporter = nodemailer.createTransporter({
-      service: 'gmail', // or your email service
+    // Create transporter - corrected method name
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
       }
     })
-      
 
     await transporter.sendMail({
       from: email,
-      to: 'pawani02jp@gmail.com', // replace with your email
+      to: 'pawani02jp@gmail.com',
       subject: `Portfolio Contact: ${subject}`,
       html: `
         <h3>New Contact Form Submission</h3>
@@ -51,7 +42,6 @@ export async function POST(request: NextRequest) {
         <p>${message}</p>
       `
     })
-  
 
     return NextResponse.json({ message: "Message sent successfully" }, { status: 200 })
   } catch (error) {
