@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { ChevronDown } from "lucide-react"
+import { ChevronDown,Download, Mail } from "lucide-react"
 import styles from "../styles/Hero.module.scss"
 import Image from "next/image"
 
@@ -9,14 +9,13 @@ export default function Hero() {
   const [isVisible, setIsVisible] = useState(false)
   const [displayedFirstName, setDisplayedFirstName] = useState("")
   const [displayedLastName, setDisplayedLastName] = useState("")
-  const [isDeleting, setIsDeleting] = useState(false)
   const [typingSpeed, setTypingSpeed] = useState(150)
   const [currentStage, setCurrentStage] = useState(0) // 0 = typing first, 1 = typing last, 2 = deleting last, 3 = deleting first
 
   useEffect(() => {
     const firstName = "Pawani"
     const lastName = "Uthpalawanna"
-    const pauseDuration = 2000 // 1 second pause between stages
+    const pauseDuration = 2000 // 2 second pause between stages
     
     const handleTyping = () => {
       switch(currentStage) {
@@ -110,16 +109,23 @@ export default function Hero() {
               Passionate about creating elegant solutions to complex problems. I build modern web applications with
               cutting-edge technologies.
             </p>
-            <div className={styles.heroButtons}>
-              <button className={styles.btnPrimary} onClick={scrollToProjects}>
-                View My Work
-              </button>
+           <div className={styles.heroButtons}>
               <button
                 className={styles.btnSecondary}
                 onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
               >
+              <Mail className={styles.btnIcon} size={18} />
                 Get In Touch
               </button>
+              <a 
+                href="https://drive.google.com/your-cv-link-here" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className={styles.btnPrimary}
+              >
+                <Download className={styles.btnIcon} size={18} />
+                Download CV
+              </a>
             </div>
           </div>
           <div className={styles.heroVisual}>

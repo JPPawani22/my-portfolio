@@ -1,31 +1,56 @@
 .projects {
-  padding: 6rem 0;
-  background: #1f2937;
   position: relative;
+  padding: 5rem 0;
+  overflow: hidden;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at 80% 20%, rgba(251, 191, 36, 0.05) 0%, transparent 50%);
+.techBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.techShape {
+  position: absolute;
+  background: rgba(139, 92, 246, 0.15);
+  border-radius: 50%;
+  width: var(--size);
+  height: var(--size);
+  left: var(--left);
+  top: var(--top);
+  opacity: var(--opacity);
+  animation: float var(--animation-duration) infinite ease-in-out;
+  animation-delay: var(--delay);
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+  }
+  25% {
+    transform: translateY(-20px) translateX(10px);
+  }
+  50% {
+    transform: translateY(0) translateX(20px);
+  }
+  75% {
+    transform: translateY(20px) translateX(10px);
   }
 }
 
 .projectsContainer {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
   position: relative;
   z-index: 1;
-}
-
-.projectsContent {
-  text-align: center;
   opacity: 0;
-  transform: translateY(50px);
+  transform: translateY(30px);
   transition: all 0.8s ease;
 
   &.visible {
@@ -36,63 +61,44 @@
 
 .sectionTitle {
   font-size: 2.5rem;
-  font-weight: bold;
+  font-weight: 700;
+  text-align: center;
   margin-bottom: 1rem;
-  background: linear-gradient(45deg, #8b5cf6, #fbbf24);
+  background: linear-gradient(90deg, #8b5cf6, #fbbf24);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .sectionDescription {
-  font-size: 1.2rem;
-  color: #9ca3af;
-  margin-bottom: 3rem;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.filterButtons {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 3rem;
-  flex-wrap: wrap;
-}
-
-.filterBtn {
-  padding: 0.8rem 1.5rem;
-  background: rgba(31, 41, 55, 0.5);
-  border: 1px solid rgba(139, 92, 246, 0.2);
-  border-radius: 0.5rem;
+  text-align: center;
   color: #d1d5db;
-  cursor: pointer;
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  line-height: 1.6;
+}
+
+.viewAllLink {
+  color: #8b5cf6;
+  text-decoration: none;
+  font-weight: 600;
   transition: all 0.3s ease;
-  font-weight: 500;
 
   &:hover {
-    border-color: #8b5cf6;
-    color: #8b5cf6;
-    transform: translateY(-2px);
-  }
-
-  &.active {
-    background: linear-gradient(45deg, #8b5cf6, #fbbf24);
-    color: white;
-    border-color: transparent;
+    color: #fbbf24;
+    text-decoration: underline;
   }
 }
 
-.projectsCarousel {
-  position: relative;
+.slideshowContainer {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.5rem;
   margin: 2rem 0;
 }
 
-.carouselArrow {
+.navButton {
   background: rgba(31, 41, 55, 0.7);
   border: none;
   border-radius: 50%;
@@ -104,13 +110,13 @@
   cursor: pointer;
   color: #d1d5db;
   transition: all 0.3s ease;
-  z-index: 2;
   flex-shrink: 0;
+  z-index: 2;
 
   &:hover {
-    color: #8b5cf6;
+    background: rgba(139, 92, 246, 0.5);
+    color: white;
     transform: scale(1.1);
-    background: rgba(139, 92, 246, 0.2);
   }
 
   &:disabled {
@@ -119,68 +125,55 @@
   }
 }
 
-.projectsGrid {
-  display: flex;
-  gap: 2rem;
-  overflow-x: hidden;
-  scroll-behavior: smooth;
-  padding: 1rem 0;
-  width: 100%;
-  justify-content: center;
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-
-  /* Correct way to target WebKit scrollbar in SCSS */
-  &::-webkit-scrollbar {
-    display: none;
-    width: 0;
-    height: 0;
-  }
-}
-.projectCard {
-  background: rgba(31, 41, 55, 0.5);
+.slide {
+  flex: 1;
+  background: rgba(31, 41, 55, 0.6);
+  backdrop-filter: blur(10px);
   border-radius: 1rem;
   overflow: hidden;
-  border: 1px solid rgba(139, 92, 246, 0.1);
-  backdrop-filter: blur(10px);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   transition: all 0.5s ease;
-  opacity: 0;
-  transform: translateY(30px) translateX(var(--translate-x)) scale(var(--scale));
-  animation: fadeInUp 0.8s ease var(--animation-delay) forwards;
-  width: 350px;
-  flex-shrink: 0;
+
+  &.transitioning {
+    opacity: 0.7;
+    transform: scale(0.98);
+  }
+}
+
+.slideContent {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+}
+
+.slideImage {
   position: relative;
+  flex: 1;
+  min-height: 250px;
+  overflow: hidden;
 
-  &:hover {
-    transform: translateY(-10px) translateX(var(--translate-x)) scale(1.05);
-    border-color: rgba(139, 92, 246, 0.3);
-    box-shadow: 0 20px 40px rgba(139, 92, 246, 0.1);
+  @media (min-width: 768px) {
+    flex: 0 0 45%;
   }
+}
 
-  &.featured {
-    border-color: rgba(251, 191, 36, 0.3);
-    
-    &::before {
-      content: 'Featured';
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: linear-gradient(45deg, #8b5cf6, #fbbf24);
-      color: white;
-      padding: 0.3rem 0.8rem;
-      border-radius: 1rem;
-      font-size: 0.8rem;
-      font-weight: 600;
-      z-index: 2;
-    }
-  }
+.projectImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
 }
 
 .projectPeriod {
   position: absolute;
   top: 1rem;
   left: 1rem;
-  background: rgba(17, 24, 39, 0.8);
+  background: rgba(17, 24, 39, 0.9);
   color: #fbbf24;
   padding: 0.3rem 0.8rem;
   border-radius: 1rem;
@@ -189,233 +182,194 @@
   z-index: 2;
 }
 
-.projectImage {
-  position: relative;
-  height: 200px;
-  overflow: hidden;
+.featuredBadge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: linear-gradient(45deg, #8b5cf6, #fbbf24);
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  z-index: 2;
+}
 
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
+.slideInfo {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: 768px) {
+    padding: 2.5rem;
   }
+}
 
-  .projectOverlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+.projectTitle {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 1rem;
+}
 
-    .projectLinks {
-      display: flex;
-      gap: 1rem;
+.projectDescription {
+  color: #d1d5db;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
 
-      .projectLink {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 50px;
-        height: 50px;
-        background: rgba(139, 92, 246, 0.2);
-        border: 2px solid #8b5cf6;
-        border-radius: 50%;
-        color: #8b5cf6;
-        text-decoration: none;
-        transition: all 0.3s ease;
+.technologies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
 
-        &:hover {
-          background: #8b5cf6;
-          color: white;
-          transform: scale(1.1);
-        }
-      }
-    }
-  }
+.techPill {
+  background: rgba(139, 92, 246, 0.2);
+  color: #8b5cf6;
+  padding: 0.4rem 0.8rem;
+  border-radius: 2rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.projectLinks {
+  display: flex;
+  gap: 1rem;
+  margin-top: auto;
+}
+
+.projectLink {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.2rem;
+  background: rgba(139, 92, 246, 0.1);
+  color: #8b5cf6;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 0.5rem;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
 
   &:hover {
-    img {
-      transform: scale(1.1);
-    }
+    background: rgba(139, 92, 246, 0.3);
+    color: white;
+    transform: translateY(-2px);
+  }
 
-    .projectOverlay {
-      opacity: 1;
-    }
+  svg {
+    flex-shrink: 0;
   }
 }
 
-.projectContent {
-  padding: 1.5rem;
-
-  .projectTitle {
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: #f9fafb;
-    margin-bottom: 0.8rem;
-  }
-
-  .projectDescription {
-    color: #d1d5db;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-    font-size: 0.95rem;
-  }
-
-  .projectTechnologies {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-
-    .techTag {
-      background: rgba(139, 92, 246, 0.1);
-      color: #8b5cf6;
-      padding: 0.3rem 0.8rem;
-      border-radius: 1rem;
-      font-size: 0.8rem;
-      font-weight: 500;
-      border: 1px solid rgba(139, 92, 246, 0.2);
-    }
-  }
-}
-
-.carouselIndicators {
+.slideshowIndicators {
   display: flex;
   justify-content: center;
   gap: 0.5rem;
-  margin-top: 1.5rem;
+  margin: 2rem 0;
+}
 
-  .indicator {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: rgba(139, 92, 246, 0.3);
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(139, 92, 246, 0.3);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
 
-    &.active {
-      background: linear-gradient(45deg, #8b5cf6, #fbbf24);
-      transform: scale(1.2);
-    }
+  &.active {
+    background: linear-gradient(45deg, #8b5cf6, #fbbf24);
+    transform: scale(1.2);
+  }
 
-    &:hover {
-      background: rgba(139, 92, 246, 0.6);
-    }
+  &:hover {
+    background: rgba(139, 92, 246, 0.6);
   }
 }
 
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0) translateX(var(--translate-x)) scale(var(--scale));
-  }
-}
+.viewAllButton {
+  display: block;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 0.8rem 1.8rem;
+  background: linear-gradient(45deg, #8b5cf6, #fbbf24);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
 
-@keyframes slideIn {
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
   }
 }
-// ... (keep all the existing styles until the media queries)
 
 @media (max-width: 768px) {
   .projects {
-    padding: 4rem 0;
+    padding: 3rem 0;
   }
 
   .sectionTitle {
     font-size: 2rem;
   }
 
-  .projectsCarousel {
-    flex-direction: row;
-    gap: 0.5rem;
+  .sectionDescription {
+    font-size: 1rem;
+    margin-bottom: 2rem;
   }
 
-  .projectsGrid {
-    flex-direction: row;
-    align-items: stretch;
-    justify-content: flex-start;
-    width: 100%;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-    padding: 0;
+  .slideshowContainer {
+    gap: 1rem;
   }
 
-  .projectCard {
-    width: 80vw;
-    min-width: 65vw;
-    scroll-snap-align: center;
-    margin: 0 0.5rem;
-    transform: none !important;
-    
-    &:hover {
-      transform: none !important;
-    }
-  }
-
-  .carouselArrow {
-    position: static;
-    margin: 0;
+  .navButton {
     width: 40px;
     height: 40px;
   }
 
-  .filterButtons {
-    gap: 0.5rem;
-    margin-bottom: 2rem;
+  .slideInfo {
+    padding: 1.5rem;
+  }
 
-    .filterBtn {
-      padding: 0.6rem 1rem;
-      font-size: 0.85rem;
-    }
+  .projectTitle {
+    font-size: 1.5rem;
+  }
+
+  .projectDescription {
+    font-size: 0.95rem;
   }
 }
 
 @media (max-width: 480px) {
-  .projectsCarousel {
-    gap: 0.25rem;
+  .projectsContainer {
+    padding: 0 1rem;
   }
 
-  .projectCard {
-    width: 60vw;
-    min-width: 50vw;
-    margin: 0 0.25rem;
+  .sectionTitle {
+    font-size: 1.8rem;
   }
 
-  .carouselArrow {
+  .navButton {
     width: 36px;
     height: 36px;
-    
-    svg {
-      width: 20px;
-      height: 20px;
-    }
   }
 
-  .projectContent {
-    padding: 1rem;
+  .projectLinks {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 
-    .projectTitle {
-      font-size: 1.1rem;
-    }
-
-    .projectDescription {
-      font-size: 0.85rem;
-    }
+  .projectLink {
+    justify-content: center;
+    padding: 0.6rem;
   }
 }

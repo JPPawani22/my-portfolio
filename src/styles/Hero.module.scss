@@ -54,7 +54,7 @@
 }
 
 .heroContainer {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 2rem;
   position: relative;
@@ -149,6 +149,9 @@
       cursor: pointer;
       transition: all 0.3s ease;
       border: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .btnPrimary {
@@ -158,6 +161,11 @@
       &:hover {
         transform: translateY(-2px);
         box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+      }
+
+      .btnIcon {
+        color: white;
+        margin-right: 8px;
       }
     }
 
@@ -171,6 +179,15 @@
         color: white;
         transform: translateY(-2px);
         box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+
+        .btnIcon {
+          color: white;
+        }
+      }
+
+      .btnIcon {
+        color: #8b5cf6;
+        margin-right: 8px;
       }
     }
   }
@@ -220,7 +237,7 @@
         height: 150px;
         background: linear-gradient(45deg, #8a5cf6b3, #a855f7);
         top: 20%;
-        left: 10%;
+        left: 15%;
         animation-delay: 0s;
       }
 
