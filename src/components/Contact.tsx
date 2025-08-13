@@ -126,13 +126,6 @@ export default function Contact() {
       >
         <Linkedin size={24} />
       </a>
-      <button 
-        className={styles.socialLink}
-        onClick={toggleResumePreview}
-        aria-label="Resume"
-      >
-        <FcDocument size={24} />
-      </button>
     </div>
   ) : (
     <>
@@ -176,44 +169,8 @@ export default function Contact() {
         </div>
       </a>
 
-      <div 
-        className={styles.infoItem}
-        onClick={toggleResumePreview}
-      >
-        <div className={styles.infoIcon}>
-          <FcDocument size={24} />
-        </div>
-        <div className={styles.infoContent}>
-          <h3>Resume</h3>
-        </div>
-      </div>
     </>
   )}
-
-              {showResumePreview && (
-                <div className={styles.resumePreview}>
-                  <iframe 
-                    src="https://drive.google.com/file/d/YOUR_GOOGLE_DRIVE_FILE_ID/preview" 
-                    min-width="100%" 
-                    height="100%"
-                    allow="autoplay"
-                  ></iframe>
-                  <div className={styles.resumeActions}>
-                    <a 
-                      href="https://drive.google.com/uc?export=download&id=YOUR_GOOGLE_DRIVE_FILE_ID"
-                      className={styles.downloadBtn}
-                    >
-                      Download
-                    </a>
-                    <button 
-                      onClick={() => setShowResumePreview(false)}
-                      className={styles.closeBtn}
-                    >
-                      Close
-                    </button>
-                  </div>
-                </div>
-              )}
 
               <div className={styles.contactVisual}>
                 <div className={styles.floatingShapes}>
