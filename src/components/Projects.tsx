@@ -2,7 +2,7 @@
 
 import React from "react"
 import { useEffect, useRef, useState } from "react"
-import { ExternalLink, Github, ChevronLeft, ChevronRight } from "lucide-react"
+import { ExternalLink, Github, ChevronLeft, ChevronRight, Code, Layout, Cpu, Database } from "lucide-react"
 import Link from "next/link"
 import styles from "../styles/Projects.module.scss"
 
@@ -16,7 +16,8 @@ const projectsData = [
     liveUrl: "#",
     githubUrl: "#",
     featured: true,
-    period: "2023 - Present"
+    period: "2023 - Present",
+    type: "fullstack"
   },
   {
     id: 2,
@@ -27,7 +28,8 @@ const projectsData = [
     liveUrl: "#",
     githubUrl: "#",
     featured: true,
-    period: "2022 - 2023"
+    period: "2022 - 2023",
+    type: "fullstack"
   },
   {
     id: 3,
@@ -38,7 +40,8 @@ const projectsData = [
     liveUrl: "#",
     githubUrl: "#",
     featured: false,
-    period: "2021 - 2022"
+    period: "2021 - 2022",
+    type: "frontend"
   },
   {
     id: 4,
@@ -49,16 +52,25 @@ const projectsData = [
     liveUrl: "#",
     githubUrl: "#",
     featured: false,
-    period: "2020 - 2021"
+    period: "2020 - 2021",
+    type: "frontend"
   },
 ]
 
+const statsData = {
+  totalProjects: 12,
+  uiUxDesigns: 8,
+  frontendProjects: 7,
+  fullstackProjects: 5,
+}
+
 export default function Projects() {
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [isTransitioning, setIsTransitioning] = useState(false)
+  const [isAnimating, setIsAnimating] = useState(true)
   const [isVisible, setIsVisible] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
   const intervalRef = useRef<NodeJS.Timeout>(null)
+  const [activeStat, setActiveStat] = useState<string | null>(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -82,39 +94,25 @@ export default function Projects() {
   }, [])
 
   const startAutoRotate = () => {
-    intervalRef.current = setInterval(() => {
-      handleNext()
-    }, 5000)
+    // Initial delay for the first animation
+    setTimeout(() => {
+      setIsAnimating(true)
+      
+      intervalRef.current = setInterval(() => {
+        // Start fade out animation
+        setIsAnimating(false)
+        
+        // After fade out completes, change project and start new animation
+        setTimeout(() => {
+          setCurrentIndex(prev => (prev + 1) % projectsData.length)
+          setIsAnimating(true)
+        }, 300) // Fade out duration
+      }, 7000) // Total time per slide (3s zoom in + 4s visible)
+    }, 50)
   }
 
   const stopAutoRotate = () => {
     if (intervalRef.current) clearInterval(intervalRef.current)
-  }
-
-  const handleTransition = () => {
-    setIsTransitioning(true)
-    setTimeout(() => setIsTransitioning(false), 500)
-  }
-
-  const handleNext = () => {
-    handleTransition()
-    setCurrentIndex(prev => (prev + 1) % projectsData.length)
-    stopAutoRotate()
-    startAutoRotate()
-  }
-
-  const handlePrev = () => {
-    handleTransition()
-    setCurrentIndex(prev => (prev - 1 + projectsData.length) % projectsData.length)
-    stopAutoRotate()
-    startAutoRotate()
-  }
-
-  const goToSlide = (index: number) => {
-    handleTransition()
-    setCurrentIndex(index)
-    stopAutoRotate()
-    startAutoRotate()
   }
 
   const currentProject = projectsData[currentIndex]
@@ -140,86 +138,115 @@ export default function Projects() {
           A curated selection of my work. Explore more in the <Link href="/all-projects" className={styles.viewAllLink}>full portfolio</Link>.
         </p>
 
-        <div className={styles.slideshowContainer}>
-          <button 
-            className={styles.navButton} 
-            onClick={handlePrev}
-            aria-label="Previous project"
-          >
-            <ChevronLeft size={32} />
-          </button>
-
-          <div className={`${styles.slide} ${isTransitioning ? styles.transitioning : ''}`}>
-            <div className={styles.slideContent}>
-              <div className={styles.slideImage}>
-                <img 
-                  src={currentProject.image} 
-                  alt={currentProject.title} 
-                  className={styles.projectImage}
-                />
-                <div className={styles.projectPeriod}>{currentProject.period}</div>
-                {currentProject.featured && (
-                  <div className={styles.featuredBadge}>Featured</div>
-                )}
-              </div>
-
-              <div className={styles.slideInfo}>
-                <h3 className={styles.projectTitle}>{currentProject.title}</h3>
-                <p className={styles.projectDescription}>{currentProject.description}</p>
-                
-                <div className={styles.technologies}>
-                  {currentProject.technologies.map((tech, index) => (
-                    <span key={index} className={styles.techPill}>
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                <div className={styles.projectLinks}>
-                  <a 
-                    href={currentProject.liveUrl} 
-                    className={styles.projectLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <ExternalLink size={18} /> Live Demo
-                  </a>
-                  <a 
-                    href={currentProject.githubUrl} 
-                    className={styles.projectLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Github size={18} /> View Code
-                  </a>
+        <div className={styles.columnsContainer}>
+          {/* Left Column - Project Showcase (2/3 width) */}
+          <div className={styles.projectShowcase}>
+            <div className={styles.slideshowContainer}>
+              <div 
+                className={`${styles.slide} ${isAnimating ? styles.animating : ''}`}
+                onClick={() => window.open(`/all-projects#project-${currentProject.id}`, '_blank')}
+              >
+                <div className={styles.slideContent}>
+                  <div className={styles.slideImage}>
+                    <img 
+                      src={currentProject.image} 
+                      alt={currentProject.title} 
+                      className={styles.projectImage}
+                    />
+                    <div className={styles.projectPeriod}>{currentProject.period}</div>
+                    {currentProject.featured && (
+                      <div className={styles.featuredBadge}>Featured</div>
+                    )}
+                  </div>
+                  <div className={styles.projectInfo}>
+                    <h3 className={styles.projectTitle}>{currentProject.title}</h3>
+                    <p className={styles.projectDescription}>{currentProject.description}</p>
+                    <div className={styles.technologies}>
+                      {currentProject.technologies.map((tech, index) => (
+                        <span key={index} className={styles.techPill}>{tech}</span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+
+            <div className={styles.slideshowIndicators}>
+              {projectsData.map((_, index) => (
+                <button
+                  key={index}
+                  className={`${styles.indicator} ${index === currentIndex ? styles.active : ''}`}
+                  onClick={() => {
+                    setIsAnimating(false)
+                    setTimeout(() => {
+                      setCurrentIndex(index)
+                      setIsAnimating(true)
+                    }, 300)
+                  }}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
           </div>
 
-          <button 
-            className={styles.navButton} 
-            onClick={handleNext}
-            aria-label="Next project"
-          >
-            <ChevronRight size={32} />
-          </button>
-        </div>
+          {/* Right Column - Statistics (1/2 width) */}
+          <div className={styles.statsColumn}>
+            
+            <div className={styles.statsGrid}>
+              <div 
+                className={`${styles.statCard} ${activeStat === 'total' ? styles.active : ''}`}
+                onMouseEnter={() => setActiveStat('total')}
+                onMouseLeave={() => setActiveStat(null)}
+              >
+                <div className={styles.statIcon}>
+                  <Code size={24} />
+                </div>
+                <div className={styles.statValue}>{statsData.totalProjects}+</div>
+                <div className={styles.statLabel}>Total Projects</div>
+              </div>
 
-        <div className={styles.slideshowIndicators}>
-          {projectsData.map((_, index) => (
-            <button
-              key={index}
-              className={`${styles.indicator} ${index === currentIndex ? styles.active : ''}`}
-              onClick={() => goToSlide(index)}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </div>
+              <div 
+                className={`${styles.statCard} ${activeStat === 'uiux' ? styles.active : ''}`}
+                onMouseEnter={() => setActiveStat('uiux')}
+                onMouseLeave={() => setActiveStat(null)}
+              >
+                <div className={styles.statIcon}>
+                  <Layout size={24} />
+                </div>
+                <div className={styles.statValue}>{statsData.uiUxDesigns}</div>
+                <div className={styles.statLabel}>UI/UX Designs</div>
+              </div>
 
-        <Link href="/all-projects" className={styles.viewAllButton}>
-          View Full Portfolio
-        </Link>
+              <div 
+                className={`${styles.statCard} ${activeStat === 'frontend' ? styles.active : ''}`}
+                onMouseEnter={() => setActiveStat('frontend')}
+                onMouseLeave={() => setActiveStat(null)}
+              >
+                <div className={styles.statIcon}>
+                  <Cpu size={24} />
+                </div>
+                <div className={styles.statValue}>{statsData.frontendProjects}</div>
+                <div className={styles.statLabel}>Frontend</div>
+              </div>
+
+              <div 
+                className={`${styles.statCard} ${activeStat === 'fullstack' ? styles.active : ''}`}
+                onMouseEnter={() => setActiveStat('fullstack')}
+                onMouseLeave={() => setActiveStat(null)}
+              >
+                <div className={styles.statIcon}>
+                  <Database size={24} />
+                </div>
+                <div className={styles.statValue}>{statsData.fullstackProjects}</div>
+                <div className={styles.statLabel}>Fullstack</div>
+              </div>
+            </div>
+
+            <Link href="/all-projects" className={styles.viewAllButton}>
+              View Full Portfolio
+            </Link>
+          </div>
+        </div>
       </div>
     </section>
   )
