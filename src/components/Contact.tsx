@@ -129,16 +129,19 @@ export default function Contact() {
     </div>
   ) : (
     <>
-        <a 
-        href="tel:+94768885803" 
-        className={styles.infoItem}
+      <a 
+          href="mailto:pawani02jp@gmail.com" 
+          className={styles.infoItem}
+          target="_blank" 
+          rel="noopener noreferrer"
       >
-        <div className={styles.infoIcon}>
-          <Phone size={24} /> 
-        </div>
-        <div className={styles.infoContent}>
-          <h3>Call Me</h3>
-        </div>
+          <div className={styles.infoIcon}>
+              <Mail size={24} />
+          </div>
+          <div className={styles.infoContent}>
+              <h3>Email Me</h3> 
+              {/* <p>pawani02jp@gmail.com</p> */}
+          </div>
       </a>
 
       <a 
