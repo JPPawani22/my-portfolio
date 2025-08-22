@@ -1,6 +1,7 @@
+// Skills.module.scss
 .skills {
-  padding: 6rem 2rem;
-  background: #111827;
+  padding: 3rem 2rem;
+  background: #202d49;
   position: relative;
   overflow: hidden;
   min-height: 100vh;
@@ -35,22 +36,22 @@
   background: rgba(139, 92, 246, 0.5);
   border-radius: 50%;
   animation: floatParticle linear infinite;
+}
 
-  @keyframes floatParticle {
-    0% {
-      transform: translateY(0) translateX(0);
-      opacity: 0;
-    }
-    10% {
-      opacity: 1;
-    }
-    90% {
-      opacity: 1;
-    }
-    100% {
-      transform: translateY(-100vh) translateX(20px);
-      opacity: 0;
-    }
+@keyframes floatParticle {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(20px);
+    opacity: 0;
   }
 }
 
@@ -109,54 +110,73 @@
   line-height: 1.6;
 }
 
-.skillsCollage {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-  margin-top: 4rem;
-}
+// Desktop Grid View
+.desktopGrid {
+  display: block;
 
-.categoryRow {
-  text-align: left;
-  animation: fadeIn 0.5s ease forwards;
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateX(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-}
-
-.categoryTitle {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #fbbf24;
-  margin-bottom: 1.5rem;
-  padding-left: 1rem;
-  position: relative;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 60%;
-    width: 4px;
-    background: #8b5cf6;
-    border-radius: 2px;
+  @media (max-width: 768px) {
+    display: none;
   }
 }
 
 .skillsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 2rem;
+  margin: 0 auto;
+  max-width: 1000px;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+// Mobile Horizontal Scroll View
+.mobileScrollView {
+  display: none;
+  position: relative;
+  align-items: center;
+  width: 100%;
+  margin-top: 2rem;
+
+  @media (max-width: 768px) {
+    display: flex;
+  }
+}
+
+.scrollContainer {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  gap: 1rem;
+  padding: 1rem 0.5rem;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+}
+
+.scrollButton {
+  background: rgba(139, 92, 246, 0.2);
+  border: none;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.2rem;
+  z-index: 2;
+  flex-shrink: 0;
+
+  &:hover {
+    background: rgba(139, 92, 246, 0.4);
+  }
 }
 
 .skillCard {
@@ -173,11 +193,36 @@
   overflow: hidden;
   cursor: default;
   height: 100px;
+  min-width: 100px;
+  flex-shrink: 0;
+  opacity: 0;
+  transform: translateY(20px) scale(0.9);
+  
+  &.animated {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    
+    // Add a subtle glow effect when animated
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+    
+    // Staggered animation for each skill
+    @for $i from 1 through 15 {
+      &:nth-child(#{$i}) {
+        transition-delay: $i * 0.1s;
+      }
+    }
+  }
   
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(139, 92, 246, 0.2);
-    border-color: rgba(139, 92, 246, 0.3);
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
+    border-color: rgba(139, 92, 246, 0.5);
+    
+    .skillIcon {
+      transform: scale(1.15);
+      background: rgba(139, 92, 246, 0.3);
+    }
   }
 }
 
@@ -194,11 +239,7 @@
   .icon {
     width: 30px;
     height: 30px;
-  }
-  
-  .skillCard:hover & {
-    transform: scale(1.1);
-    background: rgba(139, 92, 246, 0.2);
+    transition: all 0.3s ease;
   }
 }
 
@@ -210,7 +251,34 @@
   color: #f3f4f6;
   text-align: center;
   width: 100%;
-  animation: fadeIn 0.2s ease;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  
+  .skillCard:hover & {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Additional animations
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(139, 92, 246, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(139, 92, 246, 0);
+  }
+}
+
+// Add a subtle pulse animation to the first few skills after they appear
+.skillCard.animated {
+  &:nth-child(1), &:nth-child(2), &:nth-child(3) {
+    animation: pulse 2s infinite 1s;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -242,18 +310,47 @@
     font-size: 1rem;
   }
   
-  .categoryTitle {
-    font-size: 1.3rem;
+  .skillCard {
+    padding: 1rem;
+    height: 90px;
+    min-width: 90px;
   }
   
-  .skillsGrid {
-    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-    gap: 1rem;
+  .skillIcon {
+    width: 50px;
+    height: 50px;
+    
+    .icon {
+      width: 25px;
+      height: 25px;
+    }
+  }
+  
+  .skillName {
+    font-size: 0.9rem;
+    bottom: 0.5rem;
   }
 }
 
 @media (max-width: 480px) {
-  .skillsGrid {
-    grid-template-columns: repeat(3, 1fr);
+  .scrollButton {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+  
+  .skillCard {
+    height: 85px;
+    min-width: 85px;
+  }
+  
+  .skillIcon {
+    width: 45px;
+    height: 45px;
+    
+    .icon {
+      width: 22px;
+      height: 22px;
+    }
   }
 }

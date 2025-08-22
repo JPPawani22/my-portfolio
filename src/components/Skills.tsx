@@ -7,13 +7,11 @@ import {
   FaAngular,
   FaJs, 
   FaPython, 
-  FaGitAlt,
   FaHtml5,
   FaCss3Alt,
   FaGithub,
   FaFigma,
   FaJava,
-  FaNodeJs
 } from "react-icons/fa"
 import { 
   SiNextdotjs, 
@@ -22,8 +20,6 @@ import {
   SiMysql,
   SiTailwindcss,
   SiSpringboot,
-  SiDocker,
-  SiKubernetes,
 } from "react-icons/si"
 
 const skillsData = [
@@ -34,31 +30,31 @@ const skillsData = [
   { name: "JavaScript", icon: <FaJs />, category: "Language" },
   { name: "Java", icon: <FaJava />, category: "Language" },
   { name: "Python", icon: <FaPython />, category: "Language" },
-  { name: "Node.js", icon: <FaNodeJs />, category: "Backend" },
   { name: "PostgreSQL", icon: <SiPostgresql />, category: "Database" },
   { name: "MySQL", icon: <SiMysql />, category: "Database" },
-  { name: "Git", icon: <FaGitAlt />, category: "Tools" },
   { name: "GitHub", icon: <FaGithub />, category: "Tools" },
   { name: "Figma", icon: <FaFigma />, category: "Tools" },
   { name: "HTML", icon: <FaHtml5 />, category: "Frontend" },
   { name: "CSS", icon: <FaCss3Alt />, category: "Frontend" },
   { name: "Springboot", icon: <SiSpringboot />, category: "Backend" },
   { name: "Tailwind", icon: <SiTailwindcss />, category: "Frontend" },
-  { name: "Docker", icon: <SiDocker />, category: "DevOps" },
-  { name: "Kubernetes", icon: <SiKubernetes />, category: "DevOps" },
 ]
 
 export default function Skills() {
   const [isVisible, setIsVisible] = useState(false)
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null)
+  const [animatedSkills, setAnimatedSkills] = useState<boolean[]>([])
   const sectionRef = useRef<HTMLElement>(null)
   const spotlightRef = useRef<HTMLDivElement>(null)
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true)
+          // Start sequential animation when section becomes visible
+          startSequentialAnimation()
         }
       },
       { threshold: 0.1 }
@@ -86,7 +82,36 @@ export default function Skills() {
     }
   }, [])
 
-  const categories = [...new Set(skillsData.map((skill) => skill.category))]
+  const startSequentialAnimation = () => {
+    // Initialize all skills as not animated
+    setAnimatedSkills(new Array(skillsData.length).fill(false))
+    
+    // Calculate delay between each skill animation (1 seconds total)
+    const delayPerSkill = 1000 / skillsData.length
+    
+    // Animate each skill one by one
+    skillsData.forEach((_, index) => {
+      setTimeout(() => {
+        setAnimatedSkills(prev => {
+          const newState = [...prev]
+          newState[index] = true
+          return newState
+        })
+      }, index * delayPerSkill)
+    })
+  }
+
+  const scrollLeft = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: -200, behavior: 'smooth' })
+    }
+  }
+
+  const scrollRight = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: 200, behavior: 'smooth' })
+    }
+  }
 
   return (
     <section id="skills" ref={sectionRef} className={styles.skills}>
@@ -109,36 +134,62 @@ export default function Skills() {
             The tools and technologies I use to bring ideas to life
           </p>
 
-          <div className={styles.skillsCollage}>
-            {categories.map((category) => (
-              <div key={category} className={styles.categoryRow}>
-                <h3 className={styles.categoryTitle}>{category}</h3>
-                <div className={styles.skillsGrid}>
-                  {skillsData
-                    .filter((skill) => skill.category === category)
-                    .map((skill) => (
-                      <div
-                        key={skill.name}
-                        className={styles.skillCard}
-                        onMouseEnter={() => setHoveredSkill(skill.name)}
-                        onMouseLeave={() => setHoveredSkill(null)}
-                      >
-                        <div className={styles.skillIcon}>
-                          {React.cloneElement(skill.icon, {
-                            className: styles.icon,
-                            color: getIconColor(skill.name)
-                          })}
-                        </div>
-                        {hoveredSkill === skill.name && (
-                          <div className={styles.skillName}>
-                            {skill.name}
-                          </div>
-                        )}
-                      </div>
-                    ))}
+          {/* Desktop Grid View */}
+          <div className={styles.desktopGrid}>
+            <div className={styles.skillsGrid}>
+              {skillsData.map((skill, index) => (
+                <div
+                  key={skill.name}
+                  className={`${styles.skillCard} ${animatedSkills[index] ? styles.animated : ''}`}
+                  onMouseEnter={() => setHoveredSkill(skill.name)}
+                  onMouseLeave={() => setHoveredSkill(null)}
+                  style={{ animationDelay: `${index * (1000 / skillsData.length)}ms` }}
+                >
+                  <div className={styles.skillIcon}>
+                    {React.cloneElement(skill.icon, {
+                      className: styles.icon,
+                      color: getIconColor(skill.name)
+                    })}
+                  </div>
+                  {hoveredSkill === skill.name && (
+                    <div className={styles.skillName}>
+                      {skill.name}
+                    </div>
+                  )}
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+          </div>
+
+          {/* Mobile Horizontal Scroll View */}
+          <div className={styles.mobileScrollView}>
+            <button className={styles.scrollButton} onClick={scrollLeft}>
+              &lt;
+            </button>
+            <div className={styles.scrollContainer} ref={scrollContainerRef}>
+              {skillsData.map((skill, index) => (
+                <div
+                  key={skill.name}
+                  className={`${styles.skillCard} ${animatedSkills[index] ? styles.animated : ''}`}
+                  onMouseEnter={() => setHoveredSkill(skill.name)}
+                  onMouseLeave={() => setHoveredSkill(null)}
+                  style={{ animationDelay: `${index * (1000 / skillsData.length)}ms` }}
+                >
+                  <div className={styles.skillIcon}>
+                    {React.cloneElement(skill.icon, {
+                      className: styles.icon,
+                      color: getIconColor(skill.name)
+                    })}
+                  </div>
+                  <div className={styles.skillName}>
+                    {skill.name}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <button className={styles.scrollButton} onClick={scrollRight}>
+              &gt;
+            </button>
           </div>
         </div>
       </div>
