@@ -1,3 +1,4 @@
+/* Hero.module.scss */
 .hero {
   min-height: 100vh;
   display: flex;
@@ -202,20 +203,152 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  
+  .techOrbit {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    z-index: 1;
+    
+    .orbitRing {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: 50%;
+      animation: rotate 20s linear infinite;
+      
+      &::before {
+        content: '';
+        position: absolute;
+        top: -5px;
+        left: 50%;
+        width: 10px;
+        height: 10px;
+        background: #8b5cf6;
+        border-radius: 50%;
+      }
+    }
+    
+    .orbitRing2 {
+      position: absolute;
+      width: 80%;
+      height: 80%;
+      top: 10%;
+      left: 10%;
+      border: 1px solid rgba(251, 191, 36, 0.3);
+      border-radius: 50%;
+      animation: rotate 15s linear infinite reverse;
+      
+      &::before {
+        content: '';
+        position: absolute;
+        top: -5px;
+        right: 10%;
+        width: 10px;
+        height: 10px;
+        background: #fbbf24;
+        border-radius: 50%;
+      }
+    }
+    
+    .orbitDot1, .orbitDot2, .orbitDot3 {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: #8b5cf6;
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite alternate;
+    }
+    
+    .orbitDot1 {
+      top: 20%;
+      left: 20%;
+      animation-delay: 0s;
+    }
+    
+    .orbitDot2 {
+      top: 70%;
+      right: 20%;
+      animation-delay: 0.5s;
+    }
+    
+    .orbitDot3 {
+      bottom: 20%;
+      left: 45%;
+      animation-delay: 1s;
+    }
+  }
+
+  .profileFrame {
+    position: relative;
+    width: 380px;
+    height: 450px;
+    perspective: 1000px;
+    transition: transform 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 2;
+    
+    .frameBorder {
+      width: 100%;
+      height: 100%;
+      border-radius: 45% 45% 48% 52% / 55% 55% 45% 45%;
+      background: linear-gradient(135deg, #8b5cf6, #fbbf24, #8b5cf6);
+      padding: 8px;
+      position: relative;
+      box-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+      
+      .frameGlow {
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+        border-radius: 50%;
+        background: linear-gradient(45deg, #8b5cf6, #fbbf24, #8b5cf6);
+        filter: blur(20px);
+        opacity: 0.5;
+        z-index: -1;
+        animation: glowPulse 3s ease-in-out infinite alternate;
+      }
+      
+      .frameInner {
+        width: 100%;
+        height: 100%;
+        border-radius: 45% 45% 48% 52% / 55% 55% 45% 45%;
+        overflow: hidden;
+        background: #1f2937;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(45deg, rgba(139, 92, 246, 0.1), rgba(251, 191, 36, 0.1));
+          z-index: 1;
+        }
+      }
+    }
+  }
 
   .profileImageContainer {
     position: relative;
-    width: 100%;
-    height: 100%;
-    max-width: 500px;
-    max-height: 500px;
+    width: 90%;
+    height: 90%;
     z-index: 2;
     
     img {
       width: 100%;
       height: 100%;
-      object-fit: contain;
-      object-position: center;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 40% 40% 43% 47% / 50% 50% 40% 40%;
     }
   }
 
@@ -333,13 +466,47 @@
   }
 }
 
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  to {
+    transform: scale(1.3);
+    opacity: 1;
+  }
+}
+
+@keyframes glowPulse {
+  from {
+    opacity: 0.3;
+  }
+  to {
+    opacity: 0.7;
+  }
+}
+
 @media (max-width: 1024px) {
   .heroVisual {
     min-height: 400px;
     
-    .profileImageContainer {
-      max-width: 400px;
-      max-height: 400px;
+    .techOrbit {
+      width: 400px;
+      height: 400px;
+    }
+    
+    .profileFrame {
+      width: 300px;
+      height: 360px;
     }
   }
 }
@@ -373,9 +540,14 @@
     min-height: 300px;
     order: -1;
     
-    .profileImageContainer {
-      max-width: 300px;
-      max-height: 300px;
+    .techOrbit {
+      width: 320px;
+      height: 320px;
+    }
+    
+    .profileFrame {
+      width: 250px;
+      height: 300px;
     }
   }
 
@@ -402,9 +574,14 @@
   .heroVisual {
     min-height: 250px;
     
-    .profileImageContainer {
-      max-width: 250px;
-      max-height: 250px;
+    .techOrbit {
+      width: 280px;
+      height: 280px;
+    }
+    
+    .profileFrame {
+      width: 200px;
+      height: 240px;
     }
     
     .element {

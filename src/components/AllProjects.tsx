@@ -8,108 +8,82 @@ import styles from "../styles/AllProjects.module.scss";
 const projectsData = [
   {
     id: 1,
-    title: "E-Commerce Platform",
-    description: "A full-stack e-commerce solution built with Next.js, featuring user authentication, payment integration, and admin dashboard.",
-    image: "/images/project1.jpg",
-    technologies: ["Next.js", "TypeScript", "Stripe", "MongoDB"],
-    liveUrl: "#",
-    githubUrl: "#",
-    period: "2023 - Present",
+    title: "HomeFlow - Home & Work Management App",
+    description: "A comprehensive home management solution that helps users organize household tasks, manage tasks, and track spendings with an user friendly interface.",
+    image: "/images/homeflow.PNG",
+    technologies: ["Next.js", "Tailwind SCSS", "TypeScript", "MySQL", "Firebase"],
+    liveUrl: "https://homeflow-app.vercel.app/",
+    githubUrl: "https://github.com/JPPawani22/homeflow",
+    period: "Pending",
     size: "large",
-    category: "web",
+    category: "web app",
     animation: "fadeIn"
   },
   {
     id: 2,
-    title: "Task Management App",
-    description: "A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.",
-    image: "/images/project2.jpg",
-    technologies: ["React", "Node.js", "Socket.io", "PostgreSQL"],
-    liveUrl: "#",
-    githubUrl: "#",
-    period: "2022 - 2023",
-    size: "medium",
+    title: "Servio - Apartment Management System",
+    description: "A Flutter-based service service application that connects users with apartments management system for various home services with real-time tracking and booking features.",
+    image: "/images/servio.jpeg",
+    technologies: ["Flutter", "Firebase", "Ballerina"],
+    liveUrl: null, // No live demo available
+    githubUrl: "https://github.com/JPPawani22/iwb179-balletsyntax",
+    period: "2024",
+    size: "large",
     category: "mobile",
     animation: "slideInLeft"
   },
   {
     id: 3,
-    title: "Weather Dashboard",
-    description: "A responsive weather application that provides detailed weather information with beautiful visualizations and forecasts.",
-    image: "/images/project3.jpg",
-    technologies: ["React", "Chart.js", "Weather API", "CSS3"],
-    liveUrl: "#",
-    githubUrl: "#",
-    period: "2021 - 2022",
-    size: "small",
+    title: "My Portfolio Website",
+    description: "A modern, responsive portfolio website showcasing my projects and skills with smooth animations and interactive elements.",
+    image: "/images/portfolio.PNG",
+    technologies: ["Next.js", "SCSS", "Framer Motion", "TypeScript"],
+    liveUrl: "#", // Current website
+    githubUrl: "https://github.com/JPPawani22/my-portfolio",
+    period: "Present",
+    size: "large",
     category: "web",
     animation: "popUp"
   },
   {
     id: 4,
-    title: "Portfolio Website",
-    description: "A modern, responsive portfolio website showcasing projects and skills with smooth animations and interactive elements.",
-    image: "/images/project2.jpg",
-    technologies: ["Next.js", "SCSS", "Framer Motion", "TypeScript"],
-    liveUrl: "#",
-    githubUrl: "#",
-    period: "2020 - 2021",
-    size: "medium",
+    title: "MPMA ERP Website",
+    description: "An Enterprise Resourse Management(ERP) website for MPMA government higher education institute with admin dashboard and management system. - Second Year Software Project",
+    image: "/images/mpma.jpeg",
+    technologies: ["Springboot", "Angular", "Primeng", "PostgreSQL"],
+    liveUrl: null,
+    githubUrl: null, // Private repository
+    period: "Pending",
+    size: "large",
     category: "web",
     animation: "fadeIn"
   },
-  {
-    id: 5,
-    title: "Social Media Dashboard",
-    description: "Analytics dashboard for social media metrics with customizable widgets and real-time data updates.",
-    image: "/images/project1.jpg",
-    technologies: ["React", "D3.js", "Firebase", "Material UI"],
-    liveUrl: "#",
-    githubUrl: "#",
-    period: "2021 - 2022",
-    size: "small",
-    category: "analytics",
-    animation: "slideInRight"
-  },
-  {
-    id: 6,
-    title: "Recipe Finder App",
-    description: "Mobile-first application for discovering recipes based on ingredients with nutritional information and meal planning.",
-    image: "/images/project3.jpg",
-    technologies: ["React Native", "Redux", "Spoonacular API", "Expo"],
-    liveUrl: "#",
-    githubUrl: "#",
-    period: "2022 - 2023",
-    size: "large",
-    category: "mobile",
-    animation: "popUp"
-  },
-  {
-    id: 7,
-    title: "AI Content Generator",
-    description: "An AI-powered tool that generates marketing content based on user prompts with customizable tone and style.",
-    image: "/images/project1.jpg",
-    technologies: ["Python", "GPT-3", "Flask", "Tailwind CSS"],
-    liveUrl: "#",
-    githubUrl: "#",
-    period: "2023 - Present",
-    size: "medium",
-    category: "ai",
-    animation: "fadeIn"
-  },
-  {
-    id: 8,
-    title: "Fitness Tracker",
-    description: "Comprehensive fitness tracking application with workout logging, progress visualization, and community features.",
-    image: "/images/project2.jpg",
-    technologies: ["React Native", "Firebase", "Recharts", "Google Fit API"],
-    liveUrl: "#",
-    githubUrl: "#",
-    period: "2021 - 2022",
-    size: "medium",
-    category: "mobile",
-    animation: "slideInLeft"
-  },
+  // {
+  //   id: 5,
+  //   title: "Task Management App",
+  //   description: "A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.",
+  //   image: "/images/taskapp.jpg",
+  //   technologies: ["React", "Node.js", "Socket.io", "PostgreSQL"],
+  //   liveUrl: null,
+  //   githubUrl: "https://github.com/yourusername/task-management",
+  //   period: "2022",
+  //   size: "medium",
+  //   category: "web app",
+  //   animation: "slideInRight"
+  // },
+  // {
+  //   id: 6,
+  //   title: "Weather Dashboard",
+  //   description: "A responsive weather application that provides detailed weather information with beautiful visualizations and forecasts.",
+  //   image: "/images/weather.jpg",
+  //   technologies: ["React", "Chart.js", "Weather API", "CSS3"],
+  //   liveUrl: "https://weather-dashboard-example.vercel.app/",
+  //   githubUrl: "https://github.com/yourusername/weather-dashboard",
+  //   period: "2021",
+  //   size: "small",
+  //   category: "web",
+  //   animation: "popUp"
+  // }
 ];
 
 export default function AllProjects() {
@@ -174,7 +148,7 @@ export default function AllProjects() {
         <div className={styles.header}>
           <h1 className={styles.title}>Project Portfolio</h1>
           <p className={styles.subtitle}>
-            Explore my collection of work. Each project has its own unique entrance animation.
+            Explore my collection of work and personal projects
           </p>
         </div>
 
@@ -200,24 +174,28 @@ export default function AllProjects() {
                   />
                   <div className={styles.imageOverlay}>
                     <div className={styles.projectLinks}>
-                      <a 
-                        href={project.liveUrl} 
-                        className={styles.projectLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`View live demo of ${project.title}`}
-                      >
-                        <ExternalLink size={20} />
-                      </a>
-                      <a 
-                        href={project.githubUrl} 
-                        className={styles.projectLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`View source code for ${project.title}`}
-                      >
-                        <Github size={20} />
-                      </a>
+                      {project.liveUrl && (
+                        <a 
+                          href={project.liveUrl} 
+                          className={styles.projectLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`View live demo of ${project.title}`}
+                        >
+                          <ExternalLink size={20} />
+                        </a>
+                      )}
+                      {project.githubUrl && (
+                        <a 
+                          href={project.githubUrl} 
+                          className={styles.projectLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`View source code for ${project.title}`}
+                        >
+                          <Github size={20} />
+                        </a>
+                      )}
                     </div>
                   </div>
                   <div className={styles.projectPeriod}>{project.period}</div>
@@ -245,7 +223,16 @@ export default function AllProjects() {
           ))}
         </div>
 
-        <div className={styles.backLink}>
+        <div className={styles.footerLinks}>
+          <a 
+            href="https://github.com/JPPawani22" 
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.exploreButton}
+          >
+            <Github size={18} /> Explore More on GitHub
+          </a>
+          
           <Link href="/" className={styles.backButton}>
             <ArrowLeft size={18} /> Back to Home
           </Link>

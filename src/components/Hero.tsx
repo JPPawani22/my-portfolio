@@ -9,6 +9,7 @@ export default function Hero() {
   const [isVisible, setIsVisible] = useState(false)
   const [firstNameVisible, setFirstNameVisible] = useState(false)
   const [lastNameVisible, setLastNameVisible] = useState(false)
+  const [rotationAngle, setRotationAngle] = useState(0)
 
   useEffect(() => {
     setIsVisible(true)
@@ -17,9 +18,15 @@ export default function Hero() {
     const firstNameTimer = setTimeout(() => setFirstNameVisible(true), 300)
     const lastNameTimer = setTimeout(() => setLastNameVisible(true), 600)
     
+    // Start the rotation animation
+    const rotationInterval = setInterval(() => {
+      setRotationAngle(prev => (prev + 360) % 360)
+    }, 5000) // Rotate every 5 seconds
+    
     return () => {
       clearTimeout(firstNameTimer)
       clearTimeout(lastNameTimer)
+      clearInterval(rotationInterval)
     }
   }, [])
 
@@ -80,15 +87,32 @@ export default function Hero() {
             </div>
           </div>
           <div className={styles.heroVisual}>
-            <div className={styles.profileImageContainer}>
-              <Image
-                src="/images/profile.png"
-                alt="Pawani Uthpalawanna"
-                width={500}
-                height={500}
-                className={styles.profileImage}
-                priority
-              />
+            <div className={styles.techOrbit}>
+              <div className={styles.orbitRing}></div>
+              <div className={styles.orbitRing2}></div>
+              <div className={styles.orbitDot1}></div>
+              <div className={styles.orbitDot2}></div>
+              <div className={styles.orbitDot3}></div>
+            </div>
+            <div 
+              className={styles.profileFrame}
+              style={{ transform: `rotateY(${rotationAngle}deg)` }}
+            >
+              <div className={styles.frameBorder}>
+                <div className={styles.frameGlow}></div>
+                <div className={styles.frameInner}>
+                  <div className={styles.profileImageContainer}>
+                    <Image
+                      src="/images/profile.png"
+                      alt="Pawani Uthpalawanna"
+                      width={500}
+                      height={500}
+                      className={styles.profileImage}
+                      priority
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
             <div className={styles.floatingElements}>
               <div className={`${styles.element} ${styles.element1}`}></div>

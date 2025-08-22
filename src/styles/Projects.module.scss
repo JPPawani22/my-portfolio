@@ -109,7 +109,7 @@
 .slideshowContainer {
   margin: 1rem 0;
   margin-left: 2rem;
-  height: 550px;
+  height: 600px;
 }
 
 .slide {
@@ -213,19 +213,6 @@
   left: 1rem;
   background: rgba(17, 24, 39, 0.9);
   color: #fbbf24;
-  padding: 0.3rem 0.8rem;
-  border-radius: 1rem;
-  font-size: 0.8rem;
-  font-weight: 600;
-  z-index: 2;
-}
-
-.featuredBadge {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: linear-gradient(45deg, #8b5cf6, #fbbf24);
-  color: white;
   padding: 0.3rem 0.8rem;
   border-radius: 1rem;
   font-size: 0.8rem;

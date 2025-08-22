@@ -2,66 +2,62 @@
 
 import React from "react"
 import { useEffect, useRef, useState } from "react"
-import { ExternalLink, Github, ChevronLeft, ChevronRight, Code, Layout, Cpu, Database } from "lucide-react"
+import { ExternalLink, Github, ChevronLeft, ChevronRight, Code, Layout, Cpu, Database, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import styles from "../styles/Projects.module.scss"
 
 const projectsData = [
   {
     id: 1,
-    title: "E-Commerce Platform",
-    description: "A full-stack e-commerce solution built with Next.js, featuring user authentication, payment integration, and admin dashboard.",
-    image: "/images/project1.jpg",
-    technologies: ["Next.js", "TypeScript", "Stripe", "MongoDB"],
-    liveUrl: "#",
-    githubUrl: "#",
-    featured: true,
-    period: "2023 - Present",
+    title: "HomeFlow - Home & Work Management App",
+    description: "A comprehensive home management solution that helps users organize household tasks, manage tasks, and track spendings with an user friendly interface.",
+    image: "/images/homeflow.PNG",
+    technologies: ["Next.js", "Tailwind SCSS", "TypeScript", "MySQL", "Firebase"],
+    liveUrl: "https://homeflow-app.vercel.app/",
+    githubUrl: "https://github.com/JPPawani22/homeflow",
+    period: "Pending",
     type: "fullstack"
   },
   {
     id: 2,
-    title: "Task Management App",
-    description: "A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.",
-    image: "/images/project2.jpg",
-    technologies: ["React", "Node.js", "Socket.io", "PostgreSQL"],
-    liveUrl: "#",
-    githubUrl: "#",
-    featured: true,
-    period: "2022 - 2023",
-    type: "fullstack"
+    title: "Servio - Apartment Management System",
+    description: "A Flutter-based service service application that connects users with apartments management system for various home services with real-time tracking and booking features.",
+    image: "/images/servio.jpeg",
+    technologies: ["Flutter", "Firebase", "Ballerina"],
+    liveUrl: null,
+    githubUrl: "https://github.com/JPPawani22/iwb179-balletsyntax",
+    period: "2024",
+    type: "mobile"
   },
   {
     id: 3,
-    title: "Weather Dashboard",
-    description: "A responsive weather application that provides detailed weather information with beautiful visualizations and forecasts.",
-    image: "/images/project3.jpg",
-    technologies: ["React", "Chart.js", "Weather API", "CSS3"],
+    title: "My Portfolio Website",
+    description: "A modern, responsive portfolio website showcasing my projects and skills with smooth animations and interactive elements.",
+    image: "/images/portfolio.PNG",
+    technologies: ["Next.js", "SCSS", "Framer Motion", "TypeScript"],
     liveUrl: "#",
-    githubUrl: "#",
-    featured: false,
-    period: "2021 - 2022",
+    githubUrl: "https://github.com/JPPawani22/my-portfolio",
+    period: "Present",
     type: "frontend"
   },
   {
     id: 4,
-    title: "Portfolio Website",
-    description: "A modern, responsive portfolio website showcasing projects and skills with smooth animations and interactive elements.",
-    image: "/images/project2.jpg",
-    technologies: ["Next.js", "SCSS", "Framer Motion", "TypeScript"],
-    liveUrl: "#",
-    githubUrl: "#",
-    featured: false,
-    period: "2020 - 2021",
-    type: "frontend"
-  },
+    title: "MPMA ERP Website",
+    description: "An Enterprise Resourse Management(ERP) website for MPMA government higher education institute with admin dashboard and management system. - Second Year Software Project",
+    image: "/images/mpma.jpeg",
+    technologies: ["Springboot", "Angular", "Primeng", "PostgreSQL"],
+    liveUrl: null,
+    githubUrl: null,
+    period: "Pending",
+    type: "fullstack"
+  }
 ]
 
 const statsData = {
-  totalProjects: 12,
-  uiUxDesigns: 8,
-  frontendProjects: 7,
-  fullstackProjects: 5,
+  totalProjects: 4,
+  frontendProjects: 1,
+  fullstackProjects: 2,
+  mobileProjects: 1
 }
 
 export default function Projects() {
@@ -79,6 +75,7 @@ export default function Projects() {
           setIsVisible(true)
           startAutoRotate()
         } else {
+          setIsVisible(false)
           stopAutoRotate()
         }
       },
@@ -94,25 +91,25 @@ export default function Projects() {
   }, [])
 
   const startAutoRotate = () => {
-    // Initial delay for the first animation
-    setTimeout(() => {
-      setIsAnimating(true)
+    setIsAnimating(true)
+    
+    intervalRef.current = setInterval(() => {
+      // Start fade out animation
+      setIsAnimating(false)
       
-      intervalRef.current = setInterval(() => {
-        // Start fade out animation
-        setIsAnimating(false)
-        
-        // After fade out completes, change project and start new animation
-        setTimeout(() => {
-          setCurrentIndex(prev => (prev + 1) % projectsData.length)
-          setIsAnimating(true)
-        }, 300) // Fade out duration
-      }, 7000) // Total time per slide (3s zoom in + 4s visible)
-    }, 50)
+      // After fade out completes, change project and start new animation
+      setTimeout(() => {
+        setCurrentIndex(prev => (prev + 1) % projectsData.length)
+        setIsAnimating(true)
+      }, 300) // Fade out duration
+    }, 7000) // Total time per slide
   }
 
   const stopAutoRotate = () => {
-    if (intervalRef.current) clearInterval(intervalRef.current)
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current)
+      intervalRef.current = null
+    }
   }
 
   const currentProject = projectsData[currentIndex]
@@ -154,9 +151,6 @@ export default function Projects() {
                       className={styles.projectImage}
                     />
                     <div className={styles.projectPeriod}>{currentProject.period}</div>
-                    {currentProject.featured && (
-                      <div className={styles.featuredBadge}>Featured</div>
-                    )}
                   </div>
                   <div className={styles.projectInfo}>
                     <h3 className={styles.projectTitle}>{currentProject.title}</h3>
@@ -206,18 +200,6 @@ export default function Projects() {
               </div>
 
               <div 
-                className={`${styles.statCard} ${activeStat === 'uiux' ? styles.active : ''}`}
-                onMouseEnter={() => setActiveStat('uiux')}
-                onMouseLeave={() => setActiveStat(null)}
-              >
-                <div className={styles.statIcon}>
-                  <Layout size={24} />
-                </div>
-                <div className={styles.statValue}>{statsData.uiUxDesigns}</div>
-                <div className={styles.statLabel}>UI/UX Designs</div>
-              </div>
-
-              <div 
                 className={`${styles.statCard} ${activeStat === 'frontend' ? styles.active : ''}`}
                 onMouseEnter={() => setActiveStat('frontend')}
                 onMouseLeave={() => setActiveStat(null)}
@@ -239,6 +221,18 @@ export default function Projects() {
                 </div>
                 <div className={styles.statValue}>{statsData.fullstackProjects}</div>
                 <div className={styles.statLabel}>Fullstack</div>
+              </div>
+
+              <div 
+                className={`${styles.statCard} ${activeStat === 'mobile' ? styles.active : ''}`}
+                onMouseEnter={() => setActiveStat('mobile')}
+                onMouseLeave={() => setActiveStat(null)}
+              >
+                <div className={styles.statIcon}>
+                  <Layout size={24} />
+                </div>
+                <div className={styles.statValue}>{statsData.mobileProjects}</div>
+                <div className={styles.statLabel}>Mobile</div>
               </div>
             </div>
 
