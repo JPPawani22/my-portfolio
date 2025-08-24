@@ -93,6 +93,12 @@ export default function Projects() {
   const startAutoRotate = () => {
     setIsAnimating(true)
     
+    // Clear any existing interval first
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current)
+    }
+    
+    // Start the slideshow immediately
     intervalRef.current = setInterval(() => {
       // Start fade out animation
       setIsAnimating(false)
@@ -102,7 +108,7 @@ export default function Projects() {
         setCurrentIndex(prev => (prev + 1) % projectsData.length)
         setIsAnimating(true)
       }, 300) // Fade out duration
-    }, 7000) // Total time per slide
+    }, 4000) // Reduced from 7000ms to 4000ms for faster transitions
   }
 
   const stopAutoRotate = () => {
@@ -112,6 +118,15 @@ export default function Projects() {
     }
   }
 
+  // Start the slideshow immediately when component mounts
+  useEffect(() => {
+    startAutoRotate()
+    
+    return () => {
+      stopAutoRotate()
+    }
+  }, [])
+
   const currentProject = projectsData[currentIndex]
 
   return (
@@ -120,11 +135,11 @@ export default function Projects() {
         {[...Array(20)].map((_, i) => (
           <div key={i} className={styles.techShape} style={{
             '--delay': `${i * 0.1}s`,
-            '--size': `${Math.random() * 10 + 5}px`,
+            '--size': `${Math.random() * 7 + 3.5}px`, // Reduced size by ~30%
             '--left': `${Math.random() * 100}%`,
             '--top': `${Math.random() * 100}%`,
             '--opacity': `${Math.random() * 0.5 + 0.1}`,
-            '--animation-duration': `${Math.random() * 20 + 10}s`
+            '--animation-duration': `${Math.random() * 14 + 7}s` // Reduced duration by ~30%
           } as React.CSSProperties} />
         ))}
       </div>
@@ -193,7 +208,7 @@ export default function Projects() {
                 onMouseLeave={() => setActiveStat(null)}
               >
                 <div className={styles.statIcon}>
-                  <Code size={24} />
+                  <Code size={20} /> {/* Reduced icon size by ~17% */}
                 </div>
                 <div className={styles.statValue}>{statsData.totalProjects}+</div>
                 <div className={styles.statLabel}>Total Projects</div>
@@ -205,7 +220,7 @@ export default function Projects() {
                 onMouseLeave={() => setActiveStat(null)}
               >
                 <div className={styles.statIcon}>
-                  <Cpu size={24} />
+                  <Cpu size={20} /> {/* Reduced icon size by ~17% */}
                 </div>
                 <div className={styles.statValue}>{statsData.frontendProjects}</div>
                 <div className={styles.statLabel}>Frontend</div>
@@ -217,7 +232,7 @@ export default function Projects() {
                 onMouseLeave={() => setActiveStat(null)}
               >
                 <div className={styles.statIcon}>
-                  <Database size={24} />
+                  <Database size={20} /> {/* Reduced icon size by ~17% */}
                 </div>
                 <div className={styles.statValue}>{statsData.fullstackProjects}</div>
                 <div className={styles.statLabel}>Fullstack</div>
@@ -229,7 +244,7 @@ export default function Projects() {
                 onMouseLeave={() => setActiveStat(null)}
               >
                 <div className={styles.statIcon}>
-                  <Layout size={24} />
+                  <Layout size={20} /> {/* Reduced icon size by ~17% */}
                 </div>
                 <div className={styles.statValue}>{statsData.mobileProjects}</div>
                 <div className={styles.statLabel}>Mobile</div>
