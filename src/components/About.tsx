@@ -2,8 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import styles from "../styles/About.module.scss"
-import { FaGraduationCap, FaTrophy, FaCode, FaAward, FaSchool, FaBook, FaChild } from "react-icons/fa"
-import { FaSchoolCircleCheck, FaSchoolFlag } from "react-icons/fa6"
+import { FaGraduationCap, FaTrophy, FaSchool } from "react-icons/fa"
 
 export default function About() {
   const [isVisible, setIsVisible] = useState(false)
@@ -11,7 +10,6 @@ export default function About() {
   const sectionRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
-    // Check if mobile on mount
     const checkIfMobile = () => {
       setIsMobile(window.innerWidth <= 768)
     }
@@ -40,18 +38,10 @@ export default function About() {
 
   const milestones = [
     {
-      icon: <FaSchool />,
-      title: "Mahinda Rajapaksa College Matara",
-      year: "2013 - 2022",
-      description: "O/Ls : 9As and A/Ls : 3As (Com. Maths | Physics | Chemistry) in Physical Science Stream",
-      delay: 0.1
-    },
-    {
-      // icon: <FaCode />,
       icon: <FaGraduationCap />,
       title: "BSc(Hons) in Information Technology",
       year: "2023 - Present",
-      description: "Currently pursuing my undergraduate degree with focus on software engineering",
+      description: "Undergraduate degree focusing on software engineering",
       delay: 0.3
     },
     {
@@ -60,6 +50,13 @@ export default function About() {
       year: "2025",
       description: "2nd runners-up in Civic Tech Challenge competition",
       delay: 0.5
+    },
+      {
+      icon: <FaSchool />,
+      title: "Mahinda Rajapaksa College Matara",
+      year: "2013 - 2022",
+      description: "O/Ls: 9As, A/Ls: 3As (Com. Maths | Physics | Chemistry)",
+      delay: 0.1
     }
   ]
 
@@ -67,28 +64,27 @@ export default function About() {
     <section id="about" ref={sectionRef} className={styles.about}>
       <div className={styles.aboutContainer}>
         <div className={`${styles.aboutContent} ${isVisible ? styles.visible : ""}`}>
-          {/* About Content - Now on top for mobile */}
           <div className={styles.aboutText}>
             <h2 className={styles.sectionTitle}>About Me</h2>
             <div className={styles.aboutDescription}>
               <p>
-                I'm an aspiring Full Stack Developer with the foundation in modern web technologies. Currently
-                pursuing my Bsc.(Hons) in Information Technology degree while building real-world applications that solve meaningful problems.
+                I'm an aspiring Full Stack Developer with foundation in modern web technologies. 
+                Currently pursuing my Bsc.(Hons) in IT while building real-world applications.
               </p>
               <p>
-                My journey in programming started with curiosity and has evolved into a deep passion for creating
-                elegant, efficient, and user-friendly solutions. I love learning new technologies and staying up-to-date
-                with industry trends.
+                My programming journey started with curiosity and evolved into a passion for creating
+                elegant, efficient solutions. I enjoy learning new technologies and staying current.
               </p>
               <p>
-                I'm passionate about exploring new tech blogs or participating in hackathons. I believe in continuous learning and strive to improve my skills every day. 
+                I'm passionate about exploring tech blogs and hackathons. I believe in continuous learning 
+                and improving my skills daily.
               </p>
             </div>
 
             <div className={styles.stats}>
               <div className={styles.statItem}>
                 <span className={styles.statNumber}>4+</span>
-                <span className={styles.statLabel}>Projects Completed</span>
+                <span className={styles.statLabel}>Projects</span>
               </div>
               <div className={styles.statItem}>
                 <span className={styles.statNumber}>7+</span>
@@ -97,7 +93,6 @@ export default function About() {
             </div>
           </div>
 
-          {/* Milestones - Now below for mobile */}
           <div className={styles.milestones}>
             <h2 className={`${styles.sectionTitle} ${styles.mobileOnly}`}>My Journey</h2>
             <div className={styles.timeline}>

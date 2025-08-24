@@ -1,4 +1,3 @@
-/* Hero.module.scss */
 .hero {
   min-height: 100vh;
   display: flex;
@@ -7,6 +6,7 @@
   position: relative;
   background: linear-gradient(135deg, #111827 0%, #1f2937 50%, #111827 100%);
   overflow: hidden;
+  padding: 1rem;
 
   &::before {
     content: '';
@@ -22,11 +22,11 @@
 
 .waveHand {
   display: inline-block;
-  margin-left: 0.5rem;
+  margin-left: 0.45rem;
   color: #fbbf24;
   animation: wave 2s infinite;
   transform-origin: 70% 70%;
-  font-size: 1.5em;
+  font-size: 1.35em;
   vertical-align: middle;
 }
 
@@ -35,16 +35,16 @@
     transform: rotate(0deg);
   }
   10% {
-    transform: rotate(-10deg);
+    transform: rotate(-9deg);
   }
   20% {
-    transform: rotate(12deg);
+    transform: rotate(10.8deg);
   }
   30% {
-    transform: rotate(-10deg);
+    transform: rotate(-9deg);
   }
   40% {
-    transform: rotate(9deg);
+    transform: rotate(8.1deg);
   }
   50% {
     transform: rotate(0deg);
@@ -57,7 +57,7 @@
 .heroContainer {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 1.8rem;
   position: relative;
   z-index: 1;
   width: 100%;
@@ -66,11 +66,11 @@
 .heroContent {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  gap: 3.6rem;
   align-items: center;
   opacity: 0;
-  transform: translateY(30px);
-  transition: all 1s ease;
+  transform: translateY(27px);
+  transition: all 0.9s ease;
 
   &.visible {
     opacity: 1;
@@ -80,29 +80,29 @@
 
 .heroText {
   .heroTitle {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.35rem;
 
     .titleLine {
       display: block;
-      font-size: 1.5rem;
+      font-size: 1.35rem;
       color: #d1d5db;
-      margin-bottom: 0.5rem;
-      animation: fadeInUp 0.8s ease 0.2s both;
+      margin-bottom: 0.45rem;
+      animation: fadeInUp 0.72s ease 0.18s both;
     }
 
     .nameContainer {
       display: flex;
       flex-direction: column;
-      min-height: 8rem;
+      min-height: 7.2rem;
     }
 
     .nameLine {
       display: block;
       line-height: 1.2;
-      height: 4rem;
+      height: 3.6rem;
       opacity: 0;
-      transform: translateX(-30px);
-      transition: all 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
+      transform: translateX(-27px);
+      transition: all 0.72s cubic-bezier(0.215, 0.61, 0.355, 1);
       
       &.nameVisible {
         opacity: 1;
@@ -111,7 +111,7 @@
     }
 
     .titleName {
-      font-size: 3.5rem;
+      font-size: 3.15rem;
       font-weight: bold;
       background: linear-gradient(90deg, #e546e5, #ecdb48, #ad46e5);
       background-size: 200% auto;
@@ -124,32 +124,32 @@
 
     .titleRole {
       display: block;
-      font-size: 2rem;
+      font-size: 1.8rem;
       color: #9ca3af;
-      animation: fadeInUp 0.8s ease 0.6s both;
+      animation: fadeInUp 0.72s ease 0.54s both;
     }
   }
 
   .heroDescription {
-    font-size: 1.2rem;
+    font-size: 1.08rem;
     line-height: 1.6;
     color: #d1d5db;
-    margin-bottom: 2rem;
-    animation: fadeInUp 0.8s ease 0.8s both;
+    margin-bottom: 1.8rem;
+    animation: fadeInUp 0.72s ease 0.72s both;
   }
 
   .heroButtons {
     display: flex;
-    gap: 1rem;
-    animation: fadeInUp 0.8s ease 1s both;
+    gap: 0.9rem;
+    animation: fadeInUp 0.72s ease 0.9s both;
 
     .btnPrimary, .btnSecondary {
-      padding: 1rem 2rem;
-      border-radius: 0.5rem;
-      font-size: 1rem;
+      padding: 0.8rem 1.6rem;
+      border-radius: 0.45rem;
+      font-size: 0.9rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.27s ease;
       border: none;
       display: inline-flex;
       align-items: center;
@@ -161,13 +161,13 @@
       color: white;
 
       &:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+        transform: translateY(-1.8px);
+        box-shadow: 0 9px 22.5px rgba(139, 92, 246, 0.3);
       }
 
       .btnIcon {
         color: white;
-        margin-right: 8px;
+        margin-right: 7.2px;
       }
     }
 
@@ -179,8 +179,8 @@
       &:hover {
         background: #8b5cf6;
         color: white;
-        transform: translateY(-2px);
-        box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+        transform: translateY(-1.8px);
+        box-shadow: 0 9px 22.5px rgba(139, 92, 246, 0.3);
 
         .btnIcon {
           color: white;
@@ -189,7 +189,7 @@
 
       .btnIcon {
         color: #8b5cf6;
-        margin-right: 8px;
+        margin-right: 7.2px;
       }
     }
   }
@@ -198,16 +198,16 @@
 .heroVisual {
   position: relative;
   height: 100%;
-  min-height: 500px;
-  animation: slideInRight 1s ease 0.5s both;
+  min-height: 450px;
+  animation: slideInRight 0.9s ease 0.45s both;
   display: flex;
   align-items: center;
   justify-content: center;
   
   .techOrbit {
     position: absolute;
-    width: 500px;
-    height: 500px;
+    width: 450px;
+    height: 450px;
     border-radius: 50%;
     z-index: 1;
     
@@ -222,10 +222,10 @@
       &::before {
         content: '';
         position: absolute;
-        top: -5px;
+        top: -4.5px;
         left: 50%;
-        width: 10px;
-        height: 10px;
+        width: 9px;
+        height: 9px;
         background: #8b5cf6;
         border-radius: 50%;
       }
@@ -244,10 +244,10 @@
       &::before {
         content: '';
         position: absolute;
-        top: -5px;
+        top: -4.5px;
         right: 10%;
-        width: 10px;
-        height: 10px;
+        width: 9px;
+        height: 9px;
         background: #fbbf24;
         border-radius: 50%;
       }
@@ -255,8 +255,8 @@
     
     .orbitDot1, .orbitDot2, .orbitDot3 {
       position: absolute;
-      width: 8px;
-      height: 8px;
+      width: 7.2px;
+      height: 7.2px;
       background: #8b5cf6;
       border-radius: 50%;
       animation: pulse 2s ease-in-out infinite alternate;
@@ -283,8 +283,8 @@
 
   .profileFrame {
     position: relative;
-    width: 380px;
-    height: 450px;
+    width: 342px;
+    height: 405px;
     perspective: 1000px;
     transition: transform 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     z-index: 2;
@@ -294,19 +294,19 @@
       height: 100%;
       border-radius: 45% 45% 48% 52% / 55% 55% 45% 45%;
       background: linear-gradient(135deg, #8b5cf6, #fbbf24, #8b5cf6);
-      padding: 8px;
+      padding: 7.2px;
       position: relative;
-      box-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+      box-shadow: 0 0 27px rgba(139, 92, 246, 0.5);
       
       .frameGlow {
         position: absolute;
-        top: -10px;
-        left: -10px;
-        right: -10px;
-        bottom: -10px;
+        top: -9px;
+        left: -9px;
+        right: -9px;
+        bottom: -9px;
         border-radius: 50%;
         background: linear-gradient(45deg, #8b5cf6, #fbbf24, #8b5cf6);
-        filter: blur(20px);
+        filter: blur(18px);
         opacity: 0.5;
         z-index: -1;
         animation: glowPulse 3s ease-in-out infinite alternate;
@@ -363,12 +363,12 @@
       position: absolute;
       border-radius: 50%;
       animation: float 6s ease-in-out infinite;
-      filter: blur(20px);
+      filter: blur(18px);
       opacity: 0.7;
 
       &.element1 {
-        width: 150px;
-        height: 150px;
+        width: 135px;
+        height: 135px;
         background: linear-gradient(45deg, #8a5cf6b3, #a855f7);
         top: 20%;
         left: 15%;
@@ -376,8 +376,8 @@
       }
 
       &.element2 {
-        width: 200px;
-        height: 200px;
+        width: 180px;
+        height: 180px;
         background: linear-gradient(45deg, #fbbe24b0, #f59e0b);
         top: 50%;
         right: 10%;
@@ -385,8 +385,8 @@
       }
 
       &.element3 {
-        width: 120px;
-        height: 120px;
+        width: 108px;
+        height: 108px;
         background: linear-gradient(45deg, #8a5cf6c6, #fbbf24);
         bottom: 10%;
         left: 50%;
@@ -398,7 +398,7 @@
 
 .scrollIndicator {
   position: absolute;
-  bottom: 2rem;
+  bottom: 1.8rem;
   left: 50%;
   transform: translateX(-50%);
   background: none;
@@ -409,8 +409,8 @@
   z-index: 3;
 
   .scrollIcon {
-    width: 2rem;
-    height: 2rem;
+    width: 1.8rem;
+    height: 1.8rem;
   }
 }
 
@@ -426,7 +426,7 @@
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(27px);
   }
   to {
     opacity: 1;
@@ -437,7 +437,7 @@
 @keyframes slideInRight {
   from {
     opacity: 0;
-    transform: translateX(50px);
+    transform: translateX(45px);
   }
   to {
     opacity: 1;
@@ -450,7 +450,7 @@
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-20px);
+    transform: translateY(-18px);
   }
 }
 
@@ -459,10 +459,10 @@
     transform: translateX(-50%) translateY(0);
   }
   40% {
-    transform: translateX(-50%) translateY(-10px);
+    transform: translateX(-50%) translateY(-9px);
   }
   60% {
-    transform: translateX(-50%) translateY(-5px);
+    transform: translateX(-50%) translateY(-4.5px);
   }
 }
 
@@ -497,36 +497,44 @@
 
 @media (max-width: 1024px) {
   .heroVisual {
-    min-height: 400px;
+    min-height: 360px;
     
     .techOrbit {
-      width: 400px;
-      height: 400px;
+      width: 360px;
+      height: 360px;
     }
     
     .profileFrame {
-      width: 300px;
-      height: 360px;
+      width: 270px;
+      height: 324px;
     }
   }
 }
 
 @media (max-width: 768px) {
+  .hero {
+    padding: 1.5rem;
+  }
+  
+  .heroContainer {
+    padding: 0 1.2rem;
+  }
+  
   .heroContent {
     grid-template-columns: 1fr;
     text-align: center;
-    gap: 2rem;
-    padding: 4rem 0;
+    gap: 1.8rem;
+    padding: 3.6rem 0;
   }
 
   .heroText {
     .heroTitle {
       .titleName {
-        font-size: 2.5rem;
+        font-size: 2.25rem;
       }
 
       .titleRole {
-        font-size: 1.5rem;
+        font-size: 1.35rem;
       }
     }
 
@@ -537,57 +545,68 @@
   }
 
   .heroVisual {
-    min-height: 300px;
+    min-height: 270px;
     order: -1;
     
     .techOrbit {
-      width: 320px;
-      height: 320px;
+      width: 288px;
+      height: 288px;
     }
     
     .profileFrame {
-      width: 250px;
-      height: 300px;
+      width: 225px;
+      height: 270px;
     }
   }
 
   .nameContainer {
-    min-height: 6rem;
+    min-height: 5.4rem;
   }
 
   .nameLine {
-    height: 3rem;
+    height: 2.7rem;
   }
 }
 
 @media (max-width: 480px) {
+  .hero {
+    padding: 1.2rem;
+  }
+  
+  .heroContainer {
+    padding: 0 0.9rem;
+  }
+  
   .heroText {
     .heroButtons {
       flex-direction: column;
+      gap: 0.8rem;
     }
     
     .btnPrimary, .btnSecondary {
       width: 100%;
+      padding: 0.7rem 1.4rem;
+      font-size: 0.85rem;
     }
   }
   
   .heroVisual {
-    min-height: 250px;
+    min-height: 225px;
     
     .techOrbit {
-      width: 280px;
-      height: 280px;
+      width: 252px;
+      height: 252px;
     }
     
     .profileFrame {
-      width: 200px;
-      height: 240px;
+      width: 180px;
+      height: 216px;
     }
     
     .element {
       &.element1, &.element2, &.element3 {
-        width: 80px;
-        height: 80px;
+        width: 72px;
+        height: 72px;
       }
     }
   }

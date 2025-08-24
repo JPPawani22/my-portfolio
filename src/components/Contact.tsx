@@ -4,7 +4,6 @@ import type React from "react"
 import { useEffect, useRef, useState } from "react"
 import { Mail, Github, Linkedin, Send, Phone } from "lucide-react"
 import styles from "../styles/Contact.module.scss"
-import { FcDocument } from "react-icons/fc"
 
 export default function Contact() {
   const [isVisible, setIsVisible] = useState(false)
@@ -106,7 +105,7 @@ export default function Contact() {
         className={styles.socialLink}
         aria-label="Email"
       >
-        <Mail size={24} />
+        <Mail size={21.6} />
       </a>
       <a 
         href="https://github.com" 
@@ -115,7 +114,7 @@ export default function Contact() {
         className={styles.socialLink}
         aria-label="GitHub"
       >
-        <Github size={24} />
+        <Github size={21.6} />
       </a>
       <a 
         href="https://linkedin.com" 
@@ -124,7 +123,7 @@ export default function Contact() {
         className={styles.socialLink}
         aria-label="LinkedIn"
       >
-        <Linkedin size={24} />
+        <Linkedin size={21.6} />
       </a>
     </div>
   ) : (
@@ -136,7 +135,7 @@ export default function Contact() {
           rel="noopener noreferrer"
       >
           <div className={styles.infoIcon}>
-              <Mail size={24} />
+              <Mail size={21.6} />
           </div>
           <div className={styles.infoContent}>
               <h3>Email Me</h3> 
@@ -151,7 +150,7 @@ export default function Contact() {
         className={styles.infoItem}
       >
         <div className={styles.infoIcon}>
-          <Github size={24} />
+          <Github size={21.6} />
         </div>
         <div className={styles.infoContent}>
           <h3>GitHub</h3>
@@ -165,7 +164,7 @@ export default function Contact() {
         className={styles.infoItem}
       >
         <div className={styles.infoIcon}>
-          <Linkedin size={24} />
+          <Linkedin size={21.6} />
         </div>
         <div className={styles.infoContent}>
           <h3>Linkedin</h3>
@@ -225,7 +224,7 @@ export default function Contact() {
                 <textarea
                   name="message"
                   placeholder="Your Message"
-                  rows={5}
+                  rows={4}
                   value={formData.message}
                   onChange={handleInputChange}
                   required
@@ -244,7 +243,7 @@ export default function Contact() {
                   <span className={styles.pulseAnimation}>Sending...</span>
                 ) : (
                   <>
-                    <Send size={20} className={styles.sendIcon} />
+                    <Send size={18} className={styles.sendIcon} />
                     <span>Send Message</span>
                   </>
                 )}
@@ -277,7 +276,7 @@ export default function Contact() {
               className={styles.socialLink}
               aria-label="GitHub"
             >
-              <Github size={20} />
+              <Github size={18} />
             </a>
             <a 
               href="https://www.linkedin.com/in/pawani-uthpalawanna" 
@@ -286,14 +285,14 @@ export default function Contact() {
               className={styles.socialLink}
               aria-label="LinkedIn"
             >
-              <Linkedin size={20} />
+              <Linkedin size={18} />
             </a>
             <a 
               href="mailto:pawani02jp@gmail.com" 
               className={styles.socialLink}
               aria-label="Email"
             >
-              <Mail size={20} />
+              <Mail size={18} />
             </a>
           </div>
         </div>

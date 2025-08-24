@@ -70,7 +70,7 @@ export default function Skills() {
         const rect = sectionRef.current.getBoundingClientRect()
         const x = e.clientX - rect.left
         const y = e.clientY - rect.top
-        spotlightRef.current.style.background = `radial-gradient(600px at ${x}px ${y}px, rgba(139, 92, 246, 0.15), transparent 80%)`
+        spotlightRef.current.style.background = `radial-gradient(540px at ${x}px ${y}px, rgba(139, 92, 246, 0.15), transparent 80%)`
       }
     }
 
@@ -86,8 +86,8 @@ export default function Skills() {
     // Initialize all skills as not animated
     setAnimatedSkills(new Array(skillsData.length).fill(false))
     
-    // Calculate delay between each skill animation (1 seconds total)
-    const delayPerSkill = 1000 / skillsData.length
+    // Calculate delay between each skill animation (0.9 seconds total)
+    const delayPerSkill = 900 / skillsData.length
     
     // Animate each skill one by one
     skillsData.forEach((_, index) => {
@@ -103,13 +103,13 @@ export default function Skills() {
 
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: -200, behavior: 'smooth' })
+      scrollContainerRef.current.scrollBy({ left: -180, behavior: 'smooth' })
     }
   }
 
   const scrollRight = () => {
     if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: 200, behavior: 'smooth' })
+      scrollContainerRef.current.scrollBy({ left: 180, behavior: 'smooth' })
     }
   }
 
@@ -117,12 +117,12 @@ export default function Skills() {
     <section id="skills" ref={sectionRef} className={styles.skills}>
       <div ref={spotlightRef} className={styles.spotlight} />
       <div className={styles.particles}>
-        {[...Array(20)].map((_, i) => (
+        {[...Array(18)].map((_, i) => (
           <div key={i} className={styles.particle} style={{
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
-            animationDelay: `${Math.random() * 5}s`,
-            animationDuration: `${5 + Math.random() * 10}s`
+            animationDelay: `${Math.random() * 4.5}s`,
+            animationDuration: `${4.5 + Math.random() * 9}s`
           }} />
         ))}
       </div>
@@ -143,7 +143,7 @@ export default function Skills() {
                   className={`${styles.skillCard} ${animatedSkills[index] ? styles.animated : ''}`}
                   onMouseEnter={() => setHoveredSkill(skill.name)}
                   onMouseLeave={() => setHoveredSkill(null)}
-                  style={{ animationDelay: `${index * (1000 / skillsData.length)}ms` }}
+                  style={{ animationDelay: `${index * (900 / skillsData.length)}ms` }}
                 >
                   <div className={styles.skillIcon}>
                     {React.cloneElement(skill.icon, {
@@ -173,7 +173,7 @@ export default function Skills() {
                   className={`${styles.skillCard} ${animatedSkills[index] ? styles.animated : ''}`}
                   onMouseEnter={() => setHoveredSkill(skill.name)}
                   onMouseLeave={() => setHoveredSkill(null)}
-                  style={{ animationDelay: `${index * (1000 / skillsData.length)}ms` }}
+                  style={{ animationDelay: `${index * (900 / skillsData.length)}ms` }}
                 >
                   <div className={styles.skillIcon}>
                     {React.cloneElement(skill.icon, {

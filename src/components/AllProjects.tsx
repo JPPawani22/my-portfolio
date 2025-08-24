@@ -58,32 +58,6 @@ const projectsData = [
     category: "web",
     animation: "fadeIn"
   },
-  // {
-  //   id: 5,
-  //   title: "Task Management App",
-  //   description: "A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.",
-  //   image: "/images/taskapp.jpg",
-  //   technologies: ["React", "Node.js", "Socket.io", "PostgreSQL"],
-  //   liveUrl: null,
-  //   githubUrl: "https://github.com/yourusername/task-management",
-  //   period: "2022",
-  //   size: "medium",
-  //   category: "web app",
-  //   animation: "slideInRight"
-  // },
-  // {
-  //   id: 6,
-  //   title: "Weather Dashboard",
-  //   description: "A responsive weather application that provides detailed weather information with beautiful visualizations and forecasts.",
-  //   image: "/images/weather.jpg",
-  //   technologies: ["React", "Chart.js", "Weather API", "CSS3"],
-  //   liveUrl: "https://weather-dashboard-example.vercel.app/",
-  //   githubUrl: "https://github.com/yourusername/weather-dashboard",
-  //   period: "2021",
-  //   size: "small",
-  //   category: "web",
-  //   animation: "popUp"
-  // }
 ];
 
 export default function AllProjects() {
@@ -110,7 +84,7 @@ export default function AllProjects() {
       },
       { 
         threshold: 0.2,
-        rootMargin: "0px 0px -100px 0px"
+        rootMargin: "0px 0px -80px 0px"
       }
     );
 
@@ -128,17 +102,17 @@ export default function AllProjects() {
   return (
     <section ref={sectionRef} className={styles.allProjects}>
       <div className={styles.techBackground} aria-hidden="true">
-        {[...Array(20)].map((_, i) => (
+        {[...Array(16)].map((_, i) => (
           <div 
             key={i}
             className={styles.techShape}
             style={{
-              '--delay': `${i * 0.1}s`,
-              '--size': `${Math.random() * 10 + 5}px`,
+              '--delay': `${i * 0.08}s`,
+              '--size': `${Math.random() * 8 + 4}px`,
               '--left': `${Math.random() * 100}%`,
               '--top': `${Math.random() * 100}%`,
               '--opacity': `${Math.random() * 0.3 + 0.1}`,
-              '--animation-duration': `${Math.random() * 30 + 20}s`
+              '--animation-duration': `${Math.random() * 24 + 16}s`
             } as React.CSSProperties}
           />
         ))}
@@ -161,7 +135,7 @@ export default function AllProjects() {
               }}
               className={`${styles.projectCard} ${styles[project.size]} ${styles[project.animation]}`}
               style={{ 
-                '--delay': `${index * 0.1}s`,
+                '--delay': `${index * 0.08}s`,
                 '--index': index
               } as React.CSSProperties}
             >
@@ -182,7 +156,7 @@ export default function AllProjects() {
                           rel="noopener noreferrer"
                           aria-label={`View live demo of ${project.title}`}
                         >
-                          <ExternalLink size={20} />
+                          <ExternalLink size={16} />
                         </a>
                       )}
                       {project.githubUrl && (
@@ -193,7 +167,7 @@ export default function AllProjects() {
                           rel="noopener noreferrer"
                           aria-label={`View source code for ${project.title}`}
                         >
-                          <Github size={20} />
+                          <Github size={16} />
                         </a>
                       )}
                     </div>
@@ -230,11 +204,11 @@ export default function AllProjects() {
             rel="noopener noreferrer"
             className={styles.exploreButton}
           >
-            <Github size={18} /> Explore More on GitHub
+            <Github size={14.4} /> Explore More on GitHub
           </a>
           
           <Link href="/" className={styles.backButton}>
-            <ArrowLeft size={18} /> Back to Home
+            <ArrowLeft size={14.4} /> Back to Home
           </Link>
         </div>
       </div>

@@ -72,7 +72,7 @@ export default function Hero() {
                 className={styles.btnSecondary}
                 onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
               >
-                <Mail className={styles.btnIcon} size={18} />
+                <Mail className={styles.btnIcon} size={16} />
                 Get In Touch
               </button>
               <a 
@@ -81,7 +81,7 @@ export default function Hero() {
                 rel="noopener noreferrer"
                 className={styles.btnPrimary}
               >
-                <Download className={styles.btnIcon} size={18} />
+                <Download className={styles.btnIcon} size={16} />
                 Download CV
               </a>
             </div>
@@ -105,8 +105,8 @@ export default function Hero() {
                     <Image
                       src="/images/profile.png"
                       alt="Pawani Uthpalawanna"
-                      width={500}
-                      height={500}
+                      width={450}
+                      height={450}
                       className={styles.profileImage}
                       priority
                     />
