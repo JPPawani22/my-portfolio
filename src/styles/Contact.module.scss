@@ -1,8 +1,10 @@
 .contact {
-  padding: 5.4rem 0 0;
-  background: #111827;
+  padding: 6rem 0 0;
+  background: #1b2437;
   position: relative;
   overflow: hidden;
+  min-height: 100vh;
+  align-items: center;
 
   &::before {
     content: '';
@@ -19,9 +21,10 @@
 .contactContainer {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1.8rem;
+  padding: 0 3rem; // Increased left/right padding
   position: relative;
   z-index: 1;
+  width: 100%;
 }
 
 .contactContent {
@@ -37,7 +40,7 @@
 }
 
 .sectionTitle {
-  font-size: 2.5rem; // Kept original size
+  font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 1rem;
   background: linear-gradient(45deg, #8b5cf6, #fbbf24);
@@ -195,6 +198,7 @@
   backdrop-filter: blur(10px);
   box-shadow: 0 9px 27px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
+  width: 85%; // Reduced form width
 
   &:hover {
     border-color: rgba(139, 92, 246, 0.3);
@@ -335,7 +339,7 @@
   .footerContent {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 1.8rem;
+    padding: 0 3rem; // Increased left/right padding
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -384,12 +388,80 @@
   }
 }
 
+// Particle effect above footer
+.particle-effect {
+  position: absolute;
+  left: 4rem; // Positioned 4rem from left
+  bottom: 4rem; // Positioned 4rem above footer
+  width: 200px;
+  height: 200px;
+  z-index: 0;
+  
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    animation: floatParticle 8s ease-in-out infinite;
+    opacity: 0.6;
+    
+    &:nth-child(1) {
+      width: 20px;
+      height: 20px;
+      background: linear-gradient(45deg, #8b5cf6, #a855f7);
+      top: 20%;
+      left: 30%;
+      animation-delay: 0s;
+    }
+    
+    &:nth-child(2) {
+      width: 15px;
+      height: 15px;
+      background: linear-gradient(45deg, #fbbf24, #f59e0b);
+      top: 50%;
+      left: 60%;
+      animation-delay: 2s;
+    }
+    
+    &:nth-child(3) {
+      width: 25px;
+      height: 25px;
+      background: linear-gradient(45deg, #8b5cf6, #fbbf24);
+      top: 70%;
+      left: 20%;
+      animation-delay: 4s;
+    }
+    
+    &:nth-child(4) {
+      width: 18px;
+      height: 18px;
+      background: linear-gradient(45deg, #a855f7, #fbbf24);
+      top: 40%;
+      left: 70%;
+      animation-delay: 6s;
+    }
+  }
+}
+
 @keyframes float {
   0%, 100% {
     transform: translateY(0) rotate(0deg);
   }
   50% {
     transform: translateY(-18px) rotate(4.5deg);
+  }
+}
+
+@keyframes floatParticle {
+  0%, 100% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0.6;
+  }
+  33% {
+    transform: translateY(-20px) translateX(15px) scale(1.1);
+    opacity: 0.8;
+  }
+  66% {
+    transform: translateY(10px) translateX(-10px) scale(0.9);
+    opacity: 0.7;
   }
 }
 
@@ -420,6 +492,10 @@
 @media (max-width: 768px) {
   .contact {
     padding: 2.7rem 0 0;
+  }
+
+  .contactContainer {
+    padding: 0 1.5rem; // Adjusted for mobile
   }
 
   .sectionTitle {
@@ -472,26 +548,6 @@
       }
     }
 
-    .resumePreview {
-      margin-top: 0.9rem;
-      padding: 0.9rem;
-      
-      iframe {
-        height: 315px;
-      }
-    }
-
-    .resumeActions {
-      flex-direction: column;
-      gap: 0.9rem;
-
-      .downloadBtn, .closeBtn {
-        width: 100%;
-        padding: 0.72rem;
-        text-align: center;
-      }
-    }
-
     .contactVisual {
       height: 108px;
       margin-top: 1.35rem;
@@ -501,6 +557,7 @@
   .contactForm {
     padding: 1.35rem;
     margin-top: 0.9rem;
+    width: 100%; // Full width on mobile
 
     .formGroup {
       margin-bottom: 1.08rem;
@@ -519,6 +576,7 @@
       flex-direction: column;
       gap: 0.9rem;
       text-align: center;
+      padding: 0 1.5rem; // Adjusted for mobile
 
       p {
         font-size: 0.81rem;
@@ -535,20 +593,18 @@
       }
     }
   }
+  
+  .particle-effect {
+    display: none; // Hide particles on mobile
+  }
 }
 
 @media (max-width: 480px) {
   .contactContainer {
-    padding: 0 0.9rem;
+    padding: 0 1rem; // Adjusted for small mobile
   }
 
   .contactInfo {
-    .resumePreview {
-      iframe {
-        height: 252px;
-      }
-    }
-
     .socialLinksMobile {
       gap: 0.9rem;
       
@@ -562,66 +618,8 @@
   .contactForm {
     padding: 0.9rem;
   }
-}
-
-@media (max-width: 768px) {
-  .contact {
-    padding: 3.6rem 0 0;
-  }
-
-  .contactWrapper {
-    grid-template-columns: 1fr;
-    gap: 1.8rem;
-  }
-
-  .contactInfo {
-    .infoItem {
-      padding: 0.9rem;
-    }
-
-    .resumePreview {
-      iframe {
-        height: 360px;
-      }
-    }
-
-    .resumeActions {
-      flex-direction: column;
-      gap: 0.9rem;
-
-      .downloadBtn, .closeBtn {
-        width: 100%;
-        justify-content: center;
-      }
-    }
-
-    .contactVisual {
-      height: 135px;
-    }
-  }
-
-  .contactForm {
-    padding: 1.35rem;
-  }
-
+  
   .footer .footerContent {
-    flex-direction: column;
-    gap: 0.9rem;
-    text-align: center;
-
-    .socialLinks {
-      gap: 0.9rem;
-      margin-top: 0.9rem;
-    }
-  }
-}
-
-@media (max-width: 480px) {
-  .contactInfo {
-    .resumePreview {
-      iframe {
-        height: 270px;
-      }
-    }
+    padding: 0 1rem; // Adjusted for small mobile
   }
 }

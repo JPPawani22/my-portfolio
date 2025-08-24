@@ -1,8 +1,11 @@
 .projects {
-  position: relative;
-  padding: 3.5rem 0; // Reduced by ~30%
-  overflow: hidden;
   background: linear-gradient(135deg, #13061a 0%, #16213e 100%);
+  padding: 2.7rem 1.8rem;
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
 }
 
 .techBackground {
@@ -33,25 +36,25 @@
     transform: translateY(0) translateX(0);
   }
   25% {
-    transform: translateY(-14px) translateX(7px); // Reduced by ~30%
+    transform: translateY(-14px) translateX(7px); 
   }
   50% {
-    transform: translateY(0) translateX(14px); // Reduced by ~30%
+    transform: translateY(0) translateX(14px); 
   }
   75% {
-    transform: translateY(14px) translateX(7px); // Reduced by ~30%
+    transform: translateY(14px) translateX(7px); 
   }
 }
 
 .projectsContainer {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1.4rem; // Reduced by ~30%
+  padding: 0 1.4rem; 
   position: relative;
   z-index: 1;
   opacity: 0;
-  transform: translateY(21px); // Reduced by ~30%
-  transition: all 0.56s ease; // Reduced by ~30%
+  transform: translateY(21px); 
+  transition: all 0.56s ease; 
 
   &.visible {
     opacity: 1;
@@ -60,10 +63,10 @@
 }
 
 .sectionTitle {
-  font-size: 1.75rem; // Reduced by ~30%
+  font-size: 2.5rem; 
   font-weight: 700;
   text-align: center;
-  margin-bottom: 0.7rem; // Reduced by ~30%
+  margin-bottom: 0.7rem; 
   background: linear-gradient(90deg, #8b5cf6, #fbbf24);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -72,10 +75,11 @@
 
 .sectionDescription {
   text-align: center;
-  color: #d1d5db;
-  font-size: 0.77rem; // Reduced by ~30%
-  margin: 0 auto 2.1rem; // Reduced by ~30%
+  margin: 0 auto 2.1rem;
   line-height: 1.6;
+  font-size: 1.08rem;
+  color: #9ca3af;
+  max-width: 630px;
 }
 
 .viewAllLink {
@@ -92,7 +96,7 @@
 
 .columnsContainer {
   display: flex;
-  gap: 7rem; // Reduced by ~30%
+  gap: 7rem; 
 }
 
 .projectShowcase {
@@ -103,27 +107,27 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 1.4rem; // Reduced by ~30%
+  gap: 1.4rem; 
 }
 
 .slideshowContainer {
-  margin: 0.7rem 0; // Reduced by ~30%
-  margin-left: 1.4rem; // Reduced by ~30%
-  height: 420px; // Reduced by ~30%
+  margin: 0.7rem 0; 
+  margin-left: 1.4rem; 
+  height: 420px; 
 }
 
 .slide {
   background: rgba(31, 41, 55, 0.289);
   backdrop-filter: blur(10px);
-  border-radius: 0.7rem; // Reduced by ~30%
+  border-radius: 0.7rem;
   overflow: hidden;
   border: 1px solid rgba(139, 92, 246, 0.2);
-  box-shadow: 0 7px 21px rgba(0, 0, 0, 0.3); // Reduced by ~30%
+  box-shadow: 0 7px 21px rgba(0, 0, 0, 0.3); 
   height: 100%;
   cursor: pointer;
   opacity: 0;
   transform: scale(0.95);
-  transition: all 0.35s ease; // Reduced by ~30%
+  transition: all 0.35s ease;
 
   &.animating {
     opacity: 1;
@@ -171,51 +175,51 @@
 
 .projectInfo {
   background-color: #16213e21;
-  padding: 0.7rem; // Reduced by ~30%
+  padding: 0.7rem; 
   height: 30%;
   display: flex;
   flex-direction: column;
 }
 
 .projectTitle {
-  font-size: 1.05rem; // Reduced by ~30%
+  font-size: 1.05rem;
   font-weight: 600;
   color: white;
-  margin-bottom: 0.35rem; // Reduced by ~30%
+  margin-bottom: 0.35rem; 
 }
 
 .projectDescription {
   color: #d1d5db;
-  font-size: 0.665rem; // Reduced by ~30%
+  font-size: 0.665rem; 
   line-height: 1.5;
-  margin-bottom: 0.7rem; // Reduced by ~30%
+  margin-bottom: 0.7rem;
   flex-grow: 1;
 }
 
 .technologies {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.35rem; // Reduced by ~30%
+  gap: 0.35rem; 
 }
 
 .techPill {
   background: rgba(139, 92, 246, 0.2);
   color: #8b5cf6;
-  padding: 0.21rem 0.56rem; // Reduced by ~30%
-  border-radius: 0.7rem; // Reduced by ~30%
-  font-size: 0.56rem; // Reduced by ~30%
+  padding: 0.21rem 0.56rem; 
+  border-radius: 0.7rem; 
+  font-size: 0.56rem; 
   font-weight: 500;
 }
 
 .projectPeriod {
   position: absolute;
-  top: 0.7rem; // Reduced by ~30%
-  left: 0.7rem; // Reduced by ~30%
+  top: 0.7rem; 
+  left: 0.7rem;
   background: rgba(17, 24, 39, 0.9);
   color: #fbbf24;
-  padding: 0.21rem 0.56rem; // Reduced by ~30%
-  border-radius: 0.7rem; // Reduced by ~30%
-  font-size: 0.56rem; // Reduced by ~30%
+  padding: 0.21rem 0.56rem; 
+  border-radius: 0.7rem; 
+  font-size: 0.56rem;
   font-weight: 600;
   z-index: 2;
 }
@@ -223,13 +227,13 @@
 .slideshowIndicators {
   display: flex;
   justify-content: center;
-  gap: 0.35rem; // Reduced by ~30%
-  margin: 1.05rem 0; // Reduced by ~30%
+  gap: 0.35rem; 
+  margin: 1.05rem 0; 
 }
 
 .indicator {
-  width: 8.4px; // Reduced by ~30%
-  height: 8.4px; // Reduced by ~30%
+  width: 8.4px; 
+  height: 8.4px; 
   border-radius: 50%;
   background: rgba(139, 92, 246, 0.3);
   border: none;
@@ -391,6 +395,6 @@
 
   .projectInfo {
     height: 50%;
-    padding: 0.7rem; // Reduced by ~30%
+    padding: 0.7rem; 
   }
 }
