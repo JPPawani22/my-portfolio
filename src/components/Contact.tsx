@@ -18,6 +18,7 @@ export default function Contact() {
   const [showResumePreview, setShowResumePreview] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
   const [isMobile, setIsMobile] = useState(false)
+   const [currentYear, setCurrentYear] = useState(new Date().getFullYear())
 
  useEffect(() => {
     const checkMobile = () => {
@@ -267,7 +268,7 @@ export default function Contact() {
 
        <footer className={styles.footer}>
         <div className={styles.footerContent}>
-          <p>&copy; 2024 PawaniUthpalawanna. All rights reserved.</p>
+          <p>&copy; {currentYear} PawaniUthpalawanna. All rights reserved.</p>
           <div className={styles.socialLinks}>
             <a 
               href="https://github.com/JPPawani22" 
