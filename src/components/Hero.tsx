@@ -76,7 +76,7 @@ export default function Hero() {
                 Get In Touch
               </button>
               <a 
-                href="https://drive.google.com/file/d/1t5sc5NFtCh_XoE7UHxguJ8nmqnlyBkB6/view?usp=sharing" 
+                href="https://drive.google.com/file/d/1Xksp_sSRe1PwegMRLTQdDwAron8pR41Q/view?usp=sharing" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className={styles.btnPrimary}
