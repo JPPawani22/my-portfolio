@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import styles from "../styles/About.module.scss"
-import { FaGraduationCap, FaTrophy, FaSchool } from "react-icons/fa"
+import { FaGraduationCap, FaTrophy, FaSchool, FaHandshake } from "react-icons/fa"
 
 export default function About() {
   const [isVisible, setIsVisible] = useState(false)
@@ -44,13 +44,6 @@ export default function About() {
       description: "Undergraduate degree focusing on software engineering",
       delay: 0.3
     },
-    {
-      icon: <FaTrophy />,
-      title: "Hackathon Winner",
-      year: "2025",
-      description: "2nd runners-up in Civic Tech Challenge competition",
-      delay: 0.5
-    },
       {
       icon: <FaSchool />,
       title: "Mahinda Rajapaksa College Matara",
@@ -83,7 +76,7 @@ export default function About() {
 
             <div className={styles.stats}>
               <div className={styles.statItem}>
-                <span className={styles.statNumber}>4+</span>
+                <span className={styles.statNumber}>5+</span>
                 <span className={styles.statLabel}>Projects</span>
               </div>
               <div className={styles.statItem}>
