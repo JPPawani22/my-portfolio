@@ -11,7 +11,7 @@ const projectsData = [
     id: 1,
     title: "BlogV - Modern Blogging Platform",
     description: "A full-stack blogging platform with rich text editing, user authentication, and real-time updates. Features include image uploads, and responsive design.",
-    image: "/images/blogv.PNG",
+    image: "/images/blogV.PNG",
     technologies: ["React", "Node.js", "MySQL", "Express", "Gemini API", "SCSS"],
     liveUrl: null,
     githubUrl: "https://github.com/JPPawani22/blogv",

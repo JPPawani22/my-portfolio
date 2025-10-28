@@ -72,7 +72,7 @@ export default function Navigation() {
     <nav className={`${styles.navigation} ${isScrolled ? styles.scrolled : ""}`}>
       <div className={styles.navContainer}>
         <div className={styles.navLogo}>
-          <span className={styles.logoText}>Portfolio</span>
+          <span className={styles.logoText}>Pawani JP</span>
         </div>
 
         {/* Desktop Navigation */}
